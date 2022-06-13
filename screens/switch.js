@@ -2,10 +2,10 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 
 
-export default function Main() {
+export default function Switch() {
     return (
         <View style={styles.container}>
-            <Text>Open up App.js to start working on your app!</Text>
+            <Text>Turn Off/ON</Text>
             <StatusBar style="auto" />
         </View>
     );
