@@ -3,11 +3,11 @@ import { Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import Switch from '../screens/switch';
-import SetTimePage from '../screens/setTimePage';
-import Humidity from '../screens/humidity';
-import Video from '../screens/video';
-import Profile from '../screens/profile';
+import Switch from '../screens/HomePage/switch';
+import SetTimePage from '../screens/SetTimePage/setTimePage';
+import Humidity from '../screens/HumidityPage/humidity';
+import Video from '../screens/VideoPage/video';
+import Profile from '../screens/ProfilePage/profile';
 
 const Tab = createBottomTabNavigator();
 
@@ -17,9 +17,11 @@ function MyTabs() {
       initialRouteName="Switch"
       screenOptions={{
         tabBarActiveTintColor: '#08823F',
+        tabBarStyle: { height: 90, paddingBottom: 30 },
+        headerShown: false
       }}
-     
-      
+
+
     >
       <Tab.Screen
         name="Switch"
@@ -27,7 +29,7 @@ function MyTabs() {
         options={{
           tabBarLabel: 'Home',
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="toggle-switch-off" color={color} size={size} />
+            <MaterialCommunityIcons name="toggle-switch-off" color={color} size={33} />
           ),
         }}
       />
@@ -37,7 +39,7 @@ function MyTabs() {
         options={{
           tabBarLabel: 'Updates',
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="clock" color={color} size={size} />
+            <MaterialCommunityIcons name="clock" color={color} size={33} />
           ),
         }}
       />
@@ -47,7 +49,7 @@ function MyTabs() {
         options={{
           tabBarLabel: 'Humidity',
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="thermometer-lines" color={color} size={size} />
+            <MaterialCommunityIcons name="thermometer-lines" color={color} size={33} />
 
           ),
         }}
@@ -58,7 +60,7 @@ function MyTabs() {
         options={{
           tabBarLabel: 'Video',
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="video" color={color} size={size} />
+            <MaterialCommunityIcons name="video" color={color} size={33} />
           ),
         }}
       />
@@ -68,7 +70,7 @@ function MyTabs() {
         options={{
           tabBarLabel: 'Profile',
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="account" color={color} size={size} />
+            <MaterialCommunityIcons name="account" color={color} size={33} />
           ),
         }}
       />
@@ -76,10 +78,10 @@ function MyTabs() {
   );
 }
 
-export default function Navigator() {
+export default function NavigationMenu() {
   return (
-    <NavigationContainer>
+   
       <MyTabs />
-    </NavigationContainer>
+   
   );
 }
