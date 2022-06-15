@@ -1,10 +1,9 @@
-import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 
 
-export default function LoginPage({navigation}) {
+export default function LoginPage({ navigation }) {
 
     const [Email, setEmail] = useState("");
     const [Password, setPassword] = useState("");
@@ -53,7 +52,7 @@ export default function LoginPage({navigation}) {
                 </View>
 
                 <View style={{ marginTop: 30 }}>
-                    <Button mode="contained" color='#08823F'   onPress={() => navigation.navigate('Menu')}>
+                    <Button mode="contained" color='#08823F' onPress={() => navigation.navigate('Menu')}>
                         <Text style={styles.Topic}>SING IN</Text>
                     </Button>
                 </View>
@@ -64,7 +63,9 @@ export default function LoginPage({navigation}) {
             <View style={{ marginTop: 250, }}>
                 <View style={{ flexDirection: 'row' }}>
                     <Text style={styles.signUp}>Don't have an account? </Text>
-                    <Text style={styles.forgetPassword}>Sign Up</Text>
+                    <TouchableOpacity onPress={() => navigation.navigate('SingUp')}>
+                        <Text style={styles.forgetPassword}>Sign Up</Text>
+                    </TouchableOpacity>
                 </View>
 
             </View>
