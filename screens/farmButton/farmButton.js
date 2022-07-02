@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, Dimensions, FlatList, Alert } from 'react-native'
 import { useSelector, useDispatch } from "react-redux"
-import * as Action from  '../../redux/Action'
+import * as Action from '../../redux/Action'
 import { bindActionCreators } from 'redux'
 
 
@@ -33,12 +33,12 @@ export default function FarmButton({ navigation }) {
         if (userIdFormat.length >= 13) userIdFormat = userIdFormat.slice(0, 12) + '-' + userIdFormat.slice(12);
         if (userIdFormat.length >= 16) userIdFormat = userIdFormat.slice(0, 15) + '-' + userIdFormat.slice(15);
         ;
-       
+
 
         let phoneFormat = (phoneNumberPatt)
         if (phoneFormat.length >= 4) phoneFormat = phoneFormat.slice(0, 3) + '-' + phoneFormat.slice(3);
-    
-      
+
+
 
 
 
@@ -72,7 +72,7 @@ export default function FarmButton({ navigation }) {
                 <View style={{ marginBottom: 20 }}>
                     <Text style={{ fontSize: 18 }} >Please add farm.</Text>
                 </View>
-                <TouchableOpacity onPress={() => navigation.push('add')} style={styles.addFirstButton}>
+                <TouchableOpacity onPress={() => navigation.push('Add')} style={styles.addFirstButton}>
                     <Text style={styles.addFirstButtonText}>เพิ่ม</Text>
                 </TouchableOpacity>
             </View>
@@ -81,7 +81,7 @@ export default function FarmButton({ navigation }) {
 
     const renderAddButton = () => {
         return (
-            <TouchableOpacity onPress={() => navigation.push('add')} style={styles.addButton}>
+            <TouchableOpacity onPress={() => navigation.push('Add')} style={styles.addButton}>
                 <Entypo name="plus" size={24} color={'#08823F'} />
                 <Text style={{ color: '#673ab7', fontSize: 18, fontWeight: 'bold' }}>เพิ่ม</Text>
             </TouchableOpacity>
@@ -106,7 +106,7 @@ export default function FarmButton({ navigation }) {
             </View>
         )
     }
-  
+
 
 
     return (

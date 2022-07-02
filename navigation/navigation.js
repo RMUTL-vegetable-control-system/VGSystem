@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import LoginPage from '../screens/Login/loginPage';
 import SingUpPage from '../screens/Login/SingUpPage';
 import Navigator from './navigationTabMenu';
+import AddFarmForm from '../screens/addFarmForm';
 
 
 
@@ -19,6 +20,7 @@ export default NavigationMain = () => {
                 <Stack.Screen name="Login" component={LoginPage} options={{ headerShown: false}} />
                 <Stack.Screen name="SingUp" component={SingUpPage} options={{ headerShown: false}} />
                 <Stack.Screen name="Menu" component={Navigator} options={{ headerShown: false}}/>
+                <Stack.Screen name="Add" component={AddFarmForm} options={{ headerShown: false}}/>
             </Stack.Navigator>
         </NavigationContainer>
     );

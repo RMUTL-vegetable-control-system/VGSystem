@@ -9,6 +9,7 @@ import Humidity from '../screens/HumidityPage/humidity';
 import Video from '../screens/VideoPage/video';
 import Profile from '../screens/ProfilePage/profile';
 
+
 const Tab = createBottomTabNavigator();
 
 function MyTabs() {
@@ -37,7 +38,7 @@ function MyTabs() {
         name="SetTimePage"
         component={SetTimePage}
         options={{
-          tabBarLabel: 'Updates',
+          tabBarLabel: 'Set Time',
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="clock" color={color} size={33} />
           ),
@@ -74,6 +75,8 @@ function MyTabs() {
           ),
         }}
       />
+               
+
     </Tab.Navigator>
   );
 }
