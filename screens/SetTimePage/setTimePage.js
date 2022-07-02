@@ -1,11 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-
+import FarmButton from '../farmButton/farmButton';
 
 export default function SetTimePage() {
     return (
         <View style={styles.container}>
-            <Text>SetTime</Text>
+            <FarmButton />
             <StatusBar style="auto" />
         </View>
     );

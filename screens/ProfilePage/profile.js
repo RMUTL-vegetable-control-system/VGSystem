@@ -22,7 +22,7 @@ export default function Profile({ navigation }) {
             </View>
             <Text style={styles.Topic}>test_name@gmail.com</Text>
             <Text style={styles.TopicDetail}>Vegetable Control System</Text>
-            <View style={{ width: '100%', height: '50%', justifyContent: 'space-around', flexDirection: 'column', alignItems: 'center' }}>
+            <View style={{ width: '100%', height: '40%', justifyContent: 'space-around', flexDirection: 'column', alignItems: 'center' }}>
 
                 <View style={{ width: '90%', height: 50, backgroundColor: 'white', justifyContent: 'space-around', flexDirection: 'row', alignItems: 'center', }}>
 

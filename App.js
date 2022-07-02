@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import Navigator from './navigation/navigationTabMenu';
 import LoadingStartApp from './screens/loadingStartApp';
 import NavigationMain from './navigation/navigation';
 import 'react-native-gesture-handler';
+import {store} from './redux/store'
+import { Provider } from 'react-redux';
 
 export default function App() {
   const [loading, setIsLoading] = useState(true)
@@ -12,13 +13,13 @@ export default function App() {
   }, [])
 
   return (
-    <>
+    <Provider store={store}>
       {loading === false ? (
         <NavigationMain />
       ) : (
         <LoadingStartApp />
       )}
-    </>
+    </Provider>
 
   );
 }
