@@ -2,7 +2,7 @@ import { ADD_FARM, DELETE_FARM, EDIT_FARM } from "./actionTypes";
 
 let initId = 0
 
-export const addFARM = farm => {
+export const addFarm = farm => {
 	return (dispatch) => {
 		dispatch({
 			type: ADD_FARM,
@@ -11,7 +11,7 @@ export const addFARM = farm => {
 	}
 } 
 
-export const deleteFARM = id => {
+export const deleteFarm = id => {
 	return (dispatch) => {
 		dispatch({
 			type: DELETE_FARM,
@@ -20,7 +20,7 @@ export const deleteFARM = id => {
 	}
 }
 
-export const editMember = (farm) => {
+export const editFarm = (farm) => {
 	return (dispatch) => {
 		dispatch({
 			type: EDIT_FARM,

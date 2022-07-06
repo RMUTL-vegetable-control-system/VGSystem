@@ -7,4 +7,4 @@ const reducers = combineReducers({
 	farm: Reducer
 })
 
-export const store = createStore(reducers, {}, applyMiddleware(thunk))
+export const store = createStore(reducers, {},applyMiddleware(thunk))

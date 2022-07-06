@@ -1,30 +1,43 @@
 import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, Dimensions, FlatList, Alert } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Dimensions, FlatList, Alert, Image } from 'react-native'
+import { Entypo, MaterialIcons, AntDesign } from '@expo/vector-icons';
 import { useSelector, useDispatch } from "react-redux"
 import * as Action from '../../redux/Action'
 import { bindActionCreators } from 'redux'
 
 
-export default function Switch({ navigation }) {
+
+
+const color = {
+    primary: '#08823F',
+    white: '#ffffff',
+    gray: '#C4C4C4',
+}
+
+function Switch({ navigation }) {
+
+
 
     const dispatch = useDispatch();
-    const { deleteMember } = bindActionCreators(Action, dispatch);
+    const { deleteFarm } = bindActionCreators(Action, dispatch);
     const farms = useSelector((state) => state.farm);
 
     const onDeleteItem = (id, name, surname) => Alert.alert(
         "Delete Farm",
-        `Confirm Delete ? \n${name}  ${surname} `,
+        `Confirm Delete \n${name}  ${surname} `,
         [
             {
-                text: "ไม่",
+                text: "NO",
                 onPress: () => { },
                 style: "cancel"
             },
-            { text: "ใช่", onPress: () => deleteMember(id) }
+            { text: "YES", onPress: () => deleteFarm(id) }
         ]
     );
 
-    const MemberItem = ({ onDeletePressed, onEditPressed, farm }) => {
+    const onEditItem = (farm) => navigation.push('add', { farm })
+
+    const FarmItem = ({ onDeletePressed, onEditPressed, farm }) => {
         const { name, surname, userIdPatt, phoneNumberPatt } = farm
 
         let userIdFormat = (userIdPatt)
@@ -38,16 +51,14 @@ export default function Switch({ navigation }) {
         let phoneFormat = (phoneNumberPatt)
         if (phoneFormat.length >= 4) phoneFormat = phoneFormat.slice(0, 3) + '-' + phoneFormat.slice(3);
 
-
-
-
+  
 
 
 
         return (
-            <View style={styles.containerMember}>
+            <View style={styles.containerFarm}>
                 <View style={styles.wrapContent}>
-                    <View style={{ flexDirection: 'row' }}>
+                    <View style={{ flexDirection: 'colum' }}>
                         <Text style={styles.title}>{name}   </Text>
                         <Text style={styles.title}>{surname}</Text>
                     </View>
@@ -66,14 +77,15 @@ export default function Switch({ navigation }) {
         )
     }
 
+
     const renderEmptyList = () => {
         return (
             <View style={styles.emptyContainer}>
                 <View style={{ marginBottom: 20 }}>
-                    <Text style={{ fontSize: 18 }} >Please add farm.</Text>
+                    <Text style={{ fontSize: 18 }} >Don't have Farm Please Insert Farm</Text>
                 </View>
                 <TouchableOpacity onPress={() => navigation.push('Add')} style={styles.addFirstButton}>
-                    <Text style={styles.addFirstButtonText}>เพิ่ม</Text>
+                    <Text style={styles.addFirstButtonText}>Insert</Text>
                 </TouchableOpacity>
             </View>
         )
@@ -82,24 +94,24 @@ export default function Switch({ navigation }) {
     const renderAddButton = () => {
         return (
             <TouchableOpacity onPress={() => navigation.push('Add')} style={styles.addButton}>
-                <Entypo name="plus" size={24} color={'#08823F'} />
-                <Text style={{ color: '#673ab7', fontSize: 18, fontWeight: 'bold' }}>เพิ่ม</Text>
+                <Entypo name="plus" size={24} color={color.primary} />
+                <Text style={{ color: color.primary, fontSize: 18, fontWeight: 'bold' }}>Insert</Text>
             </TouchableOpacity>
         )
     }
 
     const renderList = () => {
         return (
-            <View >
+            <View style={{marginBottom:'50%',}}>
                 <FlatList
                     data={farms}
                     keyExtractor={(item, index) => index.toString()}
                     contentContainerStyle={{ flexGrow: 1 }}
                     renderItem={({ item }) =>
-                        <MemberItem
+                        <FarmItem
                             onDeletePressed={() => onDeleteItem(item.id, item.name, item.surname)}
                             onEditPressed={() => onEditItem(item)}
-                            member={item}
+                            farm={item}
                         />}
                 />
                 {renderAddButton()}
@@ -111,23 +123,36 @@ export default function Switch({ navigation }) {
 
     return (
         <View style={styles.container}>
+
+            <View style={{ flexDirection: 'column', width: '100%', marginBottom: 20, alignItems: 'center' }} >
+                <Image
+                    source={require('../../assets/Logo.png')}
+                    style={{ width: 60, height: 60, margin: 0, }}
+                />
+                <Text style={{ fontSize: 25, textAlign: 'center', fontWeight: 'bold' }} >HOME SET UP</Text>
+                <Text style={{ fontSize: 18, textAlign: 'center', }} >Vegetable Control System</Text>
+            </View>
+
             {farms.length > 0 ? renderList() : renderEmptyList()}
-        </View>
+        </View >
     )
 }
+
+export default Switch
 
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingHorizontal: 8,
-        paddingVertical: 12,
-        backgroundColor: '#ffffff'
+        backgroundColor: '#fff',
+        paddingTop: 60,
+        marginBottom:0
+
     },
     emptyContainer: {
         justifyContent: 'center',
         alignItems: 'center',
-        paddingTop: Dimensions.get('screen').width / 1.5
+        paddingTop: Dimensions.get('screen').width / 6,
     },
     addFirstButton: {
         backgroundColor: '#08823F',
@@ -150,13 +175,13 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#08823F',
     },
-    containerMember: {
+    containerFarm: {
         width: '94%',
         flexDirection: 'row',
         padding: 12,
         marginHorizontal: 12,
         marginVertical: 6,
-        backgroundColor: '#08823F',
+        backgroundColor: color.primary,
         borderRadius: 4,
     },
     wrapContent: {
@@ -166,12 +191,22 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between'
     },
     title: {
-        color: '#ffffff',
+        color: color.white,
         fontSize: 20,
         fontWeight: 'bold'
     },
+    titleHeader: {
+        color: '#000000',
+        fontSize: 25,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        width: '100%',
+        height: '10%',
+
+
+    },
     label: {
-        color: '#ffffff',
+        color: color.white,
         marginTop: 4,
         fontSize: 16
     }

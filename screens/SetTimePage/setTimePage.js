@@ -1,19 +1,30 @@
 import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, Dimensions, FlatList, Alert } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Dimensions, FlatList, Alert, Image } from 'react-native'
+import { Entypo, MaterialIcons, AntDesign } from '@expo/vector-icons';
 import { useSelector, useDispatch } from "react-redux"
 import * as Action from '../../redux/Action'
 import { bindActionCreators } from 'redux'
 
 
-export default function SetTimePage({ navigation }) {
+
+
+const color = {
+    primary: '#08823F',
+    white: '#ffffff',
+    gray: '#C4C4C4',
+}
+
+function SetTimePage({ navigation }) {
+
+
 
     const dispatch = useDispatch();
     const { deleteMember } = bindActionCreators(Action, dispatch);
-    const farms = useSelector((state) => state.farm);
+    const members = useSelector((state) => state.member);
 
     const onDeleteItem = (id, name, surname) => Alert.alert(
-        "Delete Farm",
-        `Confirm Delete ? \n${name}  ${surname} `,
+        "ลบสมาชิก",
+        `ต้องการลบ \n${name}  ${surname} `,
         [
             {
                 text: "ไม่",
@@ -24,8 +35,10 @@ export default function SetTimePage({ navigation }) {
         ]
     );
 
-    const MemberItem = ({ onDeletePressed, onEditPressed, farm }) => {
-        const { name, surname, userIdPatt, phoneNumberPatt } = farm
+    const onEditItem = (member) => navigation.push('add', { member })
+
+    const MemberItem = ({ onDeletePressed, onEditPressed, member }) => {
+        const { name, surname, userIdPatt, phoneNumberPatt } = member
 
         let userIdFormat = (userIdPatt)
         if (userIdFormat.length >= 2) userIdFormat = userIdFormat.slice(0, 1) + '-' + userIdFormat.slice(1);
@@ -38,7 +51,7 @@ export default function SetTimePage({ navigation }) {
         let phoneFormat = (phoneNumberPatt)
         if (phoneFormat.length >= 4) phoneFormat = phoneFormat.slice(0, 3) + '-' + phoneFormat.slice(3);
 
-
+        console.log(phoneFormat);
 
 
 
@@ -66,14 +79,15 @@ export default function SetTimePage({ navigation }) {
         )
     }
 
+
     const renderEmptyList = () => {
         return (
             <View style={styles.emptyContainer}>
                 <View style={{ marginBottom: 20 }}>
-                    <Text style={{ fontSize: 18 }} >Please add farm.</Text>
+                    <Text style={{ fontSize: 18 }} >Don't have Farm Please Insert Farm</Text>
                 </View>
                 <TouchableOpacity onPress={() => navigation.push('Add')} style={styles.addFirstButton}>
-                    <Text style={styles.addFirstButtonText}>เพิ่ม</Text>
+                    <Text style={styles.addFirstButtonText}>Insert</Text>
                 </TouchableOpacity>
             </View>
         )
@@ -82,8 +96,8 @@ export default function SetTimePage({ navigation }) {
     const renderAddButton = () => {
         return (
             <TouchableOpacity onPress={() => navigation.push('Add')} style={styles.addButton}>
-                <Entypo name="plus" size={24} color={'#08823F'} />
-                <Text style={{ color: '#673ab7', fontSize: 18, fontWeight: 'bold' }}>เพิ่ม</Text>
+                <Entypo name="plus" size={24} color={color.primary} />
+                <Text style={{ color: color.primary, fontSize: 18, fontWeight: 'bold' }}>Insert</Text>
             </TouchableOpacity>
         )
     }
@@ -92,7 +106,7 @@ export default function SetTimePage({ navigation }) {
         return (
             <View >
                 <FlatList
-                    data={farms}
+                    data={members}
                     keyExtractor={(item, index) => index.toString()}
                     contentContainerStyle={{ flexGrow: 1 }}
                     renderItem={({ item }) =>
@@ -111,26 +125,38 @@ export default function SetTimePage({ navigation }) {
 
     return (
         <View style={styles.container}>
-            {farms.length > 0 ? renderList() : renderEmptyList()}
-        </View>
+
+            <View style={{ flexDirection: 'column', width: '100%', marginBottom: 20, alignItems: 'center' }} >
+                <Image
+                    source={require('../../assets/Logo.png')}
+                    style={{ width: 60, height: 60, margin: 0, }}
+                />
+                <Text style={{ fontSize: 25, textAlign: 'center', fontWeight: 'bold' }} >SET TIME SET UP</Text>
+                <Text style={{ fontSize: 18, textAlign: 'center', }} >Vegetable Control System</Text>
+            </View>
+
+            {members.length > 0 ? renderList() : renderEmptyList()}
+        </View >
     )
 }
+
+export default SetTimePage
 
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingHorizontal: 8,
-        paddingVertical: 12,
-        backgroundColor: '#ffffff'
+        backgroundColor: '#fff',
+        paddingTop: 60,
+
     },
     emptyContainer: {
         justifyContent: 'center',
         alignItems: 'center',
-        paddingTop: Dimensions.get('screen').width / 1.5
+        paddingTop: Dimensions.get('screen').width / 6,
     },
     addFirstButton: {
-        backgroundColor: '#08823F',
+        backgroundColor: '#673ab7',
         padding: 12,
         borderRadius: 4,
         width: 150
@@ -148,7 +174,7 @@ const styles = StyleSheet.create({
         marginVertical: 6,
         padding: 12,
         borderWidth: 1,
-        borderColor: '#08823F',
+        borderColor: '#673ab7',
     },
     containerMember: {
         width: '94%',
@@ -156,7 +182,7 @@ const styles = StyleSheet.create({
         padding: 12,
         marginHorizontal: 12,
         marginVertical: 6,
-        backgroundColor: '#08823F',
+        backgroundColor: color.primary,
         borderRadius: 4,
     },
     wrapContent: {
@@ -166,12 +192,22 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between'
     },
     title: {
-        color: '#ffffff',
+        color: color.white,
         fontSize: 20,
         fontWeight: 'bold'
     },
+    titleHeader: {
+        color: '#000000',
+        fontSize: 25,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        width: '100%',
+        height: '10%',
+
+
+    },
     label: {
-        color: '#ffffff',
+        color: color.white,
         marginTop: 4,
         fontSize: 16
     }
