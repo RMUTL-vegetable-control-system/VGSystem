@@ -4,6 +4,8 @@ import { Entypo, MaterialIcons, AntDesign } from '@expo/vector-icons';
 import { useSelector, useDispatch } from "react-redux"
 import * as Action from '../../redux/Action'
 import { bindActionCreators } from 'redux'
+import { initializeApp } from 'firebase/app';
+// import * as firebase from 'firebase';
 
 
 
