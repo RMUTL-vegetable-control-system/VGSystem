@@ -4,7 +4,7 @@ import { Entypo, MaterialIcons, AntDesign } from '@expo/vector-icons';
 import { useSelector, useDispatch } from "react-redux"
 import * as Action from '../../redux/Action'
 import { bindActionCreators } from 'redux'
-import { initializeApp } from 'firebase/app';
+
 // import * as firebase from 'firebase';
 
 
@@ -24,9 +24,9 @@ function Switch({ navigation }) {
     const { deleteFarm } = bindActionCreators(Action, dispatch);
     const farms = useSelector((state) => state.farm);
 
-    const onDeleteItem = (id, name, surname) => Alert.alert(
+    const onDeleteItem = (id, name, detail) => Alert.alert(
         "Delete Farm",
-        `Confirm Delete \n${name}  ${surname} `,
+        `Confirm Delete \n${name}  ${detail} `,
         [
             {
                 text: "NO",
@@ -40,20 +40,9 @@ function Switch({ navigation }) {
     const onEditItem = (farm) => navigation.push('add', { farm })
 
     const FarmItem = ({ onDeletePressed, onEditPressed, farm }) => {
-        const { name, surname, userIdPatt, phoneNumberPatt } = farm
-
-        let userIdFormat = (userIdPatt)
-        if (userIdFormat.length >= 2) userIdFormat = userIdFormat.slice(0, 1) + '-' + userIdFormat.slice(1);
-        if (userIdFormat.length >= 7) userIdFormat = userIdFormat.slice(0, 6) + '-' + userIdFormat.slice(6);
-        if (userIdFormat.length >= 13) userIdFormat = userIdFormat.slice(0, 12) + '-' + userIdFormat.slice(12);
-        if (userIdFormat.length >= 16) userIdFormat = userIdFormat.slice(0, 15) + '-' + userIdFormat.slice(15);
-        ;
+        const { name, detail,} = farm
 
 
-        let phoneFormat = (phoneNumberPatt)
-        if (phoneFormat.length >= 4) phoneFormat = phoneFormat.slice(0, 3) + '-' + phoneFormat.slice(3);
-
-  
 
 
 
@@ -62,10 +51,10 @@ function Switch({ navigation }) {
                 <View style={styles.wrapContent}>
                     <View style={{ flexDirection: 'colum' }}>
                         <Text style={styles.title}>{name}   </Text>
-                        <Text style={styles.title}>{surname}</Text>
+                        <Text style={styles.label}>{detail}</Text>
                     </View>
-                    <Text style={styles.label}>{userIdFormat}</Text>
-                    <Text style={styles.label}>{phoneFormat}</Text>
+                    {/* <Text style={styles.label}>{userIdFormat}</Text>
+                    <Text style={styles.label}>{phoneFormat}</Text> */}
                 </View>
                 <View style={styles.wrapIcon}>
                     <TouchableOpacity onPress={onEditPressed}>
@@ -111,7 +100,7 @@ function Switch({ navigation }) {
                     contentContainerStyle={{ flexGrow: 1 }}
                     renderItem={({ item }) =>
                         <FarmItem
-                            onDeletePressed={() => onDeleteItem(item.id, item.name, item.surname)}
+                            onDeletePressed={() => onDeleteItem(item.id, item.name, item.detail)}
                             onEditPressed={() => onEditItem(item)}
                             farm={item}
                         />}

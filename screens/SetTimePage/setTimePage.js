@@ -5,6 +5,8 @@ import { useSelector, useDispatch } from "react-redux"
 import * as Action from '../../redux/Action'
 import { bindActionCreators } from 'redux'
 
+// import * as firebase from 'firebase';
+
 
 
 
@@ -19,53 +21,40 @@ function SetTimePage({ navigation }) {
 
 
     const dispatch = useDispatch();
-    const { deleteMember } = bindActionCreators(Action, dispatch);
-    const members = useSelector((state) => state.member);
+    const { deleteFarm } = bindActionCreators(Action, dispatch);
+    const farms = useSelector((state) => state.farm);
 
-    const onDeleteItem = (id, name, surname) => Alert.alert(
-        "ลบสมาชิก",
-        `ต้องการลบ \n${name}  ${surname} `,
+    const onDeleteItem = (id, name, detail) => Alert.alert(
+        "Delete Farm",
+        `Confirm Delete \n${name}  ${detail} `,
         [
             {
-                text: "ไม่",
+                text: "NO",
                 onPress: () => { },
                 style: "cancel"
             },
-            { text: "ใช่", onPress: () => deleteMember(id) }
+            { text: "YES", onPress: () => deleteFarm(id) }
         ]
     );
 
-    const onEditItem = (member) => navigation.push('add', { member })
+    const onEditItem = (farm) => navigation.push('add', { farm })
 
-    const MemberItem = ({ onDeletePressed, onEditPressed, member }) => {
-        const { name, surname, userIdPatt, phoneNumberPatt } = member
-
-        let userIdFormat = (userIdPatt)
-        if (userIdFormat.length >= 2) userIdFormat = userIdFormat.slice(0, 1) + '-' + userIdFormat.slice(1);
-        if (userIdFormat.length >= 7) userIdFormat = userIdFormat.slice(0, 6) + '-' + userIdFormat.slice(6);
-        if (userIdFormat.length >= 13) userIdFormat = userIdFormat.slice(0, 12) + '-' + userIdFormat.slice(12);
-        if (userIdFormat.length >= 16) userIdFormat = userIdFormat.slice(0, 15) + '-' + userIdFormat.slice(15);
-        ;
-
-
-        let phoneFormat = (phoneNumberPatt)
-        if (phoneFormat.length >= 4) phoneFormat = phoneFormat.slice(0, 3) + '-' + phoneFormat.slice(3);
-
-        console.log(phoneFormat);
+    const FarmItem = ({ onDeletePressed, onEditPressed, farm }) => {
+        const { name, detail,} = farm
 
 
 
 
 
         return (
-            <View style={styles.containerMember}>
+            <View style={styles.containerFarm}>
                 <View style={styles.wrapContent}>
-                    <View style={{ flexDirection: 'row' }}>
+                    <View style={{ flexDirection: 'colum' }}>
                         <Text style={styles.title}>{name}   </Text>
-                        <Text style={styles.title}>{surname}</Text>
+                        <Text style={styles.label}>{detail}</Text>
                     </View>
-                    <Text style={styles.label}>{userIdFormat}</Text>
-                    <Text style={styles.label}>{phoneFormat}</Text>
+                    {/* <Text style={styles.label}>{userIdFormat}</Text>
+                    <Text style={styles.label}>{phoneFormat}</Text> */}
                 </View>
                 <View style={styles.wrapIcon}>
                     <TouchableOpacity onPress={onEditPressed}>
@@ -104,16 +93,16 @@ function SetTimePage({ navigation }) {
 
     const renderList = () => {
         return (
-            <View >
+            <View style={{marginBottom:'50%',}}>
                 <FlatList
-                    data={members}
+                    data={farms}
                     keyExtractor={(item, index) => index.toString()}
                     contentContainerStyle={{ flexGrow: 1 }}
                     renderItem={({ item }) =>
-                        <MemberItem
-                            onDeletePressed={() => onDeleteItem(item.id, item.name, item.surname)}
+                        <FarmItem
+                            onDeletePressed={() => onDeleteItem(item.id, item.name, item.detail)}
                             onEditPressed={() => onEditItem(item)}
-                            member={item}
+                            farm={item}
                         />}
                 />
                 {renderAddButton()}
@@ -131,11 +120,11 @@ function SetTimePage({ navigation }) {
                     source={require('../../assets/Logo.png')}
                     style={{ width: 60, height: 60, margin: 0, }}
                 />
-                <Text style={{ fontSize: 25, textAlign: 'center', fontWeight: 'bold' }} >SET TIME SET UP</Text>
+                <Text style={{ fontSize: 25, textAlign: 'center', fontWeight: 'bold' }} >SET TIME </Text>
                 <Text style={{ fontSize: 18, textAlign: 'center', }} >Vegetable Control System</Text>
             </View>
 
-            {members.length > 0 ? renderList() : renderEmptyList()}
+            {farms.length > 0 ? renderList() : renderEmptyList()}
         </View >
     )
 }
@@ -148,6 +137,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
         paddingTop: 60,
+        marginBottom:0
 
     },
     emptyContainer: {
@@ -156,7 +146,7 @@ const styles = StyleSheet.create({
         paddingTop: Dimensions.get('screen').width / 6,
     },
     addFirstButton: {
-        backgroundColor: '#673ab7',
+        backgroundColor: '#08823F',
         padding: 12,
         borderRadius: 4,
         width: 150
@@ -174,9 +164,9 @@ const styles = StyleSheet.create({
         marginVertical: 6,
         padding: 12,
         borderWidth: 1,
-        borderColor: '#673ab7',
+        borderColor: '#08823F',
     },
-    containerMember: {
+    containerFarm: {
         width: '94%',
         flexDirection: 'row',
         padding: 12,

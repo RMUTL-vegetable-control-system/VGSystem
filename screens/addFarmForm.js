@@ -9,11 +9,11 @@ import * as FarmAction from '../redux/Action'
 
 
 const ERR_MESSAGE_NAME = 'กรุณากรอกชื่อ'
-const ERR_MESSAGE_SURNAME = 'กรุณากรอกนามสกุล'
-const ERR_MESSAGE_USER_ID = 'กรุณากรอกเลขบัตรประชาชน'
-const ERR_MESSAGE_CHECK_USER_ID = 'กรุณากรอกเลขบัตรประชาชนให้ถูกต้อง'
-const ERR_MESSAGE_PHONE = 'กรุณากรอกเบอร์โทรศัพท์'
-const ERR_MESSAGE_CHECK_PHONE = 'กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง'
+const ERR_MESSAGE_DETAIL = 'กรุณากรอกนามสกุล'
+const ERR_MESSAGE_DEVICE_ID = 'กรุณากรอกเลขบัตรประชาชน'
+const ERR_MESSAGE_CHECK_DEVICE_ID = 'กรุณากรอกเลขบัตรประชาชนให้ถูกต้อง'
+const ERR_MESSAGE_PIN_ID = 'กรุณากรอกเบอร์โทรศัพท์'
+const ERR_MESSAGE_CHECK_PIN_ID = 'กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง'
 
 
 
@@ -28,40 +28,40 @@ const color = {
 function AddFarmForm({ route, navigation }) {
 
   const nameInput = useRef();
-  const surnameInput = useRef();
-  const userIdInput = useRef();
-  const phoneInput = useRef();
+  const detailInput = useRef();
+  const deviceIdInput = useRef();
+  const pinIdInput = useRef();
 
 
 
 
   const [name, setName] = useState('');
-  const [surname, setSurname] = useState('');
-  const [userId, setUserId] = useState('');
-  const userIdPatt = userId.replace(/\W/g, '');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const phoneNumberPatt = phoneNumber.replace(/\W/g, '');
+  const [detail, setDetail] = useState('');
+  const [deviceId, setDeviceId] = useState('');
+  const deviceIdPatt = deviceId.replace(/\W/g, '');
+  const [pinIdNumber, setPinIdNumber] = useState('');
+  const pinIdNumberPatt = pinIdNumber.replace(/\W/g, '');
   const [isEditing, setIsEditing] = useState(false);
 
   const [isNameEdited, setIsNameEdited] = useState(false);
-  const [isSurnameEdited, setIsSurnameEdited] = useState(false);
-  const [isUserIdEdited, setIsUserIdEdited] = useState(false);
-  const [isPhoneIdEdited, setIsPhoneIdEdited] = useState(false);
+  const [isDetailEdited, setIsDetailEdited] = useState(false);
+  const [isDeviceIdEdited, setIsDeviceIdEdited] = useState(false);
+  const [isPinIdEdited, setIsPinIdEdited] = useState(false);
 
   const isName = name.length > 0
-  const isSurname = surname.length > 0
-  const isUserId = userId.length == 0
-  const isUserIdCheck = userId.length > 0 && userId.length < 17
+  const isDetail = detail.length > 0
+  const isDeviceId = deviceId.length == 0
+  const isDeviceIdCheck = deviceId.length > 0 && deviceId.length < 17
   const pattPassword = /1{13}|2{13}|3{13}|4{13}|5{13}|6{13}|7{13}|8{13}|9{13}|0{13}/
-  const isPattPassword = pattPassword.test(userIdPatt);
-  const isPhoneNumber = phoneNumber.length == 0
-  const isPhoneNumberCheck = phoneNumber.length > 0 && phoneNumber.length < 11
-  const pattPhoneNumber = /1{10}|2{10}|3{10}|4{10}|5{10}|6{10}|7{10}|8{10}|9{10}|0{10}/
-  const isPattPhoneNumber = pattPhoneNumber.test(phoneNumberPatt);
+  const isPattPassword = pattPassword.test(deviceIdPatt);
+  const isPinIdNumber = pinIdNumber.length == 0
+  const isPinIdNumberCheck = pinIdNumber.length > 0 && pinIdNumber.length < 11
+  const pattPinIdNumber = /1{10}|2{10}|3{10}|4{10}|5{10}|6{10}|7{10}|8{10}|9{10}|0{10}/
+  const isPattPinIdNumber = pattPinIdNumber.test(pinIdNumberPatt);
 
 
 
-  const canSubmit = isName && isSurname && !isUserId && !isPhoneNumber && !isUserIdCheck && !isPhoneNumberCheck && !isPattPassword && !isPattPhoneNumber
+  const canSubmit = isName && isDetail && !isDeviceId && !isPinIdNumber && !isDeviceIdCheck && !isPinIdNumberCheck && !isPattPassword && !isPattPinIdNumber
 
 
 
@@ -71,9 +71,9 @@ function AddFarmForm({ route, navigation }) {
 
 
   const errorName = !isName && isNameEdited ? ERR_MESSAGE_NAME : ''
-  const errorSurname = !isSurname && isSurnameEdited ? ERR_MESSAGE_SURNAME : ''
-  const errorID = isUserId && isUserIdEdited ? ERR_MESSAGE_USER_ID : isUserIdCheck && isUserIdEdited ? ERR_MESSAGE_CHECK_USER_ID : isPattPassword && isUserIdEdited ? ERR_MESSAGE_CHECK_USER_ID : ''
-  const errorPhone = isPhoneNumber && isPhoneIdEdited ? ERR_MESSAGE_PHONE : isPhoneNumberCheck && isPhoneIdEdited ? ERR_MESSAGE_CHECK_PHONE : isPattPhoneNumber && isPhoneIdEdited ? ERR_MESSAGE_CHECK_PHONE : ''
+  const errorDetail = !isDetail && isDetailEdited ? ERR_MESSAGE_DETAIL : ''
+  const errorID = isDeviceId && isDeviceIdEdited ? ERR_MESSAGE_DEVICE_ID : isDeviceIdCheck && isDeviceIdEdited ? ERR_MESSAGE_CHECK_DEVICE_ID : isPattPassword && isDeviceIdEdited ? ERR_MESSAGE_CHECK_DEVICE_ID : ''
+  const errorPinId = isPinIdNumber && isPinIdEdited ? ERR_MESSAGE_PIN_ID : isPinIdNumberCheck && isPinIdEdited ? ERR_MESSAGE_CHECK_PIN_ID : isPattPinIdNumber && isPinIdEdited ? ERR_MESSAGE_CHECK_PIN_ID : ''
 
 
   useEffect(() => {
@@ -82,37 +82,37 @@ function AddFarmForm({ route, navigation }) {
       const { farm } = route.params;
       setIsEditing(true);
       setName(farm.name);
-      setSurname(farm.surname);
-      setUserId(farm.userIdPatt);
-      setPhoneNumber(farm.phoneNumberPatt);
+      setDetail(farm.detail);
+      setDeviceId(farm.deviceIdPatt);
+      setPinIdNumber(farm.pinIdNumberPatt);
     } else {
       navigation.setOptions({ title: 'Insert Farm' });
     }
   }, [])
 
   const onAddFarm = () => {
-    addFarm({ name, surname, userIdPatt, phoneNumberPatt });
+    addFarm({ name, detail, deviceIdPatt, pinIdNumberPatt });
     navigation.goBack();
   }
 
   const onEditFarm = () => {
     const { farm } = route.params
-    editFarm({ name, surname, userIdPatt, phoneNumberPatt, id: farm.id });
+    editFarm({ name, detail, deviceIdPatt, pinIdNumberPatt, id: farm.id });
     navigation.goBack();
   }
-  const onUserIdEditing = (userIdText) => {
-    let text = (userIdText).replace(/\D/g, '');
+  const onDeviceIdEditing = (deviceIdText) => {
+    let text = (deviceIdText).replace(/\D/g, '');
     if (text.length >= 2) text = text.slice(0, 1) + '-' + text.slice(1);
     if (text.length >= 7) text = text.slice(0, 6) + '-' + text.slice(6);
     if (text.length >= 13) text = text.slice(0, 12) + '-' + text.slice(12);
     if (text.length >= 16) text = text.slice(0, 15) + '-' + text.slice(15);
-    setUserId(text)
+    setDeviceId(text)
   }
 
-  const onPhoneEditing = (phoneText) => {
-    let text = (phoneText).replace(/\D/g, '');
+  const onPinIdEditing = (pinIdText) => {
+    let text = (pinIdText).replace(/\D/g, '');
     if (text.length >= 4) text = text.slice(0, 3) + '-' + text.slice(3);
-    setPhoneNumber(text)
+    setPinIdNumber(text)
   }
 
   return (
@@ -124,7 +124,7 @@ function AddFarmForm({ route, navigation }) {
         placeholder={'Name'}
         style={styles.input}
         returnKeyType='next'
-        onSubmitEditing={() => surnameInput.current.focus()}
+        onSubmitEditing={() => detailInput.current.focus()}
         onEndEditing={() => setIsNameEdited(true)}
         activeUnderlineColor='#C4C4C4'
 
@@ -132,47 +132,47 @@ function AddFarmForm({ route, navigation }) {
       <Text style={styles.errMessage}>{errorName}</Text>
 
       <TextInput
-        ref={surnameInput}
-        value={surname}
-        onChangeText={setSurname}
+        ref={detailInput}
+        value={detail}
+        onChangeText={setDetail}
         placeholder={'Detail'}
         style={styles.inputDetail}
         height={100}
-        onEndEditing={() => setIsSurnameEdited(true)}
+        onEndEditing={() => setIsDetailEdited(true)}
         activeUnderlineColor='#C4C4C4'
         multiline={true}
       />
-      <Text style={styles.errMessage}>{errorSurname}</Text>
+      <Text style={styles.errMessage}>{errorDetail}</Text>
 
       <TextInput
-        ref={userIdInput}
-        value={userId}
-        onChangeText={onUserIdEditing}
+        ref={deviceIdInput}
+        value={deviceId}
+        onChangeText={onDeviceIdEditing}
         placeholder={'Device ID'}
         maxLength={17}
         style={styles.input}
         returnKeyType='next'
         keyboardType='numeric'
-        onSubmitEditing={() => phoneInput.current.focus()}
-        onEndEditing={() => setIsUserIdEdited(true)}
+        onSubmitEditing={() => pinIdInput.current.focus()}
+        onEndEditing={() => setIsDeviceIdEdited(true)}
         activeUnderlineColor='#C4C4C4'
       />
       <Text style={styles.errMessage}>{errorID}</Text>
 
 
       <TextInput
-        ref={phoneInput}
-        value={phoneNumber}
-        onChangeText={onPhoneEditing}
+        ref={pinIdInput}
+        value={pinIdNumber}
+        onChangeText={onPinIdEditing}
         placeholder={'PIN ID'}
         maxLength={11}
         style={styles.input}
         keyboardType='phone-pad'
         returnKeyType='done'
-        onEndEditing={() => setIsPhoneIdEdited(true)}
+        onEndEditing={() => setIsPinIdEdited(true)}
         activeUnderlineColor='#C4C4C4'
       />
-      <Text style={styles.errMessage}>{errorPhone}</Text>
+      <Text style={styles.errMessage}>{errorPinId}</Text>
       <TouchableOpacity disabled={!canSubmit} onPress={isEditing ? onEditFarm : onAddFarm} style={styles.submitButton(!canSubmit)}>
         <Text style={styles.submitButtonText}>Confirm</Text>
       </TouchableOpacity>
