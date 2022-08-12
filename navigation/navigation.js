@@ -16,11 +16,13 @@ export default NavigationMain = () => {
 
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="Login">
-                {/* <Stack.Screen name="Login" component={LoginPage} options={{ headerShown: false}} /> */}
-                {/* <Stack.Screen name="SingUp" component={SingUpPage} options={{ headerShown: false}} /> */}
-                <Stack.Screen name="Menu" component={Navigator} options={{ headerShown: false}}/>
-                <Stack.Screen name="Add" component={AddFarmForm} options={{ headerShown: true}}/>
+            <Stack.Navigator initialRouteName="Menu">
+                <Stack.Screen name="Login" component={LoginPage} options={{ headerShown: false }} />
+                <Stack.Screen name="SingUp" component={SingUpPage} options={{ headerShown: false }} />
+
+                {/* After Login pass */}
+                <Stack.Screen name="Add" component={AddFarmForm} options={{ headerShown: true }} />
+                <Stack.Screen name="Menu" component={Navigator} options={{ headerShown: false }} />
             </Stack.Navigator>
         </NavigationContainer>
     );

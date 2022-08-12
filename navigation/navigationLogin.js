@@ -1,20 +1,20 @@
-import * as React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
-import LoginPage from '../screens/Login/loginPage';
-import SingUpPage from './navigationTabMenu';
+// import * as React from 'react';
+// import { createStackNavigator } from '@react-navigation/stack';
+// import LoginPage from '../screens/Login/loginPage';
+// import SingUpPage from './navigationTabMenu';
 
 
 
-const Stack = createStackNavigator();
+// const Stack = createStackNavigator();
 
-export default navigationLogin = () => {
+// export default navigationLogin = () => {
 
-    return (
+//     return (
 
-            <Stack.Navigator initialRouteName="Login">
-                <Stack.Screen name="Login" component={LoginPage} options={{ headerShown: false}} />
-                <Stack.Screen name="SingUp" component={SingUpPage} options={{ headerShown: false}}/>
-            </Stack.Navigator>
+//             <Stack.Navigator initialRouteName="Login">
+//                 <Stack.Screen name="Login" component={LoginPage} options={{ headerShown: false}} />
+//                 <Stack.Screen name="SingUp" component={SingUpPage} options={{ headerShown: false}}/>
+//             </Stack.Navigator>
 
-    );
-};
+//     );
+// };
