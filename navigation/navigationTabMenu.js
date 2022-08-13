@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Switch from '../screens/HomePage/switch';
+import Home from '../screens/HomePage/Home';
 import SetTimePage from '../screens/SetTimePage/setTimePage';
 import Humidity from '../screens/HumidityPage/humidity';
 import Video from '../screens/VideoPage/video';
@@ -25,8 +26,8 @@ function MyTabs() {
 
     >
       <Tab.Screen
-        name="Switch"
-        component={Switch}
+        name="Home"
+        component={Home}
         options={{
           tabBarLabel: 'Home',
           tabBarIcon: ({ color, size }) => (
@@ -75,7 +76,7 @@ function MyTabs() {
           ),
         }}
       />
-               
+
 
     </Tab.Navigator>
   );
@@ -83,8 +84,8 @@ function MyTabs() {
 
 export default function NavigationMenu() {
   return (
-   
-      <MyTabs />
-   
+
+    <MyTabs />
+
   );
 }

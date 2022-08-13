@@ -4,7 +4,7 @@ import { Entypo, MaterialIcons, AntDesign } from '@expo/vector-icons';
 import { useSelector, useDispatch } from "react-redux"
 import * as Action from '../../redux/Action'
 import { bindActionCreators } from 'redux'
-import farmTable from '../../Components/farmTable';
+import FarmTable from '../../Components/FarmTable';
 
 // import * as firebase from 'firebase';
 
@@ -42,10 +42,6 @@ function Switch({ navigation }) {
 
     const FarmItem = ({ onDeletePressed, onEditPressed, farm }) => {
         const { name, detail, } = farm
-
-
-
-
 
         return (
             <View style={styles.containerFarm}>
@@ -126,6 +122,7 @@ function Switch({ navigation }) {
             </View>
 
             {farms.length > 0 ? renderList() : renderEmptyList()}
+            <FarmTable />
         </View >
     )
 }

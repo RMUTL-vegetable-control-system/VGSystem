@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react';
 import LoadingStartApp from './screens/loadingStartApp';
 import NavigationMain from './navigation/navigation';
 import 'react-native-gesture-handler';
-import {store} from './redux/store'
+import { store } from './redux/store'
 import { Provider } from 'react-redux';
+import { firebase } from './Services/Firebase';
 
 export default function App() {
   const [loading, setIsLoading] = useState(true)
