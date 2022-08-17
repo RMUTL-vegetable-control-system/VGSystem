@@ -5,10 +5,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Home from '../screens/HomePage/Home';
 import Light from '../screens/LightControlPage/Light';
-import Humidity from '../screens/HumidityPage/humidity';
+import Water from '../screens/WaterControlPage/Water';
 import Video from '../screens/VideoPage/video';
 import Profile from '../screens/ProfilePage/profile';
-import Light from '../screens/LightControlPage/Light';
 
 
 const Tab = createBottomTabNavigator();
@@ -46,10 +45,10 @@ function MyTabs() {
         }}
       />
       <Tab.Screen
-        name="Humidity"
-        component={Humidity}
+        name="Water"
+        component={Water}
         options={{
-          tabBarLabel: 'Humidity',
+          tabBarLabel: 'Water',
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="thermometer-lines" color={color} size={33} />
 

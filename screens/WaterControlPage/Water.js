@@ -17,21 +17,22 @@ const color = {
     gray: '#C4C4C4',
 }
 
-function Light({ navigation }) {
+function Water({ navigation }) {
 
     // สิ่งที่ต้องแสดง
     // ชื่อของ Farm
-    //ชื่อหลอดไฟ
-    //สถานะของหลอดไฟ ถ้าทีเป็นเขียว ไม่มีเป็นเทา
-    //มีปุ่มใหญ่ๆด้านล่างไว้สำหรับ กรอกเวลาเปิดและปิดหลอดไฟได้ ลิงค์ไปหน้าเปล่าๆก่อน
-    //ในแต่ละช่องของไฟให้กดได้ ถ้าเป็นสีเขียวให้กดแล้วเปลี่ยนค่าได้ ก็คือ เปลี่ยนแค่ตัวหนังสือ สีไม่ต้อง
-    //แต่ถ้าเป็นสีเท่ากดเข้าไป ให้ลิงไปหน้าเพิ่มหลอดไฟได้ ทำหน้าเปล่าๆทิ้งไว้
+    //ชื่อมอเตอร์
+    //สถานะของมอเตอร์ ถ้าทีเป็นเขียว ไม่มีเป็นเทา
+    //มีปุ่มใหญ่ๆด้านล่างไว้สำหรับ กรอกเวลาเปิดและปิดมอเตอร์ได้ ลิงค์ไปหน้าเปล่าๆก่อน
+    //ในแต่ละช่องของมอเตอร์ให้กดได้ ถ้าเป็นสีเขียวให้กดแล้วเปลี่ยนค่าได้ ก็คือ เปลี่ยนแค่ตัวหนังสือ สีไม่ต้อง
+    //แต่ถ้าเป็นสีเท่ากดเข้าไป ให้ลิงไปหน้าเพิ่มมอเตอร์ได้ ทำหน้าเปล่าๆทิ้งไว้
 
     const [farmData, setFarmData] = useState([]);
-    const [light_1_Data, setLight_1_Data] = useState([]);
-    const [light_2_Data, setLight_2_Data] = useState([]);
-    const [light_3_Data, setLight_3_Data] = useState([]);
-    const [light_4_Data, setLight_4_Data] = useState([]);
+    const [water_1_Data, setWater_1_Data] = useState([]);
+    const [water_2_Data, setWater_2_Data] = useState([]);
+    const [water_3_Data, setWater_3_Data] = useState([]);
+    const [water_4_Data, setWater_4_Data] = useState([]);
+
 
     useEffect(() => {
         fetchData();
@@ -43,10 +44,10 @@ function Light({ navigation }) {
         const reference = ref(db, 'user/' + userId);
         onValue(reference, (snapshot) => {
             setFarmData(snapshot.val().farm);
-            setLight_1_Data(snapshot.val().farm.light.light1);
-            setLight_2_Data(snapshot.val().farm.light.light2);
-            setLight_3_Data(snapshot.val().farm.light.light3);
-            setLight_4_Data(snapshot.val().farm.light.light4);
+            setWater_1_Data(snapshot.val().farm.servo.servo1);
+            setWater_2_Data(snapshot.val().farm.servo.servo2);
+            setWater_3_Data(snapshot.val().farm.servo.servo3);
+            setWater_4_Data(snapshot.val().farm.servo.servo4);
         })
     }
 
@@ -54,15 +55,15 @@ function Light({ navigation }) {
         <View style={styles.container}>
             <Text>List Of Display</Text>
             <Text> ชื่อ:{farmData.deviceName}</Text>
-            <Text>หลอดไฟดวงที่ 1 : {light_1_Data.name}</Text>
-            <Text>หลอดไฟดวงที่ 2 : {light_2_Data.name}</Text>
-            <Text>หลอดไฟดวงที่ 3 : {light_3_Data.name}</Text>
-            <Text>หลอดไฟดวงที่ 4 : {light_4_Data.name}</Text>
+            <Text>คุมน้ำตัวที่ 1 : {water_1_Data.name}</Text>
+            <Text>คุมน้ำตัวที่ 2 : {water_2_Data.name}</Text>
+            <Text>คุมน้ำตัวที่ 3 : {water_3_Data.name}</Text>
+            <Text>คุมน้ำตัวที่ 4 : {water_4_Data.name}</Text>
         </View >
     )
 }
 
-export default Light
+export default Water
 
 
 const styles = StyleSheet.create({
