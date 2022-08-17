@@ -17,7 +17,7 @@ const color = {
     gray: '#C4C4C4',
 }
 
-function Home({ navigation }) {
+function Light({ navigation }) {
 
     // สิ่งที่ต้องแสดง
     // ชื่อของ Farm
@@ -50,7 +50,7 @@ function Home({ navigation }) {
     )
 }
 
-export default Home
+export default Light
 
 
 const styles = StyleSheet.create({

@@ -3,12 +3,12 @@ import { Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import Switch from '../screens/HomePage/switch';
 import Home from '../screens/HomePage/Home';
-import SetTimePage from '../screens/SetTimePage/setTimePage';
+import Light from '../screens/LightControlPage/Light';
 import Humidity from '../screens/HumidityPage/humidity';
 import Video from '../screens/VideoPage/video';
 import Profile from '../screens/ProfilePage/profile';
+import Light from '../screens/LightControlPage/Light';
 
 
 const Tab = createBottomTabNavigator();
@@ -36,10 +36,10 @@ function MyTabs() {
         }}
       />
       <Tab.Screen
-        name="SetTimePage"
-        component={SetTimePage}
+        name="Light"
+        component={Light}
         options={{
-          tabBarLabel: 'Set Time',
+          tabBarLabel: 'Light',
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="clock" color={color} size={33} />
           ),
