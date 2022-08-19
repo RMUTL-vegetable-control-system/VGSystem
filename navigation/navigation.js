@@ -5,6 +5,8 @@ import LoginPage from '../screens/Login/loginPage';
 import SingUpPage from '../screens/Login/SingUpPage';
 import Navigator from './navigationTabMenu';
 import AddFarmForm from '../screens/addFarmForm';
+import SetTimeLight from '../screens/LightControlPage/setTimeLight';
+import SetTimeWater from '../screens/WaterControlPage/setTimeWater';
 
 
 
@@ -23,6 +25,9 @@ export default NavigationMain = () => {
                 {/* After Login pass */}
                 <Stack.Screen name="Add" component={AddFarmForm} options={{ headerShown: true }} />
                 <Stack.Screen name="Menu" component={Navigator} options={{ headerShown: false }} />
+
+                <Stack.Screen name="SetTimeLight" component={SetTimeLight } options={{ headerShown: true }} />
+                <Stack.Screen name="SetTimeWater" component={SetTimeWater } options={{ headerShown: true }} />
             </Stack.Navigator>
         </NavigationContainer>
     );

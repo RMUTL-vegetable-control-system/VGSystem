@@ -5,14 +5,14 @@ import { useSelector, useDispatch } from "react-redux"
 import * as Action from '../../redux/Action'
 import { bindActionCreators } from 'redux'
 import { getDatabase, ref, onValue } from 'firebase/database';
-
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 // import * as firebase from 'firebase';
 
 
 
 
 const color = {
-    primary: '#08823F',
+    primary: '#A7D676',
     white: '#ffffff',
     gray: '#C4C4C4',
 }
@@ -42,10 +42,34 @@ function Home({ navigation }) {
     }
 
     return (
+
         <View style={styles.container}>
-            <Text>List Of Display</Text>
-            <Text> ชื่อ:{farmData.deviceName}</Text>
-            <Text>ความชื้น:{humidity.name}</Text>
+
+
+            <View>
+                <View style={{ flexDirection: 'column', width: '100%', marginBottom: 0, alignItems: 'flex-start', paddingLeft: '5%' }} >
+
+                    <Text style={{ fontSize: 25, textAlign: 'center', fontWeight: 'bold' }} >Light</Text>
+                    <Text style={{ fontSize: 18, textAlign: 'center', }} >Vegetable Control System</Text>
+                </View>
+                <View style={styles.containerAreaCard}>
+                    <View style={styles.containerCard}>
+                        <View style={{ paddingLeft: '10%', }}>
+                            <MaterialCommunityIcons name="coolant-temperature" size={54} color="white" />
+                        </View>
+                        <View style={{ paddingLeft: '5%' }}>
+                            <Text style={styles.label}>List Of Display</Text>
+                            <Text style={styles.label}>Name  :  {farmData.deviceName}</Text>
+                            <Text style={styles.labelTemp}>Temp   :   {humidity.name}</Text>
+
+                        </View>
+
+                    </View>
+
+                </View>
+            </View>
+
+
         </View >
     )
 }
@@ -53,55 +77,40 @@ function Home({ navigation }) {
 export default Home
 
 
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
-        paddingTop: 60,
-        marginBottom: 0
+        backgroundColor: '#f2f2f2',
+        paddingTop: 0,
+        marginBottom: 0,
+        justifyContent: 'space-around'
 
     },
-    emptyContainer: {
+    containerAreaCard: {
+        justifyContent: 'space-around',
+        width: '100%',
+        flexDirection: 'row'
+    },
+    containerCard: {
         justifyContent: 'center',
-        alignItems: 'center',
-        paddingTop: Dimensions.get('screen').width / 6,
-    },
-    addFirstButton: {
-        backgroundColor: '#08823F',
-        padding: 12,
-        borderRadius: 4,
-        width: 150
-    },
-    addFirstButtonText: {
-        color: '#ffffff',
-        textAlign: 'center'
-    },
-    addButton: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 6,
-        marginHorizontal: 12,
-        marginVertical: 6,
-        padding: 12,
-        borderWidth: 1,
-        borderColor: '#08823F',
-    },
-    containerFarm: {
-        width: '94%',
-        flexDirection: 'row',
-        padding: 12,
-        marginHorizontal: 12,
-        marginVertical: 6,
+        width: '90%',
+        height: '100%',
         backgroundColor: color.primary,
-        borderRadius: 4,
+        borderRadius: 20,
+        margin: 10,
+
     },
-    wrapContent: {
-        flex: 1
+    containerCardFalse: {
+        justifyContent: 'center',
+        width: '45%',
+        height: 160,
+        backgroundColor: '#878787',
+        borderRadius: 20,
+        margin: 10,
+
     },
-    wrapIcon: {
-        justifyContent: 'space-between'
-    },
+
     title: {
         color: color.white,
         fontSize: 20,
@@ -119,8 +128,26 @@ const styles = StyleSheet.create({
     },
     label: {
         color: color.white,
-        marginTop: 4,
-        fontSize: 16
-    }
+        marginTop: 10,
+        fontSize: 20,
+        textAlign: 'left',
+        paddingLeft: '5%'
+    },
+    submitButton: {
+        padding: 12,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 2,
+        width: '100%',
+
+    },
+    labelTemp: {
+        color: '#fff',
+        fontSize: 30,
+        fontWeight: 'bold',
+        textAlign: 'left',
+        marginTop: 30,
+        paddingLeft: '5%'
+    },
 
 })

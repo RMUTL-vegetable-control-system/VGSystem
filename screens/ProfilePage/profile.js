@@ -8,12 +8,12 @@ const windowHeight = Dimensions.get('window').height;
 export default function Profile({ navigation }) {
     return (
         <View style={styles.container}>
-           
-                <ImageBackground
-                    source={require('../../assets/background-profile.jpg')}
-                    style={{ width: '100%', height: 250, margin: 0, }}
-                />
-            
+
+            <ImageBackground
+                source={require('../../assets/background-profile.jpg')}
+                style={{ width: '100%', height: 250, margin: 0, }}
+            />
+
             <View style={{ width: '100%', alignItems: 'center', marginTop: -70 }}>
                 <Image
                     source={require('../../assets/picProfile.jpg')}
@@ -37,7 +37,16 @@ export default function Profile({ navigation }) {
                     />
                 </View>
 
-                <TouchableOpacity onPress={() => navigation.navigate('Login')} style={{ width: '100%', height: 50, alignItems: 'center', justifyContent: 'center', backgroundColor: 'white', flexDirection: 'row' }}>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('Login')}
+                    style={{
+                        width: '100%',
+                        height: 50,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        backgroundColor: 'white',
+                        flexDirection: 'row'
+                    }}>
                     <Image
                         source={require('../../assets/logout.png')}
                         style={{ width: 25, height: 25, margin: 0, }}

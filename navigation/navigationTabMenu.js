@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons,Entypo } from '@expo/vector-icons';
 import Home from '../screens/HomePage/Home';
 import Light from '../screens/LightControlPage/Light';
 import Water from '../screens/WaterControlPage/Water';
@@ -30,7 +30,7 @@ function MyTabs() {
         options={{
           tabBarLabel: 'Home',
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="toggle-switch-off" color={color} size={33} />
+            <MaterialCommunityIcons name="home" color={color} size={33} />
           ),
         }}
       />
@@ -40,7 +40,7 @@ function MyTabs() {
         options={{
           tabBarLabel: 'Light',
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="clock" color={color} size={33} />
+            <Entypo name="light-bulb" color={color} size={33} />
           ),
         }}
       />
@@ -50,7 +50,7 @@ function MyTabs() {
         options={{
           tabBarLabel: 'Water',
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="thermometer-lines" color={color} size={33} />
+            <Entypo name="water" color={color} size={33} />
 
           ),
         }}

@@ -5,14 +5,16 @@ import { useSelector, useDispatch } from "react-redux"
 import * as Action from '../../redux/Action'
 import { bindActionCreators } from 'redux'
 import { getDatabase, ref, onValue } from 'firebase/database';
-
+import { FontAwesome } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Switch } from 'react-native-paper';
 // import * as firebase from 'firebase';
 
 
 
 
 const color = {
-    primary: '#08823F',
+    primary: '#80C5De',
     white: '#ffffff',
     gray: '#C4C4C4',
 }
@@ -51,14 +53,96 @@ function Water({ navigation }) {
         })
     }
 
+
+    const [isSwitchOnServo1, setIsSwitchOnServo1] = useState(false);
+    const onToggleSwitch1 = () => setIsSwitchOnServo1(!isSwitchOnServo1);
+
+    const [isSwitchOnServo2, setIsSwitchOnServo2] = useState(false);
+    const onToggleSwitch2 = () => setIsSwitchOnServo2(!isSwitchOnServo2);
+
+    const [isSwitchOnServo3, setIsSwitchOnServo3] = useState(false);
+    const onToggleSwitch3 = () => setIsSwitchOnServo3(!isSwitchOnServo3);
+
+    const [isSwitchOnServo4, setIsSwitchOnServo4] = useState(false);
+    const onToggleSwitch4 = () => setIsSwitchOnServo4(!isSwitchOnServo4);
+
     return (
+
         <View style={styles.container}>
-            <Text>List Of Display</Text>
-            <Text> ชื่อ:{farmData.deviceName}</Text>
-            <Text>คุมน้ำตัวที่ 1 : {water_1_Data.name}</Text>
-            <Text>คุมน้ำตัวที่ 2 : {water_2_Data.name}</Text>
-            <Text>คุมน้ำตัวที่ 3 : {water_3_Data.name}</Text>
-            <Text>คุมน้ำตัวที่ 4 : {water_4_Data.name}</Text>
+
+
+            <View>
+                <View style={{ flexDirection: 'column', width: '100%', marginBottom: 0, alignItems: 'flex-start', paddingLeft: '5%' }} >
+
+                    <Text style={{ fontSize: 25, textAlign: 'center', fontWeight: 'bold' }} >Light</Text>
+                    <Text style={{ fontSize: 18, textAlign: 'center', }} >Vegetable Control System</Text>
+                    <Text style={{ fontSize: 18, textAlign: 'center', }} >Name:  {farmData.deviceName}</Text>
+                </View>
+                <View style={styles.containerAreaCard}>
+                    <View style={styles.containerCard}>
+                        <View style={{ paddingLeft: '10%' }}>
+                            <MaterialCommunityIcons name="watering-can" size={24} color="white" />
+                        </View>
+                        <View style={{ paddingLeft: '5%' }}>
+                            <Text style={styles.label}>คุมน้ำตัวที่ 1 :  </Text>
+                            <Text style={styles.label}>{water_1_Data.name}</Text>
+                            <Switch value={isSwitchOnServo1} onValueChange={onToggleSwitch1} color={'#008640'} style={{ width: '30%', }} />
+                        </View>
+
+                    </View>
+                    <View style={styles.containerCardFalse}>
+                        <View style={{ paddingLeft: '10%' }}>
+                            <MaterialCommunityIcons name="watering-can" size={24} color="white" />
+                        </View>
+                        <View style={{ paddingLeft: '5%' }}>
+                            <Text style={styles.label}>คุมน้ำตัวที่ 2 :  </Text>
+                            <Text style={styles.label}>{water_2_Data.name}</Text>
+                            <Switch value={isSwitchOnServo2} onValueChange={onToggleSwitch2} color={'#008640'} style={{ width: '30%', }} />
+                        </View>
+
+                    </View>
+                </View>
+                <View style={styles.containerAreaCard}>
+                    <View style={styles.containerCard}>
+                        <View style={{ paddingLeft: '10%' }}>
+                            <MaterialCommunityIcons name="watering-can" size={24} color="white" />
+                        </View>
+                        <View style={{ paddingLeft: '5%' }}>
+                            <Text style={styles.label}>คุมน้ำตัวที่ 3 :  </Text>
+                            <Text style={styles.label}>{water_3_Data.name}</Text>
+                            <Switch value={isSwitchOnServo3} onValueChange={onToggleSwitch3} color={'#008640'} style={{ width: '30%', }} />
+                        </View>
+
+                    </View>
+                    <View style={styles.containerCardFalse}>
+                        <View style={{ paddingLeft: '10%' }}>
+                            <MaterialCommunityIcons name="watering-can" size={24} color="white" />
+                        </View>
+                        <View style={{ paddingLeft: '5%' }}>
+                            <Text style={styles.label}>คุมน้ำตัวที่ 4 :  </Text>
+                            <Text style={styles.label}>{water_4_Data.name}</Text>
+                            <Switch value={isSwitchOnServo4} onValueChange={onToggleSwitch4} color={'#008640'} style={{ width: '30%', }} />
+                        </View>
+
+                    </View>
+                </View>
+            </View>
+
+            <View>
+                <TouchableOpacity color={color.primary} onPress={() => navigation.navigate('SetTimeWater')} style={styles.submitButton}>
+                    <View
+                        style={{
+                            backgroundColor: color.white,
+                            width: '90%',
+                            padding: 5,
+                            borderRadius: 10,
+                        }}>
+                        <Text style={styles.labelButton}>Set Time</Text>
+                    </View>
+
+                </TouchableOpacity>
+            </View>
+
         </View >
     )
 }
@@ -69,52 +153,36 @@ export default Water
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
-        paddingTop: 60,
-        marginBottom: 0
+        backgroundColor: '#f2f2f2',
+        paddingTop: 0,
+        marginBottom: 0,
+        justifyContent: 'space-around'
 
     },
-    emptyContainer: {
+    containerAreaCard: {
+        justifyContent: 'space-around',
+        width: '100%',
+        flexDirection: 'row'
+    },
+    containerCard: {
         justifyContent: 'center',
-        alignItems: 'center',
-        paddingTop: Dimensions.get('screen').width / 6,
-    },
-    addFirstButton: {
-        backgroundColor: '#08823F',
-        padding: 12,
-        borderRadius: 4,
-        width: 150
-    },
-    addFirstButtonText: {
-        color: '#ffffff',
-        textAlign: 'center'
-    },
-    addButton: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 6,
-        marginHorizontal: 12,
-        marginVertical: 6,
-        padding: 12,
-        borderWidth: 1,
-        borderColor: '#08823F',
-    },
-    containerFarm: {
-        width: '94%',
-        flexDirection: 'row',
-        padding: 12,
-        marginHorizontal: 12,
-        marginVertical: 6,
+        width: '45%',
+        height: 160,
         backgroundColor: color.primary,
-        borderRadius: 4,
+        borderRadius: 20,
+        margin: 10,
+
     },
-    wrapContent: {
-        flex: 1
+    containerCardFalse: {
+        justifyContent: 'center',
+        width: '45%',
+        height: 160,
+        backgroundColor: '#878787',
+        borderRadius: 20,
+        margin: 10,
+
     },
-    wrapIcon: {
-        justifyContent: 'space-between'
-    },
+
     title: {
         color: color.white,
         fontSize: 20,
@@ -133,7 +201,25 @@ const styles = StyleSheet.create({
     label: {
         color: color.white,
         marginTop: 4,
-        fontSize: 16
-    }
+        fontSize: 18,
+        textAlign: 'left',
+        paddingLeft: '5%'
+    },
+    submitButton: {
+        padding: 12,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 2,
+        width: '100%',
+
+    },
+    labelButton: {
+        color: '#878787',
+        fontSize: 25,
+        fontWeight: 'bold',
+        textAlign: 'center',
+
+    },
 
 })
+
