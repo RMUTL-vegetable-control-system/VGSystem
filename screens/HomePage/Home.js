@@ -12,7 +12,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 
 const color = {
-    primary: '#A7D676',
+    primary: '#08823F',
     white: '#ffffff',
     gray: '#C4C4C4',
 }
@@ -49,7 +49,7 @@ function Home({ navigation }) {
             <View>
                 <View style={{ flexDirection: 'column', width: '100%', marginBottom: 0, alignItems: 'flex-start', paddingLeft: '5%' }} >
 
-                    <Text style={{ fontSize: 25, textAlign: 'center', fontWeight: 'bold' }} >Light</Text>
+                    <Text style={{ fontSize: 25, textAlign: 'center', fontWeight: 'bold' }} >HOME</Text>
                     <Text style={{ fontSize: 18, textAlign: 'center', }} >Vegetable Control System</Text>
                 </View>
                 <View style={styles.containerAreaCard}>
@@ -90,7 +90,8 @@ const styles = StyleSheet.create({
     containerAreaCard: {
         justifyContent: 'space-around',
         width: '100%',
-        flexDirection: 'row'
+        flexDirection: 'row',
+        paddingTop:20
     },
     containerCard: {
         justifyContent: 'center',
@@ -99,6 +100,7 @@ const styles = StyleSheet.create({
         backgroundColor: color.primary,
         borderRadius: 20,
         margin: 10,
+       
 
     },
     containerCardFalse: {

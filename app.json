@@ -19,9 +19,6 @@
    
     "web": {
       "favicon": "./assets/LogoApp.png"
-    },
-    "expo": {
-      "userInterfaceStyle": "automatic"
     }
   }
 }

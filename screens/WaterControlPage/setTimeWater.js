@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, Button } from 'react-native'
-import DateTimePickerModal from "react-native-modal-datetime-picker";
+import { View, Text, StyleSheet, Button, Input,TouchableOpacity } from 'react-native'
+import { TextInput, } from 'react-native-paper';
 
 const color = {
   primary: '#80C5De',
@@ -10,35 +10,55 @@ const color = {
 
 export default function SetTimeWater() {
 
-  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-  const [time, setTime] = useState('');
 
-  const showDatePicker = () => {
-    setDatePickerVisibility(true);
-  };
-
-  const hideDatePicker = () => {
-    setDatePickerVisibility(false);
-  };
-
-  const handleConfirm = (time) => {
-    setTime(time);
-    hideDatePicker();
-  };
 
 
   return (
     <View style={styles.container}>
-      <View >
-        <Text style={styles.label}>{time}</Text>
-        <Button title="Show Date Picker" onPress={showDatePicker} />
-        <DateTimePickerModal
-          isVisible={isDatePickerVisible}
-          mode="time"
-          onConfirm={handleConfirm}
-          onCancel={hideDatePicker}
+      <Text style={{ marginTop: 20, fontSize: 30, fontWeight: 'bold', textAlign: 'center' }}>เวลา</Text>
+      <View style={styles.containerAreaCard}>
+        <TextInput
+          style={{ height: 60, width: 60, marginTop: 10, textAlign: 'center' }}
+          selectionColor="#08823F"
+          activeUnderlineColor='#08823F'
+          maxLength={2}
+          keyboardType='number-pad'
+
+        />
+        <Text style={{ marginTop: 20, fontSize: 30, fontWeight: 'bold' }}> : </Text>
+        <TextInput
+          style={{ height: 60, width: 60, marginTop: 10, textAlign: 'center' }}
+          selectionColor="#08823F"
+          activeUnderlineColor='#08823F'
+          maxLength={2}
+          keyboardType='number-pad'
         />
       </View>
+      <Text style={{ marginTop: 20, fontSize: 30, fontWeight: 'bold', textAlign: 'center' }}>จำนวนเวลา/นาที</Text>
+      <View style={styles.containerAreaCard}>
+        <TextInput
+          style={{ height: 60, width: 120, marginTop: 10, textAlign: 'center' }}
+          selectionColor="#08823F"
+          activeUnderlineColor='#08823F'
+          maxLength={4}
+          keyboardType='number-pad'
+
+        />
+      </View>
+      <View style={{marginTop:50}}>
+                <TouchableOpacity color={color.primary} onPress={() => navigation.navigate('SetTimeWater')} style={styles.submitButton}>
+                    <View
+                        style={{
+                            backgroundColor: '#5cb85c',
+                            width: '90%',
+                            padding: 5,
+                            borderRadius: 10,
+                        }}>
+                        <Text style={styles.labelButton}>Confirm</Text>
+                    </View>
+
+                </TouchableOpacity>
+            </View>
     </View>
   )
 }
@@ -48,13 +68,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f2f2f2',
-    paddingTop: 0,
+    paddingTop: 80,
     marginBottom: 0,
-    justifyContent: 'space-around'
+
 
   },
   containerAreaCard: {
-    justifyContent: 'space-around',
+    justifyContent: 'center',
     width: '100%',
     flexDirection: 'row'
   },
@@ -108,7 +128,7 @@ const styles = StyleSheet.create({
 
   },
   labelButton: {
-    color: '#878787',
+    color: '#ffffff',
     fontSize: 25,
     fontWeight: 'bold',
     textAlign: 'center',
