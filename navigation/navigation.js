@@ -7,6 +7,7 @@ import Navigator from './navigationTabMenu';
 import AddFarmForm from '../screens/addFarmForm';
 import SetTimeLight from '../screens/LightControlPage/setTimeLight';
 import SetTimeWater from '../screens/WaterControlPage/setTimeWater';
+import ListWater from '../screens/WaterControlPage/ListWater';
 
 
 
@@ -28,6 +29,7 @@ export default NavigationMain = () => {
 
                 <Stack.Screen name="SetTimeLight" component={SetTimeLight } options={{ headerShown: true }} />
                 <Stack.Screen name="SetTimeWater" component={SetTimeWater } options={{ headerShown: true }} />
+                <Stack.Screen name="ListWater" component={ListWater } options={{ headerShown: true }} />
             </Stack.Navigator>
         </NavigationContainer>
     );

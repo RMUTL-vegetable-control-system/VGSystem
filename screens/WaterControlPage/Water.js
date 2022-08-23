@@ -129,7 +129,7 @@ function Water({ navigation }) {
             </View>
 
             <View>
-                <TouchableOpacity color={color.primary} onPress={() => navigation.navigate('SetTimeWater')} style={styles.submitButton}>
+                <TouchableOpacity color={color.primary} onPress={() => navigation.navigate('ListWater')} style={styles.submitButton}>
                     <View
                         style={{
                             backgroundColor: color.white,
