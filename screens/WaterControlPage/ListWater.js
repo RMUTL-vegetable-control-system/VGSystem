@@ -21,6 +21,9 @@ export default function ListWater({ navigation }) {
     const [startHour, setStartHour] = useState([]);
     const [startMinute, setStartMinute] = useState([]);
     const [duration, setDuration] = useState([]);
+    console.log(listTime)
+    console.log(listTime1)
+
 
 
     useEffect(() => {
@@ -33,7 +36,7 @@ export default function ListWater({ navigation }) {
         const reference = ref(db, 'user/' + userId);
         onValue(reference, (snapshot) => {
 
-            setListtime(snapshot.val().farm.servo.timer); //set อันหลัก
+
             setServoID(snapshot.val().farm.servo.timer.servoID); // set เลขของ servo
             setStartHour(snapshot.val().farm.servo.timer.startHour); // set เวลาที่เริ่มทำงาน ชั่วโฒง
             setStartMinute(snapshot.val().farm.servo.timer.startMinute); // set เวลาที่เริ่มทำงาน นาที
@@ -50,7 +53,8 @@ export default function ListWater({ navigation }) {
 
             function display(servoID, startHour, startMinute, duration) {
                 for (let i = 0; i < servoID.length; i++) {
-                    console.log('waterตัวที่ ' + servoID[i] + 'ทำงานเมื่อ' + startHour[i] + ':' + startMinute[i] + '   เป็นระยะเวลา : ' + duration[i]);
+                    // setListtime('waterตัวที่ ' + servoID[i] + 'ทำงานเมื่อ' + startHour[i] + ':' + startMinute[i] + '   เป็นระยะเวลา : ' + duration[i]);
+                    setListtime([{ id: servoID[i], name: servoID[i], time: startHour[i], timeAmount: duration[i] }])
                 }
             }
             display(servoID, startHour, startMinute, duration);
@@ -60,20 +64,20 @@ export default function ListWater({ navigation }) {
     }
 
 
-    const Item = ({ time, name }) => (
+    const Item = ({ id, name }) => (
         <View style={styles.item}>
             <Text style={styles.title}>{name}</Text>
-            <Text style={styles.title}>{time} น.</Text>
+            <Text style={styles.title}>{id} น.</Text>
         </View>
     );
     const renderItem = ({ item }) => (
-        <Item time={item.time} name={item.name} />
+        <Item time={item.id} name={item.name} />
     );
 
     return (
         <SafeAreaView style={styles.container}>
             <FlatList
-                data={listTime1}
+                data={listTime}
                 renderItem={renderItem}
                 keyExtractor={item => item.id}
             />
