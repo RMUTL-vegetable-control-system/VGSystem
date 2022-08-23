@@ -1,6 +1,7 @@
 import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { getDatabase, ref, onValue } from 'firebase/database';
 
 const color = {
     primary: '#80C5De',
@@ -8,12 +9,56 @@ const color = {
     gray: '#C4C4C4',
 }
 export default function ListWater({ navigation }) {
-    const listTime = [
+
+    const listTime1 = [
         { id: 1, name: 'water1', time: '12.20', timeAmount: '20' },
         { id: 2, name: 'water2', time: '22.00', timeAmount: '120' },
         { id: 3, name: 'water3', time: '07.30', timeAmount: '30' }
-
     ];
+
+    const [listTime, setListtime] = useState([]);
+    const [servoID, setServoID] = useState([]);
+    const [startHour, setStartHour] = useState([]);
+    const [startMinute, setStartMinute] = useState([]);
+    const [duration, setDuration] = useState([]);
+
+
+    useEffect(() => {
+        fetchData();
+    }, [])
+
+    function fetchData() {
+        const db = getDatabase();
+        let userId = 'user1'; // Edit To User ID 
+        const reference = ref(db, 'user/' + userId);
+        onValue(reference, (snapshot) => {
+
+            setListtime(snapshot.val().farm.servo.timer); //set อันหลัก
+            setServoID(snapshot.val().farm.servo.timer.servoID); // set เลขของ servo
+            setStartHour(snapshot.val().farm.servo.timer.startHour); // set เวลาที่เริ่มทำงาน ชั่วโฒง
+            setStartMinute(snapshot.val().farm.servo.timer.startMinute); // set เวลาที่เริ่มทำงาน นาที
+            setDuration(snapshot.val().farm.servo.timer.duration); // set ระยะเวลาที่ทำงาน
+
+            console.log(snapshot.val().farm.servo.timer.servoID)
+            console.log(snapshot.val().farm.servo.timer.startHour)
+            console.log(snapshot.val().farm.servo.timer.startMinute)
+            console.log(snapshot.val().farm.servo.timer.duration)
+            // ID , startHour , startMinute , duration
+            //ทุกๆอันจะมี array ซ่อนอยู่ 
+            //ใช้เลข index ในการดูว่าอันไหนตรงกัน
+            //array[]
+
+            function display(servoID, startHour, startMinute, duration) {
+                for (let i = 0; i < servoID.length; i++) {
+                    console.log('waterตัวที่ ' + servoID[i] + 'ทำงานเมื่อ' + startHour[i] + ':' + startMinute[i] + '   เป็นระยะเวลา : ' + duration[i]);
+                }
+            }
+            display(servoID, startHour, startMinute, duration);
+
+
+        })
+    }
+
 
     const Item = ({ time, name }) => (
         <View style={styles.item}>
@@ -28,7 +73,7 @@ export default function ListWater({ navigation }) {
     return (
         <SafeAreaView style={styles.container}>
             <FlatList
-                data={listTime}
+                data={listTime1}
                 renderItem={renderItem}
                 keyExtractor={item => item.id}
             />
@@ -76,7 +121,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         flexDirection: 'row',
         alignItems: 'center',
-        borderRadius:20
+        borderRadius: 20
     },
     title: {
         fontSize: 24,
