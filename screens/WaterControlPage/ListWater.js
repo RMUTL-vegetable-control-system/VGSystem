@@ -1,13 +1,17 @@
-import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, TouchableOpacity } from 'react-native'
+import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, TouchableOpacity, Dimensions } from 'react-native'
 import React from 'react'
 import { useState, useEffect } from 'react';
 import { getDatabase, ref, onValue } from 'firebase/database';
+import { Entypo } from '@expo/vector-icons';
 
 const color = {
     primary: '#80C5De',
     white: '#ffffff',
     gray: '#C4C4C4',
 }
+
+const windowWidth = Dimensions.get('window').width;
+
 export default function ListWater({ navigation }) {
 
     const listTime1 = [
@@ -58,17 +62,33 @@ export default function ListWater({ navigation }) {
     }
     setFormatListTime(servoID, startHour, startMinute, duration);
 
+
     const Item = ({ id, name, time, duration }) => (
         <View style={styles.item}>
-            <Text style={styles.title}>{name}</Text>
-            <Text>เวลาเริ่มทำงาน : {time} น.</Text>
-            <Text>ระยะเวลาทำงาน : {duration}</Text>
+
+            <View style={styles.itemInViewOne}>
+                <Entypo name="back-in-time" size={45} color={color.primary} />
+
+            </View>
+            <View style={styles.itemInViewTwo}>
+                <Text style={styles.title}>ID: {id}</Text>
+                <Text style={styles.detail}>servoID: {name}</Text>
+            </View>
+            <View style={styles.itemInViewThree}>
+                <Text style={styles.detail}>เวลาที่เริ่ม</Text>
+                <Text style={styles.title}>{time} น.</Text>
+
+            </View>
+            <View style={styles.itemInViewThree}>
+
+                <Text style={styles.detail}>ระยะเวลาทำงาน</Text>
+                <Text style={styles.title}> {duration} นาที</Text>
+            </View>
         </View>
     );
     const renderItem = ({ item }) => (
         <Item id={item.id} name={item.name} time={item.time} duration={item.duration} />
     );
-
     return (
         <SafeAreaView style={styles.container}>
             <FlatList
@@ -76,7 +96,7 @@ export default function ListWater({ navigation }) {
                 renderItem={renderItem}
                 keyExtractor={item => item.id}
             />
-            <View>
+            <View >
                 <TouchableOpacity color={color.primary} onPress={() => navigation.navigate('SetTimeWater')} style={styles.submitButton}>
                     <View
                         style={{
@@ -85,7 +105,10 @@ export default function ListWater({ navigation }) {
                             padding: 5,
                             borderRadius: 10,
                             marginBottom: 20,
+                            marginTop: 10,
                             alignContent: 'center',
+                           
+
                         }}>
                         <Text style={styles.labelButton}>Add Set Time</Text>
                     </View>
@@ -97,12 +120,15 @@ export default function ListWater({ navigation }) {
     );
 }
 
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginTop: StatusBar.currentHeight || 0,
+        marginTop: StatusBar.currentHeight || 10,
         justifyContent: 'center',
         alignItems: 'center',
+        width: '100%'
+
     },
     labelButton: {
         color: '#878787',
@@ -112,17 +138,49 @@ const styles = StyleSheet.create({
 
     },
     item: {
-        width: 350,
-        backgroundColor: color.primary,
-        padding: 20,
-        marginVertical: 8,
-        marginHorizontal: 16,
-        justifyContent: 'space-between',
+        width: windowWidth * 0.95,
+        backgroundColor: color.white,
+        padding: 10,
+        justifyContent: 'space-around',
         flexDirection: 'row',
         alignItems: 'center',
-        borderRadius: 20
+        borderRadius: 10,
+        flexDirection: 'row',
+        marginVertical: 3,
+
+    },
+    itemInViewOne: {
+        width: '20%',
+        justifyContent: 'space-around',
+        flexDirection: 'row',
+        alignItems: 'flex-start',
+        borderRadius: 20,
+        flexDirection: 'column',
+
+    },
+    itemInViewTwo: {
+        width: '25%',
+        justifyContent: 'space-around',
+        flexDirection: 'row',
+        alignItems: 'flex-start',
+        borderRadius: 20,
+        flexDirection: 'column'
+    },
+    itemInViewThree: {
+        width: '35%',
+        justifyContent: 'space-around',
+        flexDirection: 'row',
+        alignItems: 'flex-start',
+        borderRadius: 20,
+        flexDirection: 'column',
+        paddingLeft: 20
     },
     title: {
-        fontSize: 24,
+        fontSize: 16,
+        fontWeight: 'bold'
+    },
+    detail: {
+        fontSize: 16,
+        fontWeight: 'normal'
     },
 });
