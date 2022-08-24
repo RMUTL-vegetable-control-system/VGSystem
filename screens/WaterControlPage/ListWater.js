@@ -33,15 +33,19 @@ export default function ListWater({ navigation }) {
             // setListtime('waterตัวที่ ' + servoID[i] + 'ทำงานเมื่อ' + startHour[i] + ':' + startMinute[i] + '   เป็นระยะเวลา : ' + duration[i]);
             listTime.push({ id: servoID[i], name: 'Waterตัวที่ ' + servoID[i], time: (startHour[i] + ':' + startMinute[i]), duration: duration[i] })
             // console.log(listTime)
+            console.log('Setting Data row : ' + i);
         }
+        console.log('Set Data Done.');
     }
 
     useEffect(() => {
+        console.log('Fetching Data...');
         fetchData();
+        console.log('Fetch Data Done')
 
     }, [])
 
-    function fetchData() {
+    async function fetchData() {
         const db = getDatabase();
         let userId = 'user1'; // Edit To User ID 
         const reference = ref(db, 'user/' + userId);
@@ -107,7 +111,7 @@ export default function ListWater({ navigation }) {
                             marginBottom: 20,
                             marginTop: 10,
                             alignContent: 'center',
-                           
+
 
                         }}>
                         <Text style={styles.labelButton}>Add Set Time</Text>
