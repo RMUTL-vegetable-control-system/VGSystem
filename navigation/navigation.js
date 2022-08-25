@@ -6,8 +6,10 @@ import SingUpPage from '../screens/Login/SingUpPage';
 import Navigator from './navigationTabMenu';
 import AddFarmForm from '../screens/addFarmForm';
 import SetTimeLight from '../screens/LightControlPage/setTimeLight';
+import ListLight from '../screens/LightControlPage/ListLight';
 import SetTimeWater from '../screens/WaterControlPage/setTimeWater';
 import ListWater from '../screens/WaterControlPage/ListWater';
+
 
 
 
@@ -28,6 +30,7 @@ export default NavigationMain = () => {
                 <Stack.Screen name="Menu" component={Navigator} options={{ headerShown: false }} />
 
                 <Stack.Screen name="SetTimeLight" component={SetTimeLight } options={{ headerShown: true }} />
+                <Stack.Screen name="ListLight" component={ListLight } options={{ headerShown: true }} />
                 <Stack.Screen name="SetTimeWater" component={SetTimeWater } options={{ headerShown: true }} />
                 <Stack.Screen name="ListWater" component={ListWater } options={{ headerShown: true }} />
             </Stack.Navigator>

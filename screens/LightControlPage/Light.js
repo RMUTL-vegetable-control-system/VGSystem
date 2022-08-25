@@ -13,7 +13,7 @@ import { Switch } from 'react-native-paper';
 
 
 const color = {
-    primary: '#A7D676',
+    primary: '#f2c97a',
     white: '#ffffff',
     gray: '#C4C4C4',
 }
@@ -133,7 +133,7 @@ function Light({ navigation }) {
             </View>
 
             <View>
-                <TouchableOpacity color={color.primary} onPress={() => navigation.navigate('SetTimeLight')} style={styles.submitButton}>
+                <TouchableOpacity color={color.primary} onPress={() => navigation.navigate('ListLight')} style={styles.submitButton}>
                     <View
                         style={{
                             backgroundColor: color.white,

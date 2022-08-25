@@ -5,14 +5,14 @@ import { getDatabase, ref, onValue } from 'firebase/database';
 import { Ionicons } from '@expo/vector-icons';
 
 const color = {
-    primary: '#09C3DB',
+    primary: '#f2c97a',
     white: '#ffffff',
     gray: '#C4C4C4',
 }
 
 const windowWidth = Dimensions.get('window').width;
 
-export default function ListWater({ navigation }) {
+export default function ListLight({ navigation }) {
 
 
     const [listTime, setListTime] = useState([]);

@@ -14,7 +14,7 @@ import { Switch } from 'react-native-paper';
 
 
 const color = {
-    primary: '#80C5De',
+    primary: '#3DC4F1',
     white: '#ffffff',
     gray: '#C4C4C4',
 }
