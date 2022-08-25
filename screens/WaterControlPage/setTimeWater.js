@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { View, Text, StyleSheet, Button, Input, TouchableOpacity, } from 'react-native'
 import { TextInput, } from 'react-native-paper';
 import { TimePicker, } from 'react-native-simple-time-picker';
+import SelectDropdown from 'react-native-select-dropdown'
 
 const color = {
   primary: '#80C5De',
@@ -12,6 +13,7 @@ const color = {
 
 
 export default function SetTimeWater() {
+  const countries = ["Servo1", "Servo2", "Servo3", "Servo4"]
 
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
@@ -23,6 +25,33 @@ export default function SetTimeWater() {
   return (
 
     <View style={styles.container}>
+      <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center' }}>เลือกเครื่องServoให้น้ำ</Text>
+      <View style={styles.containerServo}>
+        <SelectDropdown
+          data={countries}
+          onSelect={(selectedItem, index) => {
+            console.log(selectedItem, index)
+          }}
+          buttonStyle={{
+            backgroundColor: 'white',
+            width: '100%'
+          }}
+          dropdownStyle={{
+            backgroundColor: 'white',
+            width: '95%',
+            fontSize: 18,
+            fontWeight: 'bold'
+          }}
+          defaultButtonText={'เลือกServo'}
+          buttonTextAfterSelection={(selectedItem, index) => {
+            return selectedItem
+          }}
+          rowTextForSelection={(item, index) => {
+            return item
+          }}
+        />
+      </View>
+
       <Text style={{ fontSize: 30, fontWeight: 'bold', textAlign: 'center' }}>เวลาที่เริ่ม</Text>
       <Text style={{ marginBottom: Platform.OS === 'ios' ? 50 : 40, fontSize: 30, fontWeight: 'bold', textAlign: 'center' }}>{hours}:{minutes}น.</Text>
 
@@ -32,7 +61,7 @@ export default function SetTimeWater() {
           onChange={handleChange}
           textColor={'#000000'}
           width={'50%'}
-      
+
 
         />
       </View>
@@ -46,7 +75,7 @@ export default function SetTimeWater() {
           maxLength={4}
           keyboardType='number-pad'
           returnKeyType='done'
-         
+
 
         />
       </View>
@@ -76,10 +105,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#f2f2f2',
     paddingTop: 30,
     marginBottom: 0,
-
-
-
   },
+  containerServo: {
+    justifyContent: 'center',
+    margin: 10,
+    shadowColor: "#000000",
+    shadowOpacity: 0.2,
+    shadowRadius: 1,
+    shadowOffset: {
+      height: 0.5,
+      width: 0.4
+    }
+  },
+
   containerAreaCard: {
     justifyContent: 'center',
     width: '100%',
