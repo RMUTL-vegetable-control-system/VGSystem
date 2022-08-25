@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, Button, Input,TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, Button, Input, TouchableOpacity, } from 'react-native'
 import { TextInput, } from 'react-native-paper';
+import { TimePicker, } from 'react-native-simple-time-picker';
 
 const color = {
   primary: '#80C5De',
@@ -8,58 +9,63 @@ const color = {
   gray: '#C4C4C4',
 }
 
+
+
 export default function SetTimeWater() {
 
-
-
+  const [hours, setHours] = useState(0);
+  const [minutes, setMinutes] = useState(0);
+  const handleChange = (value = { hours, minutes }) => {
+    setHours(value.hours);
+    setMinutes(value.minutes);
+  };
 
   return (
-    <View style={styles.container}>
-      <Text style={{ marginTop: 20, fontSize: 30, fontWeight: 'bold', textAlign: 'center' }}>เวลา</Text>
-      <View style={styles.containerAreaCard}>
-        <TextInput
-          style={{ height: 60, width: 60, marginTop: 10, textAlign: 'center' }}
-          selectionColor="#08823F"
-          activeUnderlineColor='#08823F'
-          maxLength={2}
-          keyboardType='number-pad'
 
-        />
-        <Text style={{ marginTop: 20, fontSize: 30, fontWeight: 'bold' }}> : </Text>
-        <TextInput
-          style={{ height: 60, width: 60, marginTop: 10, textAlign: 'center' }}
-          selectionColor="#08823F"
-          activeUnderlineColor='#08823F'
-          maxLength={2}
-          keyboardType='number-pad'
+    <View style={styles.container}>
+      <Text style={{ fontSize: 30, fontWeight: 'bold', textAlign: 'center' }}>เวลาที่เริ่ม</Text>
+      <Text style={{ marginBottom: Platform.OS === 'ios' ? 50 : 40, fontSize: 30, fontWeight: 'bold', textAlign: 'center' }}>{hours}:{minutes}น.</Text>
+
+      <View style={styles.containerCardTimePicker} >
+        <TimePicker
+          value={{ hours, minutes }}
+          onChange={handleChange}
+          textColor={'#000000'}
+          width={'50%'}
+      
+
         />
       </View>
       <Text style={{ marginTop: 20, fontSize: 30, fontWeight: 'bold', textAlign: 'center' }}>จำนวนเวลา/นาที</Text>
+
       <View style={styles.containerAreaCard}>
         <TextInput
-          style={{ height: 60, width: 120, marginTop: 10, textAlign: 'center' }}
+          style={{ height: 60, width: '50%', marginTop: 0, textAlign: 'center', fontSize: 20, fontWeight: 'bold' }}
           selectionColor="#08823F"
           activeUnderlineColor='#08823F'
           maxLength={4}
           keyboardType='number-pad'
+          returnKeyType='done'
+         
 
         />
       </View>
-      <View style={{marginTop:50}}>
-                <TouchableOpacity color={color.primary} onPress={() => navigation.navigate('SetTimeWater')} style={styles.submitButton}>
-                    <View
-                        style={{
-                            backgroundColor: '#5cb85c',
-                            width: '90%',
-                            padding: 5,
-                            borderRadius: 10,
-                        }}>
-                        <Text style={styles.labelButton}>Confirm</Text>
-                    </View>
+      <View style={{ marginTop: 50 }}>
+        <TouchableOpacity color={color.primary} onPress={() => navigation.navigate('SetTimeWater')} style={styles.submitButton}>
+          <View
+            style={{
+              backgroundColor: '#5cb85c',
+              width: '90%',
+              padding: 5,
+              borderRadius: 10,
+            }}>
+            <Text style={styles.labelButton}>Confirm</Text>
+          </View>
 
-                </TouchableOpacity>
-            </View>
+        </TouchableOpacity>
+      </View>
     </View>
+
   )
 }
 
@@ -68,32 +74,27 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f2f2f2',
-    paddingTop: 80,
+    paddingTop: 30,
     marginBottom: 0,
+
 
 
   },
   containerAreaCard: {
     justifyContent: 'center',
     width: '100%',
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
-  containerCard: {
-    justifyContent: 'center',
-    width: '100%',
-    height: 60,
-    backgroundColor: '#878787',
-    borderRadius: 10,
-    margin: 10,
 
-  },
-  containerCardFalse: {
+  containerCardTimePicker: {
     justifyContent: 'center',
-    width: '45%',
-    height: 160,
-    backgroundColor: '#878787',
-    borderRadius: 20,
-    margin: 10,
+    alignContent: 'center',
+    width: '100%',
+    height: Platform.OS === 'ios' ? 120 : 60,
+    backgroundColor: '#fff',
+    borderRadius: 0,
+    marginBottom: 30,
+
 
   },
 

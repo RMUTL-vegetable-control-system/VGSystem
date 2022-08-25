@@ -93,7 +93,7 @@ export default function ListLight({ navigation }) {
                 keyExtractor={item => item.id}
             />
             <View >
-                <TouchableOpacity color={color.primary} onPress={() => navigation.navigate('SetTimeWater')} style={styles.submitButton}>
+                <TouchableOpacity color={color.primary} onPress={() => navigation.navigate('SetTimeLight')} style={styles.submitButton}>
                     <View
                         style={{
                             backgroundColor: color.white,
