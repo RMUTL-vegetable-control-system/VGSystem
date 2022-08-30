@@ -14,13 +14,16 @@ export default function SetTimeFertilizer({ navigation }) {
   const [selectedDate, setSelectedDate] = useState('');
 
   //ตัวแปล dataDate คือวันที่ที่จะเอาไปใส่ในฐานข้อมูล
-  const dataDate = selectedDate.split(" ", 1);
+  
+  
 
 
   //ตัวแปล dataTime คือเวลาที่จะเอาไปใส่ในฐานข้อมูล
   const myArray = selectedDate.split(" ");
+  const dataDate = myArray[0];
   const dataTime = myArray[1];
-
+  console.log(dataDate)
+  console.log(dataTime)
 
 
   const saveDate = () => {
@@ -31,7 +34,7 @@ export default function SetTimeFertilizer({ navigation }) {
 
     <View style={styles.container}>
 
-      <Text style={{ fontSize: 30, fontWeight: 'bold', textAlign: 'center', marginBottom: 20 }}>เลือกวันที่</Text>
+      <Text style={{ fontSize: 30, fontWeight: 'bold', textAlign: 'center', marginBottom: 20 }}>{dataDate}:{dataTime}</Text>
 
       <View style={styles.containerCardTimePicker} >
         <DatePicker
