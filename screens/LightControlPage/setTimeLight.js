@@ -12,7 +12,7 @@ const color = {
 
 
 
-export default function SetTimeLight() {
+export default function SetTimeLight({navigation}) {
   const countries = ["Servo1", "Servo2", "Servo3", "Servo4"]
 
   const [hours, setHours] = useState(0);
@@ -20,6 +20,10 @@ export default function SetTimeLight() {
   const handleChange = (value = { hours, minutes }) => {
     setHours(value.hours);
     setMinutes(value.minutes);
+  };
+
+  const saveTimeLight = () => {
+    navigation.navigate('Menu')
   };
 
   return (
@@ -80,7 +84,7 @@ export default function SetTimeLight() {
         />
       </View>
       <View style={{ marginTop: 50 }}>
-        <TouchableOpacity color={color.primary} onPress={() => navigation.navigate('SetTimeLight')} style={styles.submitButton}>
+        <TouchableOpacity color={color.primary} onPress={() =>saveTimeLight()} style={styles.submitButton}>
           <View
             style={{
               backgroundColor: '#5cb85c',

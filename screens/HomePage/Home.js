@@ -46,28 +46,69 @@ function Home({ navigation }) {
         <View style={styles.container}>
 
 
-            <View>
-                <View style={{ flexDirection: 'column', width: '100%', marginBottom: 0, alignItems: 'flex-start', paddingLeft: '5%' }} >
 
-                    <Text style={{ fontSize: 25, textAlign: 'center', fontWeight: 'bold' }} >HOME</Text>
-                    <Text style={{ fontSize: 18, textAlign: 'center', }} >Vegetable Control System</Text>
+            <View style={{ flexDirection: 'column', width: '100%', marginBottom: 0, alignItems: 'flex-start', paddingLeft: '5%' }} >
+
+                <Text style={{ fontSize: 25, textAlign: 'center', fontWeight: 'bold' }} >HOME</Text>
+                <Text style={{ fontSize: 18, textAlign: 'center', }} >Vegetable Control System</Text>
+            </View>
+            <View style={styles.containerAreaCard}>
+                <View style={styles.containerCard}>
+                    <View style={{ paddingLeft: '10%', }}>
+                        <MaterialCommunityIcons name="coolant-temperature" size={44} color="white" />
+                    </View>
+                    <View style={{ paddingLeft: '5%' }}>
+                        <Text style={styles.label}>List Of Display</Text>
+                        <Text style={styles.label}>Name  :  {farmData.deviceName}</Text>
+                        <Text style={styles.labelTemp}>Temp   :   {humidity.name}</Text>
+                    </View>
+
                 </View>
-                <View style={styles.containerAreaCard}>
-                    <View style={styles.containerCard}>
-                        <View style={{ paddingLeft: '10%', }}>
-                            <MaterialCommunityIcons name="coolant-temperature" size={54} color="white" />
-                        </View>
-                        <View style={{ paddingLeft: '5%' }}>
-                            <Text style={styles.label}>List Of Display</Text>
-                            <Text style={styles.label}>Name  :  {farmData.deviceName}</Text>
-                            <Text style={styles.labelTemp}>Temp   :   {humidity.name}</Text>
 
-                        </View>
+            </View>
+
+            <View style={styles.containerCardButton}>
+                <TouchableOpacity color={color.primary} onPress={() => navigation.navigate('ListWater')} style={styles.submitButton}>
+                    <View
+                        style={{
+                            backgroundColor: '#2EACD2',
+                            width: 150,
+                            padding: 5,
+                            borderRadius: 10,
+                        }}>
+                        <Text style={styles.labelButton}>Edit</Text>
+                    </View>
+
+                </TouchableOpacity>
+                <TouchableOpacity color={color.primary} onPress={() => navigation.navigate('ListFertilizer')} style={styles.submitButton}>
+                    <View
+                        style={{
+                            backgroundColor: '#eea944',
+                            width: 150,
+                            padding: 5,
+                            borderRadius: 10,
+                        }}>
+                        <Text style={styles.labelButton}>Fertilizer</Text>
+                    </View>
+
+                </TouchableOpacity>
+            </View>
+
+            <View style={styles.containerAreaCard}>
+                <View style={styles.containerCard}>
+
+                    <View style={{ paddingLeft: '5%' }}>
+                        <Text style={styles.labelTemp}>Detail Farm</Text>
+                        <Text style={styles.labelTemp}>Temp   :   {humidity.name}</Text>
+                        <Text style={styles.label}>List Of Display</Text>
+                        <Text style={styles.label}>Name  :  {farmData.deviceName}</Text>
 
                     </View>
 
                 </View>
+
             </View>
+
 
 
         </View >
@@ -82,27 +123,33 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#f2f2f2',
-        paddingTop: 0,
+        paddingTop: Platform.OS === 'ios' ? 50 : 10,
         marginBottom: 0,
-        justifyContent: 'space-around'
+        // justifyContent: 'space-around'
 
     },
     containerAreaCard: {
         justifyContent: 'space-around',
         width: '100%',
         flexDirection: 'row',
-        paddingTop:20
+        paddingTop: 20
     },
     containerCard: {
         justifyContent: 'center',
         width: '90%',
-        height: '100%',
+        height: 180,
         backgroundColor: color.primary,
         borderRadius: 20,
         margin: 10,
-       
-
     },
+    containerCardButton: {
+        width: '100%',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        flexDirection: 'row',
+        marginTop: 20
+    },
+
     containerCardFalse: {
         justifyContent: 'center',
         width: '45%',
@@ -115,12 +162,12 @@ const styles = StyleSheet.create({
 
     title: {
         color: color.white,
-        fontSize: 20,
+        fontSize: 18,
         fontWeight: 'bold'
     },
     titleHeader: {
         color: '#000000',
-        fontSize: 25,
+        fontSize: 20,
         fontWeight: 'bold',
         textAlign: 'center',
         width: '100%',
@@ -131,24 +178,23 @@ const styles = StyleSheet.create({
     label: {
         color: color.white,
         marginTop: 10,
-        fontSize: 20,
+        fontSize: 18,
         textAlign: 'left',
         paddingLeft: '5%'
     },
-    submitButton: {
-        padding: 12,
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: 2,
-        width: '100%',
+    labelButton: {
+        color: '#fff',
+        fontSize: 25,
+        fontWeight: 'bold',
+        textAlign: 'center',
 
     },
     labelTemp: {
         color: '#fff',
-        fontSize: 30,
+        fontSize: 25,
         fontWeight: 'bold',
         textAlign: 'left',
-        marginTop: 30,
+        marginTop: 0,
         paddingLeft: '5%'
     },
 

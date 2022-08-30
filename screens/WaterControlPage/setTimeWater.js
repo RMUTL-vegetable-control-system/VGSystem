@@ -12,7 +12,7 @@ const color = {
 
 
 
-export default function SetTimeWater() {
+export default function SetTimeWater({ navigation }) {
   const countries = ["Servo1", "Servo2", "Servo3", "Servo4"]
 
   const [hours, setHours] = useState(0);
@@ -20,6 +20,10 @@ export default function SetTimeWater() {
   const handleChange = (value = { hours, minutes }) => {
     setHours(value.hours);
     setMinutes(value.minutes);
+  };
+
+  const saveTimeWater = () => {
+    navigation.navigate('Menu')
   };
 
   return (
@@ -80,7 +84,7 @@ export default function SetTimeWater() {
         />
       </View>
       <View style={{ marginTop: 50 }}>
-        <TouchableOpacity color={color.primary} onPress={() => navigation.navigate('SetTimeWater')} style={styles.submitButton}>
+        <TouchableOpacity color={color.primary} onPress={() => saveTimeWater()} style={styles.submitButton}>
           <View
             style={{
               backgroundColor: '#5cb85c',

@@ -9,6 +9,8 @@ import SetTimeLight from '../screens/LightControlPage/setTimeLight';
 import ListLight from '../screens/LightControlPage/ListLight';
 import SetTimeWater from '../screens/WaterControlPage/setTimeWater';
 import ListWater from '../screens/WaterControlPage/ListWater';
+import SetTimeFertilizer from '../screens/HomePage/setTimeFertilizer';
+import ListFertilizer from '../screens/HomePage/ListFertilizer';
 
 
 
@@ -28,6 +30,9 @@ export default NavigationMain = () => {
                 {/* After Login pass */}
                 <Stack.Screen name="Add" component={AddFarmForm} options={{ headerShown: true }} />
                 <Stack.Screen name="Menu" component={Navigator} options={{ headerShown: false }} />
+
+                <Stack.Screen name="ListFertilizer" component={ListFertilizer } options={{ headerShown: true }} />
+                <Stack.Screen name="SetTimeFertilizer" component={SetTimeFertilizer } options={{ headerShown: true }} />
 
                 <Stack.Screen name="SetTimeLight" component={SetTimeLight } options={{ headerShown: true }} />
                 <Stack.Screen name="ListLight" component={ListLight } options={{ headerShown: true }} />
