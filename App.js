@@ -5,7 +5,8 @@ import 'react-native-gesture-handler';
 import { store } from './redux/store'
 import { Provider } from 'react-redux';
 import { firebase } from './Services/Firebase';
-import "./ignoreWarnings";
+import { LogBox } from 'react-native';
+LogBox.ignoreLogs(['Warning: ...']);
 
 export default function App() {
   const [loading, setIsLoading] = useState(true)
