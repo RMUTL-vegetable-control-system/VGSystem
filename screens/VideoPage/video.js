@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
 import { WebView } from 'react-native-webview';
 
 
@@ -14,18 +14,21 @@ export default function Video() {
 
 
     return (
-       
+
         <View style={styles.container}>
-            
+
             <View style={styles.containerBanner}>
-                <Text style={{textAlign:'center',fontSize:25,fontWeight:'bold',color:'#fff'}}>Video</Text>
+                <Text style={{ textAlign: 'center', fontSize: 25, fontWeight: 'bold', color: '#fff' }}>Video</Text>
             </View>
 
-            <WebView
-                style={{ marginTop: Platform.OS === 'ios' ? 10 : 10, width: 400, }}
-                originWhitelist={['*']}
-                source={{ uri: 'https://ceativespace.w3spaces.com/index.html?fbclid=IwAR2ZRdlSQKM8_UG8YfAc5jVPj9qk8X-CW8hqItLEOZ7l0bIkqXvkldTqBNA' }}
-            />
+
+            <View style={styles.containerStreaming}>
+                <Text style={{ textAlign: 'center', fontSize: 25, fontWeight: 'bold', color: '#fff' }}>Streaming</Text>
+                <WebView
+                    style={{ marginTop: Platform.OS === 'ios' ? 10 : 10, width: 400, height: 100 }}
+                    source={{ uri: 'https://2b7c-2403-6200-8853-49ea-2032-6f22-1e67-56d0.ngrok.io/stream' }}
+                />
+            </View>
         </View>
     );
 }
@@ -40,10 +43,16 @@ const styles = StyleSheet.create({
     },
     containerBanner: {
         backgroundColor: color.primary,
-        width:'100%',
-        height:'10%',
-        alignContent:'center',
-        justifyContent:'center'
-        
+        width: '100%',
+        height: '10%',
+        alignContent: 'center',
+        justifyContent: 'center'
+
+    },
+    containerStreaming: {
+        backgroundColor: color.primary,
+        width: '100%',
+        height: '50%',
+
     },
 });
