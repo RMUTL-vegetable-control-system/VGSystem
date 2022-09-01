@@ -15,10 +15,16 @@ import { Switch } from 'react-native-paper';
 const color = {
     primary: '#f2c97a',
     white: '#ffffff',
-    gray: '#C4C4C4',
+    gray: '#878787',
 }
 
 function Light({ navigation }) {
+
+    // ส่วนไว้เช็คการเชื่อมต่อของServoถ้าเชื่อเเล้ว isConnectServo1 เป็น ture แล้วพื้นหลัง จะเปลี่ยนสี
+    const [isConnectServo1, setIsConnectServo1] = useState(false);
+    const [isConnectServo2, setIsConnectServo2] = useState(false);
+    const [isConnectServo3, setIsConnectServo3] = useState(true);
+    const [isConnectServo4, setIsConnectServo4] = useState(true);
 
     // สิ่งที่ต้องแสดง
     // ชื่อของ Farm
@@ -66,7 +72,7 @@ function Light({ navigation }) {
 
 
     return (
- 
+
 
         <View style={styles.container}>
 
@@ -79,7 +85,14 @@ function Light({ navigation }) {
                     <Text style={{ fontSize: 18, textAlign: 'center', }} >Name:  {farmData.deviceName}</Text>
                 </View>
                 <View style={styles.containerAreaCard}>
-                    <View style={styles.containerCard}>
+                    <View style={{
+                        justifyContent: 'center',
+                        width: '45%',
+                        height: 160,
+                        backgroundColor: isConnectServo1 === true ? color.primary : color.gray,
+                        borderRadius: 20,
+                        margin: 10,
+                    }}>
                         <View style={{ paddingLeft: '10%' }}>
                             <FontAwesome name="lightbulb-o" size={24} color="white" />
                         </View>
@@ -91,7 +104,14 @@ function Light({ navigation }) {
                         </View>
 
                     </View>
-                    <View style={styles.containerCardFalse}>
+                    <View style={{
+                        justifyContent: 'center',
+                        width: '45%',
+                        height: 160,
+                        backgroundColor: isConnectServo2 === true ? color.primary : color.gray,
+                        borderRadius: 20,
+                        margin: 10,
+                    }}>
                         <View style={{ paddingLeft: '10%' }}>
                             <FontAwesome name="lightbulb-o" size={24} color="white" />
                         </View>
@@ -105,7 +125,14 @@ function Light({ navigation }) {
                     </View>
                 </View>
                 <View style={styles.containerAreaCard}>
-                    <View style={styles.containerCard}>
+                    <View style={{
+                        justifyContent: 'center',
+                        width: '45%',
+                        height: 160,
+                        backgroundColor: isConnectServo3 === true ? color.primary : color.gray,
+                        borderRadius: 20,
+                        margin: 10,
+                    }}>
                         <View style={{ paddingLeft: '10%' }}>
                             <FontAwesome name="lightbulb-o" size={24} color="white" />
                         </View>
@@ -117,7 +144,14 @@ function Light({ navigation }) {
                         </View>
 
                     </View>
-                    <View style={styles.containerCardFalse}>
+                    <View style={{
+                        justifyContent: 'center',
+                        width: '45%',
+                        height: 160,
+                        backgroundColor: isConnectServo4 === true ? color.primary : color.gray,
+                        borderRadius: 20,
+                        margin: 10,
+                    }}>
                         <View style={{ paddingLeft: '10%' }}>
                             <FontAwesome name="lightbulb-o" size={24} color="white" />
                         </View>
