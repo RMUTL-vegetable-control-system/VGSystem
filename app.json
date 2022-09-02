@@ -6,7 +6,6 @@
     "orientation": "portrait",
     "icon": "./assets/LogoApp.png",
     "userInterfaceStyle": "light",
-    
     "updates": {
       "fallbackToCacheTimeout": 0
     },
@@ -16,9 +15,11 @@
     "ios": {
       "supportsTablet": true
     },
-   
     "web": {
       "favicon": "./assets/LogoApp.png"
+    },
+    "android": {
+      "package": "com.izeritthikai.VGSystem"
     }
   }
 }

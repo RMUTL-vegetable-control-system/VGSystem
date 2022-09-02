@@ -58,9 +58,8 @@ function Home({ navigation }) {
                         <MaterialCommunityIcons name="coolant-temperature" size={44} color="white" />
                     </View>
                     <View style={{ paddingLeft: '5%' }}>
-                        <Text style={styles.label}>List Of Display</Text>
-                        <Text style={styles.label}>Name  :  {farmData.deviceName}</Text>
-                        <Text style={styles.labelTemp}>Temp   :   {humidity.name}</Text>
+                        <Text style={styles.label}>Name  :  {humidity.name}</Text>
+                        <Text style={styles.labelTemp}>Temp   :   ~{humidity.value}</Text>
                     </View>
 
                 </View>
@@ -101,6 +100,7 @@ function Home({ navigation }) {
                         <Text style={styles.labelTemp}>Detail Farm</Text>
                         <Text style={styles.labelTemp}>Temp   :   {humidity.name}</Text>
                         <Text style={styles.label}>List Of Display</Text>
+                        <Text style={styles.label}>Name  :  {farmData.deviceName}</Text>
                         <Text style={styles.label}>Name  :  {farmData.deviceName}</Text>
 
                     </View>

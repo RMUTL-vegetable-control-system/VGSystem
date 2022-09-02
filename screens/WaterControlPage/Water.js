@@ -81,7 +81,7 @@ function Water({ navigation }) {
             <View>
                 <View style={{ flexDirection: 'column', width: '100%', marginBottom: 0, alignItems: 'flex-start', paddingLeft: '5%' }} >
 
-                    <Text style={{ fontSize: 25, textAlign: 'center', fontWeight: 'bold' }} >Light</Text>
+                    <Text style={{ fontSize: 25, textAlign: 'center', fontWeight: 'bold' }} >Water Control</Text>
                     <Text style={{ fontSize: 18, textAlign: 'center', }} >Vegetable Control System</Text>
                     <Text style={{ fontSize: 18, textAlign: 'center', }} >Name:  {farmData.deviceName}</Text>
                 </View>

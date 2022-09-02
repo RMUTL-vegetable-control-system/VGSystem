@@ -65,7 +65,7 @@ function MyTabs() {
           ),
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Profile"
         component={Profile}
         options={{
@@ -74,7 +74,7 @@ function MyTabs() {
             <MaterialCommunityIcons name="account" color={color} size={33} />
           ),
         }}
-      />
+      /> */}
 
 
     </Tab.Navigator>
