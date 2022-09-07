@@ -17,7 +17,7 @@ const windowWidth = Dimensions.get('window').width;
 
 export default function ListLight({ navigation }) {
 
-  
+
 
     var swipeoutBtns = [
         {
@@ -44,17 +44,17 @@ export default function ListLight({ navigation }) {
 
 
     const [listTime, setListTime] = useState([]);
-    const [servoID, setServoID] = useState([]);
+    const [timerID, setTimerID] = useState([]);
     const [startHour, setStartHour] = useState([]);
     const [startMinute, setStartMinute] = useState([]);
     const [duration, setDuration] = useState([]);
     // console.log(listTime)
     // console.log(listTime1)
 
-    function setFormatListTime(servoID, startHour, startMinute, duration) {
-        for (let i = 0; i < servoID.length; i++) {
-            // setListtime('waterตัวที่ ' + servoID[i] + 'ทำงานเมื่อ' + startHour[i] + ':' + startMinute[i] + '   เป็นระยะเวลา : ' + duration[i]);
-            listTime.push({ id: i, name: 'Waterตัวที่ ' + servoID[i], time: (startHour[i] + ':' + startMinute[i]), duration: duration[i] })
+    function setFormatListTime(timerID, startHour, startMinute, duration) {
+        for (let i = 0; i < timerID.length; i++) {
+            // setListtime('waterตัวที่ ' + timerID[i] + 'ทำงานเมื่อ' + startHour[i] + ':' + startMinute[i] + '   เป็นระยะเวลา : ' + duration[i]);
+            listTime.push({ id: i, name: 'ไฟสังเคราะห์แสง : ' + timerID[i], time: (startHour[i] + ':' + startMinute[i]), duration: duration[i] })
             // console.log(listTime)
             console.log('Setting Data row : ' + i);
         }
@@ -70,20 +70,20 @@ export default function ListLight({ navigation }) {
 
     useEffect(() => {
         setListTime([]);
-    }, [servoID, startHour, startHour, duration])
+    }, [timerID, startHour, startHour, duration])
 
     async function fetchData() {
         const db = getDatabase();
         let userId = 'user1'; // Edit To User ID 
         const reference = ref(db, 'user/' + userId);
         onValue(reference, (snapshot) => {
-            setServoID(snapshot.val().farm.servo.timer.servoID); // set เลขของ servo
+            setTimerID(snapshot.val().farm.servo.timer.timerID); // set เลขของ servo
             setStartHour(snapshot.val().farm.servo.timer.startHour); // set เวลาที่เริ่มทำงาน ชั่วโฒง
             setStartMinute(snapshot.val().farm.servo.timer.startMinute); // set เวลาที่เริ่มทำงาน นาที
             setDuration(snapshot.val().farm.servo.timer.duration); // set ระยะเวลาที่ทำงาน
         })
     }
-    setFormatListTime(servoID, startHour, startMinute, duration);
+    setFormatListTime(timerID, startHour, startMinute, duration);
     console.log('')
     const Item = ({ name, time, duration }) => (
         <View>
@@ -92,7 +92,7 @@ export default function ListLight({ navigation }) {
 
                     <View style={styles.itemInViewOne}>
 
-                        <FontAwesome name="lightbulb-o"  size={45} color={'#fff'} />
+                        <FontAwesome name="lightbulb-o" size={45} color={'#fff'} />
 
                     </View>
                     <View style={styles.itemInViewTwo}>

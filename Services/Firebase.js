@@ -3,14 +3,13 @@ import 'firebase/compat/auth'
 import 'firebase/compat/firestore'
 
 const firebaseConfig = {
-    apiKey: "AIzaSyD1UcK0reJjaT5elDdAtN7TLlvplXwEzQY",
-    authDomain: "vegetable-rmutl-project.firebaseapp.com",
-    databaseURL: "https://vegetable-rmutl-project-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "vegetable-rmutl-project",
-    storageBucket: "vegetable-rmutl-project.appspot.com",
-    messagingSenderId: "1060324438475",
-    appId: "1:1060324438475:web:6ea80f384b08b3b562464e",
-    measurementId: "G-DFXLB6JKEK"
+    apiKey: "AIzaSyDVb2hhmlJHnA5CdXG1kVxtClS9lbp5o5s",
+    authDomain: "randomfirebase-9a9fe.firebaseapp.com",
+    databaseURL: "https://randomfirebase-9a9fe-default-rtdb.firebaseio.com",
+    projectId: "randomfirebase-9a9fe",
+    storageBucket: "randomfirebase-9a9fe.appspot.com",
+    messagingSenderId: "605212409124",
+    appId: "1:605212409124:web:5cb4e9395ed813d2eb07b1"
 };
 
 if (!firebase.apps.length) {

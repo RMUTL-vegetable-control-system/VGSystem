@@ -4,7 +4,7 @@ import { Entypo, MaterialIcons, AntDesign } from '@expo/vector-icons';
 import { useSelector, useDispatch } from "react-redux"
 import * as Action from '../../redux/Action'
 import { bindActionCreators } from 'redux'
-import { getDatabase, ref, onValue } from 'firebase/database';
+import { getDatabase, ref, onValue, set } from 'firebase/database';
 import { FontAwesome } from '@expo/vector-icons';
 import { Switch } from 'react-native-paper';
 // import * as firebase from 'firebase';
@@ -19,12 +19,13 @@ const color = {
 }
 
 function Light({ navigation }) {
-
-    // ส่วนไว้เช็คการเชื่อมต่อของServoถ้าเชื่อเเล้ว isConnectServo1 เป็น ture แล้วพื้นหลัง จะเปลี่ยนสี
-    const [isConnectServo1, setIsConnectServo1] = useState(false);
-    const [isConnectServo2, setIsConnectServo2] = useState(false);
-    const [isConnectServo3, setIsConnectServo3] = useState(true);
-    const [isConnectServo4, setIsConnectServo4] = useState(true);
+    let num1 = 0;
+    let num2 = 0;
+    // ส่วนไว้เช็คการเชื่อมต่อของServoถ้าเชื่อเเล้ว isConnect1 เป็น ture แล้วพื้นหลัง จะเปลี่ยนสี
+    const [isConnect1, setIsConnect1] = useState(false);
+    const [isConnect2, setIsConnect2] = useState(false);
+    const [isConnect3, setIsConnect3] = useState(true);
+    const [isConnect4, setIsConnect4] = useState(true);
 
     // สิ่งที่ต้องแสดง
     // ชื่อของ Farm
@@ -42,7 +43,7 @@ function Light({ navigation }) {
 
     useEffect(() => {
         fetchData();
-    }, [])
+    }, [num1])
 
     function fetchData() {
         const db = getDatabase();
@@ -54,21 +55,61 @@ function Light({ navigation }) {
             setLight_2_Data(snapshot.val().farm.light.light2);
             setLight_3_Data(snapshot.val().farm.light.light3);
             setLight_4_Data(snapshot.val().farm.light.light4);
+            setIsConnect1(snapshot.val().farm.light.light1.status);
+            setIsConnect2(snapshot.val().farm.light.light2.status);
+            setIsConnect3(snapshot.val().farm.light.light3.status);
+            setIsConnect4(snapshot.val().farm.light.light4.status);
+
         })
     }
 
+    function setSwitch(ID, status) {
+        const db = getDatabase();
+        let name, value;
+        let userId = 'user1';
+        let path = 'user/' + userId + '/farm/light/light' + ID;
+        const reference = ref(db, path);
+        if (ID === 1) {
+            name = light_1_Data.name;
+            value = light_1_Data.value;
+        }
+        if (ID === 2) {
+            name = light_2_Data.name;
+            value = light_2_Data.value;
+        }
+        if (ID === 3) {
+            name = light_3_Data.name;
+            value = light_3_Data.value;
+        }
+        if (ID === 4) {
+            name = light_4_Data.name;
+            value = light_4_Data.value;
+        }
+        console.log(value)
+        if (status && value !== "timing") {
+            value = 'on';
+        } else if (!status && value !== "timing") {
+            value = 'off'
+        }
 
-    const [isSwitchOnLight1, setIsSwitchOnLight1] = useState(false);
-    const onToggleSwitch1 = () => setIsSwitchOnLight1(!isSwitchOnLight1);
+        set(reference, {
+            name: name,
+            status: status,
+            value: value,
+        });
 
-    const [isSwitchOnLight2, setIsSwitchOnLight2] = useState(false);
-    const onToggleSwitch2 = () => setIsSwitchOnLight2(!isSwitchOnLight2);
+    }
 
-    const [isSwitchOnLight3, setIsSwitchOnLight3] = useState(false);
-    const onToggleSwitch3 = () => setIsSwitchOnLight3(!isSwitchOnLight3);
 
-    const [isSwitchOnLight4, setIsSwitchOnLight4] = useState(false);
-    const onToggleSwitch4 = () => setIsSwitchOnLight4(!isSwitchOnLight4);
+
+    const onToggleSwitch1 = () => setSwitch(1, !isConnect1);
+
+    const onToggleSwitch2 = () => setSwitch(2, !isConnect2);
+
+    const onToggleSwitch3 = () => setSwitch(3, !isConnect3);
+
+    const onToggleSwitch4 = () => setSwitch(4, !isConnect4);
+
 
 
     return (
@@ -89,7 +130,7 @@ function Light({ navigation }) {
                         justifyContent: 'center',
                         width: '45%',
                         height: 160,
-                        backgroundColor: isConnectServo1 === true ? color.primary : color.gray,
+                        backgroundColor: isConnect1 === true ? color.primary : color.gray,
                         borderRadius: 20,
                         margin: 10,
                     }}>
@@ -99,7 +140,7 @@ function Light({ navigation }) {
                         <View style={{ paddingLeft: '5%' }}>
                             <Text style={styles.label}>หลอดไฟดวงที่ 1 </Text>
                             <Text style={styles.label}>{light_1_Data.name}</Text>
-                            <Switch value={isSwitchOnLight1} onValueChange={onToggleSwitch1} color={'#008640'} style={{ width: '30%', }} />
+                            <Switch value={isConnect1} onValueChange={onToggleSwitch1} color={'#008640'} style={{ width: '30%', }} />
 
                         </View>
 
@@ -108,7 +149,7 @@ function Light({ navigation }) {
                         justifyContent: 'center',
                         width: '45%',
                         height: 160,
-                        backgroundColor: isConnectServo2 === true ? color.primary : color.gray,
+                        backgroundColor: isConnect2 === true ? color.primary : color.gray,
                         borderRadius: 20,
                         margin: 10,
                     }}>
@@ -118,7 +159,7 @@ function Light({ navigation }) {
                         <View style={{ paddingLeft: '5%' }}>
                             <Text style={styles.label}>หลอดไฟดวงที่ 2 </Text>
                             <Text style={styles.label}>{light_2_Data.name}</Text>
-                            <Switch value={isSwitchOnLight2} onValueChange={onToggleSwitch2} color={'#008640'} style={{ width: '30%', }} />
+                            <Switch value={isConnect2} onValueChange={onToggleSwitch2} color={'#008640'} style={{ width: '30%', }} />
 
                         </View>
 
@@ -129,7 +170,7 @@ function Light({ navigation }) {
                         justifyContent: 'center',
                         width: '45%',
                         height: 160,
-                        backgroundColor: isConnectServo3 === true ? color.primary : color.gray,
+                        backgroundColor: isConnect3 === true ? color.primary : color.gray,
                         borderRadius: 20,
                         margin: 10,
                     }}>
@@ -139,7 +180,7 @@ function Light({ navigation }) {
                         <View style={{ paddingLeft: '5%' }}>
                             <Text style={styles.label}>หลอดไฟดวงที่ 3 </Text>
                             <Text style={styles.label}>{light_3_Data.name}</Text>
-                            <Switch value={isSwitchOnLight3} onValueChange={onToggleSwitch3} color={'#008640'} style={{ width: '30%', }} />
+                            <Switch value={isConnect3} onValueChange={onToggleSwitch3} color={'#008640'} style={{ width: '30%', }} />
 
                         </View>
 
@@ -148,7 +189,7 @@ function Light({ navigation }) {
                         justifyContent: 'center',
                         width: '45%',
                         height: 160,
-                        backgroundColor: isConnectServo4 === true ? color.primary : color.gray,
+                        backgroundColor: isConnect4 === true ? color.primary : color.gray,
                         borderRadius: 20,
                         margin: 10,
                     }}>
@@ -158,7 +199,7 @@ function Light({ navigation }) {
                         <View style={{ paddingLeft: '5%' }}>
                             <Text style={styles.label}>หลอดไฟดวงที่ 4 </Text>
                             <Text style={styles.label}>{light_4_Data.name}</Text>
-                            <Switch value={isSwitchOnLight4} onValueChange={onToggleSwitch4} color={'#008640'} style={{ width: '30%', }} />
+                            <Switch value={isConnect4} onValueChange={onToggleSwitch4} color={'#008640'} style={{ width: '30%', }} />
 
                         </View>
 
