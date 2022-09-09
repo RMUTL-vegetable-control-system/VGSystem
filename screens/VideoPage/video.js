@@ -37,7 +37,7 @@ export default function Video() {
                     originWhitelist={['*']}
                     scrollEnabled={true}
                     onScroll={false}
-                    source={{ uri: 'https://1541-2403-6200-8853-49ea-15d-5d10-638-1110.ngrok.io/stream' }}
+                    source={{ uri: 'http://1f7d-2403-6200-8853-49ea-1165-dc-93a1-9bab.ngrok.io/stream' }}
                 />
             </View>
 

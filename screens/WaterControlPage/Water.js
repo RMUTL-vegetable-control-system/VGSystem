@@ -4,7 +4,7 @@ import { Entypo, MaterialIcons, AntDesign } from '@expo/vector-icons';
 import { useSelector, useDispatch } from "react-redux"
 import * as Action from '../../redux/Action'
 import { bindActionCreators } from 'redux'
-import { getDatabase, ref, onValue } from 'firebase/database';
+import { getDatabase, ref, onValue, set } from 'firebase/database';
 import { FontAwesome } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Switch } from 'react-native-paper';
@@ -23,11 +23,11 @@ function Water({ navigation }) {
 
 
     // ส่วนไว้เช็คการเชื่อมต่อของServoถ้าเชื่อเเล้ว isConnectServo1 เป็น ture แล้วพื้นหลัง จะเปลี่ยนสี
-    const [isConnectServo1, setIsConnectServo1] = useState(false);
-    const [isConnectServo2, setIsConnectServo2] = useState(false);
-    const [isConnectServo3, setIsConnectServo3] = useState(true);
-    const [isConnectServo4, setIsConnectServo4] = useState(true);
 
+    const [isConnect1, setIsConnect1] = useState(false);
+    const [isConnect2, setIsConnect2] = useState(false);
+    const [isConnect3, setIsConnect3] = useState(true);
+    const [isConnect4, setIsConnect4] = useState(true);
     // สิ่งที่ต้องแสดง
     // ชื่อของ Farm
     //ชื่อมอเตอร์
@@ -57,21 +57,60 @@ function Water({ navigation }) {
             setWater_2_Data(snapshot.val().farm.servo.servo2);
             setWater_3_Data(snapshot.val().farm.servo.servo3);
             setWater_4_Data(snapshot.val().farm.servo.servo4);
+            setIsConnect1(snapshot.val().farm.servo.servo1.status);
+            setIsConnect2(snapshot.val().farm.servo.servo2.status);
+            setIsConnect3(snapshot.val().farm.servo.servo3.status);
+            setIsConnect4(snapshot.val().farm.servo.servo4.status);
         })
     }
 
+    function setSwitch(ID, status) {
+        const db = getDatabase();
+        let name, value;
+        let userId = 'user1';
+        let path = 'user/' + userId + '/farm/servo/servo' + ID;
+        const reference = ref(db, path);
+        if (ID === 1) {
+            name = water_1_Data.name;
+            value = water_1_Data.value;
+        }
+        if (ID === 2) {
+            name = water_2_Data.name;
+            value = water_2_Data.value;
+        }
+        if (ID === 3) {
+            name = water_3_Data.name;
+            value = water_3_Data.value;
+        }
+        if (ID === 4) {
+            name = water_4_Data.name;
+            value = water_4_Data.value;
+        }
+        console.log(value)
+        if (status && value !== "timing") {
+            value = 'on';
+        } else if (!status && value !== "timing") {
+            value = 'off'
+        }
 
-    const [isSwitchOnServo1, setIsSwitchOnServo1] = useState(false);
-    const onToggleSwitch1 = () => setIsSwitchOnServo1(!isSwitchOnServo1);
+        set(reference, {
+            name: name,
+            status: status,
+            value: value,
+        });
 
-    const [isSwitchOnServo2, setIsSwitchOnServo2] = useState(false);
-    const onToggleSwitch2 = () => setIsSwitchOnServo2(!isSwitchOnServo2);
+    }
 
-    const [isSwitchOnServo3, setIsSwitchOnServo3] = useState(false);
-    const onToggleSwitch3 = () => setIsSwitchOnServo3(!isSwitchOnServo3);
 
-    const [isSwitchOnServo4, setIsSwitchOnServo4] = useState(false);
-    const onToggleSwitch4 = () => setIsSwitchOnServo4(!isSwitchOnServo4);
+
+    const onToggleSwitch1 = () => setSwitch(1, !isConnect1);
+
+    const onToggleSwitch2 = () => setSwitch(2, !isConnect2);
+
+    const onToggleSwitch3 = () => setSwitch(3, !isConnect3);
+
+    const onToggleSwitch4 = () => setSwitch(4, !isConnect4);
+
 
     return (
 
@@ -90,7 +129,7 @@ function Water({ navigation }) {
                         justifyContent: 'center',
                         width: '45%',
                         height: 160,
-                        backgroundColor: isConnectServo1 === true ? color.primary : color.gray,
+                        backgroundColor: isConnect1 === true ? color.primary : color.gray,
                         borderRadius: 20,
                         margin: 10,
                     }}>
@@ -100,7 +139,7 @@ function Water({ navigation }) {
                         <View style={{ paddingLeft: '5%' }}>
                             <Text style={styles.label}>คุมน้ำตัวที่ 1 :  </Text>
                             <Text style={styles.label}>{water_1_Data.name}</Text>
-                            <Switch value={isSwitchOnServo1} onValueChange={onToggleSwitch1} color={'#008640'} style={{ width: '30%', }} />
+                            <Switch value={isConnect1} onValueChange={onToggleSwitch1} color={'#008640'} style={{ width: '30%', }} />
                         </View>
 
                     </View>
@@ -108,7 +147,7 @@ function Water({ navigation }) {
                         justifyContent: 'center',
                         width: '45%',
                         height: 160,
-                        backgroundColor: isConnectServo2 === true ? color.primary : color.gray,
+                        backgroundColor: isConnect2 === true ? color.primary : color.gray,
                         borderRadius: 20,
                         margin: 10,
                     }}>
@@ -118,7 +157,7 @@ function Water({ navigation }) {
                         <View style={{ paddingLeft: '5%' }}>
                             <Text style={styles.label}>คุมน้ำตัวที่ 2 :  </Text>
                             <Text style={styles.label}>{water_2_Data.name}</Text>
-                            <Switch value={isSwitchOnServo2} onValueChange={onToggleSwitch2} color={'#008640'} style={{ width: '30%', }} />
+                            <Switch value={isConnect2} onValueChange={onToggleSwitch2} color={'#008640'} style={{ width: '30%', }} />
                         </View>
 
                     </View>
@@ -128,7 +167,7 @@ function Water({ navigation }) {
                         justifyContent: 'center',
                         width: '45%',
                         height: 160,
-                        backgroundColor: isConnectServo3 === true ? color.primary : color.gray,
+                        backgroundColor: isConnect3 === true ? color.primary : color.gray,
                         borderRadius: 20,
                         margin: 10,
                     }}>
@@ -138,7 +177,7 @@ function Water({ navigation }) {
                         <View style={{ paddingLeft: '5%' }}>
                             <Text style={styles.label}>คุมน้ำตัวที่ 3 :  </Text>
                             <Text style={styles.label}>{water_3_Data.name}</Text>
-                            <Switch value={isSwitchOnServo3} onValueChange={onToggleSwitch3} color={'#008640'} style={{ width: '30%', }} />
+                            <Switch value={isConnect3} onValueChange={onToggleSwitch3} color={'#008640'} style={{ width: '30%', }} />
                         </View>
 
                     </View>
@@ -146,7 +185,7 @@ function Water({ navigation }) {
                         justifyContent: 'center',
                         width: '45%',
                         height: 160,
-                        backgroundColor: isConnectServo4 === true ? color.primary : color.gray,
+                        backgroundColor: isConnect4 === true ? color.primary : color.gray,
                         borderRadius: 20,
                         margin: 10,
                     }}>
@@ -156,7 +195,7 @@ function Water({ navigation }) {
                         <View style={{ paddingLeft: '5%' }}>
                             <Text style={styles.label}>คุมน้ำตัวที่ 4 :  </Text>
                             <Text style={styles.label}>{water_4_Data.name}</Text>
-                            <Switch value={isSwitchOnServo4} onValueChange={onToggleSwitch4} color={'#008640'} style={{ width: '30%', }} />
+                            <Switch value={isConnect4} onValueChange={onToggleSwitch4} color={'#008640'} style={{ width: '30%', }} />
                         </View>
 
                     </View>

@@ -13,7 +13,7 @@ const color = {
 
 
 export default function SetTimeWater({ navigation }) {
-  const countries = ["Servo1", "Servo2", "Servo3", "Servo4"]
+  const countries = ["น้ำ 1", "น้ำ 2", "น้ำ 3", "น้ำ 4"]
 
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);

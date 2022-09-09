@@ -12,8 +12,8 @@ const color = {
 
 
 
-export default function SetTimeLight({navigation}) {
-  const countries = ["Servo1", "Servo2", "Servo3", "Servo4"]
+export default function SetTimeLight({ navigation }) {
+  const countries = ["ไฟสังเคราะห์แสง1", "ไฟสังเคาระห์แสง2", "ไฟสังเคราะแสง3", "ไฟสังเคราะห์แสง4"]
 
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
@@ -29,7 +29,7 @@ export default function SetTimeLight({navigation}) {
   return (
 
     <View style={styles.container}>
-      <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center' }}>เลือกเครื่องServoเปิดไฟ</Text>
+      <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center' }}>เลือกไฟสังเคราะห์แสง</Text>
       <View style={styles.containerServo}>
         <SelectDropdown
           data={countries}
@@ -46,7 +46,7 @@ export default function SetTimeLight({navigation}) {
             fontSize: 18,
             fontWeight: 'bold'
           }}
-          defaultButtonText={'เลือกServo'}
+          defaultButtonText={'กรุณาเลือก'}
           buttonTextAfterSelection={(selectedItem, index) => {
             return selectedItem
           }}
@@ -84,7 +84,7 @@ export default function SetTimeLight({navigation}) {
         />
       </View>
       <View style={{ marginTop: 50 }}>
-        <TouchableOpacity color={color.primary} onPress={() =>saveTimeLight()} style={styles.submitButton}>
+        <TouchableOpacity color={color.primary} onPress={() => saveTimeLight()} style={styles.submitButton}>
           <View
             style={{
               backgroundColor: '#5cb85c',

@@ -77,10 +77,10 @@ export default function ListLight({ navigation }) {
         let userId = 'user1'; // Edit To User ID 
         const reference = ref(db, 'user/' + userId);
         onValue(reference, (snapshot) => {
-            setTimerID(snapshot.val().farm.servo.timer.timerID); // set เลขของ servo
-            setStartHour(snapshot.val().farm.servo.timer.startHour); // set เวลาที่เริ่มทำงาน ชั่วโฒง
-            setStartMinute(snapshot.val().farm.servo.timer.startMinute); // set เวลาที่เริ่มทำงาน นาที
-            setDuration(snapshot.val().farm.servo.timer.duration); // set ระยะเวลาที่ทำงาน
+            setTimerID(snapshot.val().farm.light.timer.timerID); // set เลขของ servo
+            setStartHour(snapshot.val().farm.light.timer.startHour); // set เวลาที่เริ่มทำงาน ชั่วโฒง
+            setStartMinute(snapshot.val().farm.light.timer.startMinute); // set เวลาที่เริ่มทำงาน นาที
+            setDuration(snapshot.val().farm.light.timer.duration); // set ระยะเวลาที่ทำงาน
         })
     }
     setFormatListTime(timerID, startHour, startMinute, duration);
