@@ -63,6 +63,7 @@ export default function Edit({ navigation }) {
 
                 <View style={styles.containerInput}>
                     <View>
+                        <Text style={styles.TopicDetail}>ชื่อโครงการ : {Name}</Text>
                         <TextInput
                             label="ชื่อโครงการ"
                             value={Name}
@@ -76,7 +77,8 @@ export default function Edit({ navigation }) {
 
                         />
                     </View>
-                    <View>
+                    <View style={{ marginTop: 20 }}>
+                        <Text style={styles.TopicDetail}>ชื่อผัก : {NameVegetable}</Text>
                         <TextInput
                             label="ชื่อผัก"
                             value={NameVegetable}
@@ -90,7 +92,8 @@ export default function Edit({ navigation }) {
                             activeUnderlineColor='#08823F'
                         />
                     </View>
-                    <View>
+                    <View style={{ marginTop: 20 }}>
+                        <Text style={styles.TopicDetail}>ชนิดผัก : {TypeVegetable}</Text>
                         <TextInput
                             label="ชนิดผัก"
                             value={TypeVegetable}
@@ -104,14 +107,15 @@ export default function Edit({ navigation }) {
                             activeUnderlineColor='#08823F'
                         />
                     </View>
-                    <View style={{marginTop:20,}}>
-                        <Text style={styles.TopicDetail}>วันที่ปลูก</Text>
+                    <View style={{ marginTop: 20, }}>
+                        <Text style={styles.TopicDetail}>วันที่ปลูก {selectedDate}</Text>
                         <DatePicker
                             mode="datepicker"
                             onSelectedChange={date => setSelectedDate(date)}
                         />
                     </View>
-                    <View>
+                    <View style={{ marginTop: 20 }}>
+                        <Text style={styles.TopicDetail}>จำนวนที่ต้องเก็บเกี่ยว : {AmountHarvested}</Text>
                         <TextInput
                             keyboardType='numeric'
                             label="จำนวนที่ต้องเก็บเกี่ยว"
@@ -126,7 +130,8 @@ export default function Edit({ navigation }) {
                             activeUnderlineColor='#08823F'
                         />
                     </View>
-                    <View>
+                    <View style={{ marginTop: 20 }}>
+                        <Text style={styles.TopicDetail}>ชื่อหลอดไฟ 1 : {NameLight1}</Text>
                         <TextInput
                             label="ชื่อหลอดไฟ 1"
                             value={NameLight1}
@@ -140,7 +145,8 @@ export default function Edit({ navigation }) {
                             activeUnderlineColor='#08823F'
                         />
                     </View>
-                    <View>
+                    <View style={{ marginTop: 20 }}>
+                        <Text style={styles.TopicDetail}>ชื่อหลอดไฟ 2 : {NameLight2}</Text>
                         <TextInput
                             label="ชื่อหลอดไฟ 2"
                             value={NameLight2}
@@ -154,7 +160,8 @@ export default function Edit({ navigation }) {
                             activeUnderlineColor='#08823F'
                         />
                     </View>
-                    <View>
+                    <View style={{ marginTop: 20 }}>
+                        <Text style={styles.TopicDetail}>ชื่อหลอดไฟ 3 : {NameLight3}</Text>
                         <TextInput
                             label="ชื่อหลอดไฟ 3"
                             value={NameLight3}
@@ -168,7 +175,8 @@ export default function Edit({ navigation }) {
                             activeUnderlineColor='#08823F'
                         />
                     </View>
-                    <View>
+                    <View style={{ marginTop: 20 }}>
+                        <Text style={styles.TopicDetail}>ชื่อหลอดไฟ 4 : {NameLight4}</Text>
                         <TextInput
                             label="ชื่อหลอดไฟ 4"
                             value={NameLight4}
@@ -182,9 +190,10 @@ export default function Edit({ navigation }) {
                             activeUnderlineColor='#08823F'
                         />
                     </View>
-                    <View>
+                    <View style={{ marginTop: 20 }}>
+                        <Text style={styles.TopicDetail}>ชื่อน้ำ 1 : {NameWater1}</Text>
                         <TextInput
-                            label="ชื่อน้ำ1"
+                            label="ชื่อน้ำ 1"
                             value={NameWater1}
                             secureTextEntry={false}
                             returnKeyType="next"
@@ -196,7 +205,8 @@ export default function Edit({ navigation }) {
                             activeUnderlineColor='#08823F'
                         />
                     </View>
-                    <View>
+                    <View style={{ marginTop: 20 }}>
+                        <Text style={styles.TopicDetail}>ชื่อน้ำ 2 : {NameWater2}</Text>
                         <TextInput
                             label="ชื่อน้ำ 2"
                             value={NameWater2}
@@ -210,7 +220,8 @@ export default function Edit({ navigation }) {
                             activeUnderlineColor='#08823F'
                         />
                     </View>
-                    <View>
+                    <View style={{ marginTop: 20 }}>
+                        <Text style={styles.TopicDetail}>ชื่อน้ำ 3 : {NameWater3}</Text>
                         <TextInput
                             label="ชื่อน้ำ 3"
                             value={NameWater3}
@@ -224,7 +235,8 @@ export default function Edit({ navigation }) {
                             activeUnderlineColor='#08823F'
                         />
                     </View>
-                    <View>
+                    <View style={{ marginTop: 20 }}>
+                        <Text style={styles.TopicDetail}>ชื่อน้ำ 4 : {NameWater4}</Text>
                         <TextInput
                             label="ชื่อน้ำ 4"
                             value={NameWater4}
@@ -238,7 +250,8 @@ export default function Edit({ navigation }) {
                             activeUnderlineColor='#08823F'
                         />
                     </View>
-                    <View>
+                    <View style={{ marginTop: 20 }}>
+                        <Text style={styles.TopicDetail}>ชื่อความชื้น : {NameHumatity}</Text>
                         <TextInput
                             label="ชื่อความชื้น"
                             value={NameHumatity}

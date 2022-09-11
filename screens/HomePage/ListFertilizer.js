@@ -2,7 +2,7 @@ import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, TouchableOpa
 import React from 'react'
 import { useState, useEffect } from 'react';
 import { getDatabase, ref, onValue } from 'firebase/database';
-import { Ionicons } from '@expo/vector-icons';
+import { Fontisto } from '@expo/vector-icons';
 import Swipeout from 'react-native-swipeout';
 
 const color = {
@@ -89,23 +89,19 @@ export default function ListFertilizer({ navigation }) {
 
                     <View style={styles.itemInViewOne}>
 
-                        <Ionicons name="md-timer" size={45} color={'#fff'} />
+                    <Fontisto name="date" size={30} color="white" />
 
                     </View>
                     <View style={styles.itemInViewTwo}>
-                        <Text style={styles.detail}>ชื่อ</Text>
-                        <Text style={styles.detail}>{name}</Text>
-                    </View>
-                    <View style={styles.itemInViewThree}>
-                        <Text style={styles.detail}>เวลาที่เริ่ม</Text>
+                        <Text style={styles.detail}>เวลา</Text>
                         <Text style={styles.title}>{time} น.</Text>
-
                     </View>
                     <View style={styles.itemInViewThree}>
+                        <Text style={styles.detail}>วันที่</Text>
+                        <Text style={styles.title}>10/09/2022</Text>
 
-                        <Text style={styles.detail}>ระยะเวลาทำงาน</Text>
-                        <Text style={styles.title}> {duration} นาที</Text>
                     </View>
+                    
                 </View>
             </Swipeout>
         </View>
@@ -136,7 +132,7 @@ export default function ListFertilizer({ navigation }) {
 
 
                         }}>
-                        <Text style={styles.labelButton}>Add Set Time</Text>
+                        <Text style={styles.labelButton}>เพิ่มตั้งค่าเวลา</Text>
                     </View>
 
                 </TouchableOpacity>
@@ -173,7 +169,7 @@ const styles = StyleSheet.create({
     },
     item: {
         width: windowWidth * 0.95,
-        backgroundColor: color.primary,
+        backgroundColor: '#eea944',
         padding: 15,
         justifyContent: 'space-around',
         flexDirection: 'row',
@@ -213,12 +209,12 @@ const styles = StyleSheet.create({
         paddingLeft: 20
     },
     title: {
-        fontSize: 15,
+        fontSize: 16,
         fontWeight: 'bold',
         color: '#ffffff'
     },
     detail: {
-        fontSize: 13,
+        fontSize: 16,
         fontWeight: 'normal',
         color: '#ffffff'
     },
