@@ -137,7 +137,7 @@ export default function ListWater({ navigation }) {
 
 
                         }}>
-                        <Text style={styles.labelButton}>Add Set Time</Text>
+                        <Text style={styles.labelButton}>เพิ่มตั้งค่าเวลา</Text>
                     </View>
 
                 </TouchableOpacity>

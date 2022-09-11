@@ -11,6 +11,7 @@ import SetTimeWater from '../screens/WaterControlPage/setTimeWater';
 import ListWater from '../screens/WaterControlPage/ListWater';
 import SetTimeFertilizer from '../screens/HomePage/setTimeFertilizer';
 import ListFertilizer from '../screens/HomePage/ListFertilizer';
+import Edit from '../screens/HomePage/Edit';
 
 
 
@@ -38,6 +39,7 @@ export default NavigationMain = () => {
                 <Stack.Screen name="ListLight" component={ListLight } options={{ headerShown: true }} />
                 <Stack.Screen name="SetTimeWater" component={SetTimeWater } options={{ headerShown: true }} />
                 <Stack.Screen name="ListWater" component={ListWater } options={{ headerShown: true }} />
+                <Stack.Screen name="Edit" component={Edit } options={{ headerShown: true }} />
             </Stack.Navigator>
         </NavigationContainer>
     );

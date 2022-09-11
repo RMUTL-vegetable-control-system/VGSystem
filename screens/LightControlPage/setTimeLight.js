@@ -15,8 +15,14 @@ const color = {
 export default function SetTimeLight({ navigation }) {
   const countries = ["ไฟสังเคราะห์แสง1", "ไฟสังเคาระห์แสง2", "ไฟสังเคราะแสง3", "ไฟสังเคราะห์แสง4"]
 
+
+  //ตัวแปรทั้ง4
+  const [valueLight, setValueLight] = useState('');
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
+  const [valueTime, setValueTime] = useState('');
+
+
   const handleChange = (value = { hours, minutes }) => {
     setHours(value.hours);
     setMinutes(value.minutes);
@@ -34,7 +40,8 @@ export default function SetTimeLight({ navigation }) {
         <SelectDropdown
           data={countries}
           onSelect={(selectedItem, index) => {
-            console.log(selectedItem, index)
+            console.log(selectedItem)
+            setValueLight(selectedItem);
           }}
           buttonStyle={{
             backgroundColor: 'white',
@@ -69,21 +76,22 @@ export default function SetTimeLight({ navigation }) {
 
         />
       </View>
-      <Text style={{ marginTop: 20, fontSize: 30, fontWeight: 'bold', textAlign: 'center' }}>จำนวนเวลา/นาที</Text>
-
+      <Text style={{ marginTop: 10, fontSize: 30, fontWeight: 'bold', textAlign: 'center' }}>จำนวนเวลา/นาที</Text>
       <View style={styles.containerAreaCard}>
         <TextInput
           style={{ height: 60, width: '50%', marginTop: 0, textAlign: 'center', fontSize: 20, fontWeight: 'bold' }}
           selectionColor="#08823F"
           activeUnderlineColor='#08823F'
           maxLength={4}
+          onChangeText={valueTime => setValueTime(valueTime)}
+          value={valueTime}
           keyboardType='number-pad'
           returnKeyType='done'
 
 
         />
       </View>
-      <View style={{ marginTop: 50 }}>
+      <View style={{ marginTop: 100 }}>
         <TouchableOpacity color={color.primary} onPress={() => saveTimeLight()} style={styles.submitButton}>
           <View
             style={{
@@ -107,7 +115,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f2f2f2',
-    paddingTop: 30,
+    paddingTop: 10,
     marginBottom: 0,
   },
   containerServo: {

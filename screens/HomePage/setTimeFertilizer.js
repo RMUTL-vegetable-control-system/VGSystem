@@ -51,7 +51,7 @@ export default function SetTimeFertilizer({ navigation }) {
               padding: 5,
               borderRadius: 10,
             }}>
-            <Text style={styles.labelButton}>Confirm</Text>
+            <Text style={styles.labelButton}>ยืนยัน</Text>
           </View>
 
         </TouchableOpacity>

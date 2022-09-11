@@ -31,7 +31,7 @@ export default function Video() {
                 </View>
             </View>
 
-            <View style={{ height: '90%', width: '100%', marginTop: Platform.OS === 'ios' ? 0 : 0, }}>
+            <View style={{ height: '60%', width: '100%', marginTop: Platform.OS === 'ios' ? 0 : 0, }}>
                 <WebView
                     style={{ width: '100%' }}
                     originWhitelist={['*']}
@@ -39,6 +39,10 @@ export default function Video() {
                     onScroll={false}
                     source={{ uri: 'http://1f7d-2403-6200-8853-49ea-1165-dc-93a1-9bab.ngrok.io/stream' }}
                 />
+                <View >
+                    <Text style={{ textAlign: 'left', fontSize: 20, fontWeight: 'bold', color: '#303030' ,marginTop:0}}>ลิงค์ของวิดีโอ  :</Text>
+                    <Text style={{ textAlign: 'left', fontSize: 16, fontWeight: 'bold', color: '#303030' ,marginTop:0}}>http://1f7d-2403-6200-8853-49ea-1165-dc-93a1-9bab.ngrok.io/stream</Text>
+                </View>
             </View>
 
 
@@ -61,7 +65,7 @@ export default function Video() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#000000',
         alignItems: 'center',
         marginTop: Platform.OS === 'ios' ? 32 : 0,
     },
@@ -80,7 +84,8 @@ const styles = StyleSheet.create({
     },
     titleHeader: {
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+       
     },
     cardDetail: {
         justifyContent: 'center',

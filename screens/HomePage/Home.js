@@ -6,6 +6,7 @@ import * as Action from '../../redux/Action'
 import { bindActionCreators } from 'redux'
 import { getDatabase, ref, onValue } from 'firebase/database';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
 // import * as firebase from 'firebase';
 
 
@@ -14,7 +15,12 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 const color = {
     primary: '#08823F',
     white: '#ffffff',
-    gray: '#C4C4C4',
+    gray: '#808080',
+    red: '#FF4000',
+    orange: '#FF7500',
+    yellow: '#F7CF1D',
+    skyblue: '#50cfff',
+
 }
 
 function Home({ navigation }) {
@@ -24,8 +30,33 @@ function Home({ navigation }) {
     //ความชื้น
     //สถานะของ Farm ว่ามีสีอะไรแทนการทำงาน
 
+
     const [farmData, setFarmData] = useState([]);
     const [humidity, setHumidity] = useState([]);
+
+    const valueHumatity = humidity.value;
+
+    // if (valueHumatity >= 1000) {
+    //     console.log('แห้งมาก');
+    //     console.log(color.red);
+    // }
+    // else if (valueHumatity >= 980 && valueHumatity < 1000) {
+    //     console.log('แห้ง')
+    //     console.log(color.orange)
+    // }
+    // else if (valueHumatity >= 950 && valueHumatity < 980) {
+    //     console.log('ชื้น')
+    //     console.log(color.yellow)
+    // }
+    // else if (valueHumatity >= 850 && valueHumatity < 950) {
+    //     console.log('เปียก')
+    //     console.log(color.skyblue)
+    // }
+    // else {
+    //     console.log('error')
+    // }
+
+
 
     useEffect(() => {
         fetchData();
@@ -41,25 +72,55 @@ function Home({ navigation }) {
         })
     }
 
+
+
+
+
     return (
 
         <View style={styles.container}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '100%',}}>
+                <Image
+                    source={require('../../assets/LogoApp.png')}
+                    style={{ width: 50, height: 50, }}
+                />
 
+            </View>
 
 
             <View style={{ flexDirection: 'column', width: '100%', marginBottom: 0, alignItems: 'flex-start', paddingLeft: '5%' }} >
 
-                <Text style={{ fontSize: 25, textAlign: 'center', fontWeight: 'bold' }} >HOME</Text>
+                <Text style={{ fontSize: 25, textAlign: 'center', fontWeight: 'bold' }} >หน้าแรก</Text>
                 <Text style={{ fontSize: 18, textAlign: 'center', }} >Vegetable Control System</Text>
             </View>
             <View style={styles.containerAreaCard}>
-                <View style={styles.containerCard}>
+                <View style={{
+                    justifyContent: 'center',
+                    width: '90%',
+                    height: 150,
+                    backgroundColor:
+                        valueHumatity >= 1000 ? color.red
+                            : valueHumatity >= 980 && valueHumatity < 1000 ? color.orange
+                                : valueHumatity >= 950 && valueHumatity < 980 ? color.yellow
+                                    : color.skyblue,
+                    borderRadius: 10,
+                    margin: 10,
+                    borderWidth: 1,
+                    borderColor: color.gray
+                }}>
                     <View style={{ paddingLeft: '10%', }}>
-                        <MaterialCommunityIcons name="coolant-temperature" size={44} color="white" />
+                        <MaterialCommunityIcons name="coolant-temperature" size={35} color="white" />
                     </View>
                     <View style={{ paddingLeft: '5%' }}>
                         <Text style={styles.label}>Name  :  {humidity.name}</Text>
-                        <Text style={styles.labelTemp}>Temp   :   ~{humidity.value}</Text>
+                        <Text style={styles.labelTemp}>ค่าความชื้นในดิน :  ~{humidity.value}</Text>
+                        <Text style={styles.labelTemp}>~
+                            {valueHumatity >= 1000 ? "แห้งมาก"
+                                : valueHumatity >= 980 && valueHumatity < 1000 ? "แห้ง"
+                                    : valueHumatity >= 950 && valueHumatity < 980 ? "ชื้น"
+                                        : "เปียก"
+                            }
+                        </Text>
                     </View>
 
                 </View>
@@ -67,7 +128,7 @@ function Home({ navigation }) {
             </View>
 
             <View style={styles.containerCardButton}>
-                <TouchableOpacity color={color.primary} onPress={() => navigation.navigate('ListWater')} style={styles.submitButton}>
+                <TouchableOpacity color={color.primary} onPress={() => navigation.navigate('Edit')} style={styles.submitButton}>
                     <View
                         style={{
                             backgroundColor: '#2EACD2',
@@ -75,7 +136,7 @@ function Home({ navigation }) {
                             padding: 5,
                             borderRadius: 10,
                         }}>
-                        <Text style={styles.labelButton}>Edit</Text>
+                        <Text style={styles.labelButton}>แก้ไข</Text>
                     </View>
 
                 </TouchableOpacity>
@@ -87,22 +148,36 @@ function Home({ navigation }) {
                             padding: 5,
                             borderRadius: 10,
                         }}>
-                        <Text style={styles.labelButton}>Fertilizer</Text>
+                        <Text style={styles.labelButton}>การให้ปุ๋ย</Text>
                     </View>
 
                 </TouchableOpacity>
             </View>
 
             <View style={styles.containerAreaCard}>
+                <View style={styles.containerCardTop}>
+
+                    <View style={{ paddingLeft: '5%' }}>
+                        <Text style={styles.labelTempBlack}>ข้อมูลฟาร์ม</Text>
+                        <Text style={styles.labelBlack}>ชื่อผักที่ปลูก   :   {humidity.name}</Text>
+                        <Text style={styles.labelBlack}>วันที่ใส่ปุ๋ยครั้งล่าสุด  :  {farmData.deviceName}</Text>
+                        <Text style={styles.labelBlack}>จำนวนวันในการปลูก  :  {farmData.deviceName}</Text>
+
+                    </View>
+
+                </View>
+
+            </View>
+            <View style={styles.containerAreaCard}>
                 <View style={styles.containerCard}>
 
                     <View style={{ paddingLeft: '5%' }}>
-                        <Text style={styles.labelTemp}>Detail Farm</Text>
-                        <Text style={styles.labelTemp}>Temp   :   {humidity.name}</Text>
-                        <Text style={styles.label}>List Of Display</Text>
-                        <Text style={styles.label}>Name  :  {farmData.deviceName}</Text>
-                        <Text style={styles.label}>Name  :  {farmData.deviceName}</Text>
+                        <View style={{ flexDirection: 'row', paddingLeft: '5%' }}>
+                            <FontAwesome5 name="envira" size={24} color="white" />
+                            <Text style={styles.labelTemp}>วันที่รอเก็บเกี่ยว</Text>
+                        </View>
 
+                        <Text style={styles.label}>ชื่อผักที่ปลูก   :   {humidity.name}</Text>
                     </View>
 
                 </View>
@@ -132,22 +207,37 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         width: '100%',
         flexDirection: 'row',
-        paddingTop: 20
+        paddingTop: 0
+
+    },
+
+    containerCardTop: {
+        justifyContent: 'center',
+        width: '90%',
+        height: 150,
+        backgroundColor: color.white,
+        borderRadius: 10,
+        margin: 10,
+        borderWidth: 0.3,
+        borderColor: color.gray
+
     },
     containerCard: {
         justifyContent: 'center',
         width: '90%',
-        height: 180,
+        height: 100,
         backgroundColor: color.primary,
-        borderRadius: 20,
-        margin: 10,
+        borderRadius: 10,
+        margin: 5,
+        borderWidth: 1,
+        borderColor: color.gray
     },
     containerCardButton: {
         width: '100%',
         justifyContent: 'space-around',
         alignItems: 'center',
         flexDirection: 'row',
-        marginTop: 20
+        marginTop: 0
     },
 
     containerCardFalse: {
@@ -155,7 +245,7 @@ const styles = StyleSheet.create({
         width: '45%',
         height: 160,
         backgroundColor: '#878787',
-        borderRadius: 20,
+        borderRadius: 10,
         margin: 10,
 
     },
@@ -195,6 +285,21 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'left',
         marginTop: 0,
+        paddingLeft: '5%'
+    },
+    labelTempBlack: {
+        color: '#000',
+        fontSize: 25,
+        fontWeight: 'bold',
+        textAlign: 'left',
+        marginTop: 0,
+        paddingLeft: '5%'
+    },
+    labelBlack: {
+        color: 'black',
+        marginTop: 10,
+        fontSize: 18,
+        textAlign: 'left',
         paddingLeft: '5%'
     },
 

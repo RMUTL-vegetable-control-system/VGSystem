@@ -121,9 +121,9 @@ function Light({ navigation }) {
             <View>
                 <View style={{ flexDirection: 'column', width: '100%', marginBottom: 0, alignItems: 'flex-start', paddingLeft: '5%' }} >
 
-                    <Text style={{ fontSize: 25, textAlign: 'center', fontWeight: 'bold' }} >Light Control</Text>
+                    <Text style={{ fontSize: 25, textAlign: 'center', fontWeight: 'bold' }} >หน้าควบคุมหลอดไฟ</Text>
                     <Text style={{ fontSize: 18, textAlign: 'center', }} >Vegetable Control System</Text>
-                    <Text style={{ fontSize: 18, textAlign: 'center', }} >Name:  {farmData.deviceName}</Text>
+                    <Text style={{ fontSize: 18, textAlign: 'center', }} >ชื่อ:  {farmData.deviceName}</Text>
                 </View>
                 <View style={styles.containerAreaCard}>
                     <View style={{
@@ -216,7 +216,7 @@ function Light({ navigation }) {
                             padding: 5,
                             borderRadius: 10,
                         }}>
-                        <Text style={styles.labelButton}>Set Time</Text>
+                        <Text style={styles.labelButton}>ตั้งเวลา</Text>
                     </View>
 
                 </TouchableOpacity>
