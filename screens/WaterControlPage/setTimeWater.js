@@ -3,13 +3,14 @@ import { View, Text, StyleSheet, Button, Input, TouchableOpacity, } from 'react-
 import { TextInput, } from 'react-native-paper';
 import { TimePicker, } from 'react-native-simple-time-picker';
 import SelectDropdown from 'react-native-select-dropdown'
+import { getDatabase, ref, onValue, set } from 'firebase/database';
 
 const color = {
   primary: '#80C5De',
   white: '#ffffff',
   gray: '#C4C4C4',
 }
- 
+
 
 export default function SetTimeWater({ navigation }) {
   const countries = ["น้ำ 1", "น้ำ 2", "น้ำ 3", "น้ำ 4"]
@@ -19,19 +20,66 @@ export default function SetTimeWater({ navigation }) {
   const [minutes, setMinutes] = useState(0);
   const [valueTime, setValueTime] = useState('0');
 
+  const [timerID, setTimerID] = useState([]);
+  const [startHour, setStartHour] = useState([]);
+  const [startMinute, setStartMinute] = useState([]);
+  const [duration, setDuration] = useState([]);
+
+  useEffect(() => {
+    console.log('Fetching Data...');
+    fetchData();
+    console.log('Fetch Data Done')
+
+  }, [])
+
+
+  function fetchData() {
+    const db = getDatabase();
+    let userId = 'user1'; // Edit To User ID 
+    const reference = ref(db, 'user/' + userId);
+    onValue(reference, (snapshot) => {
+      setTimerID(snapshot.val().farm.servo.timer.timerID); // set เลขของ servo
+      setStartHour(snapshot.val().farm.servo.timer.startHour); // set เวลาที่เริ่มทำงาน ชั่วโฒง
+      setStartMinute(snapshot.val().farm.servo.timer.startMinute); // set เวลาที่เริ่มทำงาน นาที
+      setDuration(snapshot.val().farm.servo.timer.duration); // set ระยะเวลาที่ทำงาน
+
+    })
+  }
+
   const handleChange = (value = { hours, minutes }) => {
     setHours(value.hours);
     setMinutes(value.minutes);
   };
 
+
+
+
   const saveTimeWater = () => {
+    console.log(valueWater);
+    console.log(hours);
+    console.log(minutes);
+    console.log(valueTime);
+    timerID.push(valueWater);
+    startHour.push(hours);
+    startMinute.push(minutes);
+    duration.push(valueTime);
+    const db = getDatabase();
+    let userId = 'user1';
+    let path = 'user/' + userId + '/farm/servo/timer';
+    const referenceTimerID = ref(db, path);
+    set(referenceTimerID, {
+      timerID: timerID,
+      startHour: startHour,
+      startMinute: startMinute,
+      duration: duration,
+    });
     navigation.navigate('ListWater')
   };
 
   return (
 
     <View style={styles.container}>
-      <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center' }}>เลือกเครื่องServoให้น้ำ</Text>
+      <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center' }}>เลือกเครื่องให้น้ำ</Text>
       <View style={styles.containerServo}>
         <SelectDropdown
           data={countries}
@@ -88,7 +136,7 @@ export default function SetTimeWater({ navigation }) {
         />
       </View>
       <View style={{ marginTop: 50 }}>
-        <TouchableOpacity color={color.primary} onPress={() => saveTimeWater() } style={styles.submitButton}>
+        <TouchableOpacity color={color.primary} onPress={() => saveTimeWater()} style={styles.submitButton}>
           <View
             style={{
               backgroundColor: '#5cb85c',

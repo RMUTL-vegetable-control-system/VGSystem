@@ -61,7 +61,7 @@ export default function SetTimeLight({ navigation }) {
     timerID.push(valueLight);
     startHour.push(hours);
     startMinute.push(minutes);
-    duration.push(valueLight);
+    duration.push(valueTime);
     const db = getDatabase();
     let userId = 'user1';
     let path = 'user/' + userId + '/farm/light/timer';
@@ -72,7 +72,7 @@ export default function SetTimeLight({ navigation }) {
       startMinute: startMinute,
       duration: duration,
     });
-    navigation.navigate('Menu');
+    navigation.navigate('ListLight')
   };
 
   return (
