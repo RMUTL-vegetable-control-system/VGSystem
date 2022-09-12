@@ -9,19 +9,23 @@ const color = {
   white: '#ffffff',
   gray: '#C4C4C4',
 }
+ 
 
 export default function SetTimeWater({ navigation }) {
   const countries = ["น้ำ 1", "น้ำ 2", "น้ำ 3", "น้ำ 4"]
-
+  //ตัวแปรทั้ง4
+  const [valueWater, setValueWater] = useState('');
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
+  const [valueTime, setValueTime] = useState('0');
+
   const handleChange = (value = { hours, minutes }) => {
     setHours(value.hours);
     setMinutes(value.minutes);
   };
 
   const saveTimeWater = () => {
-    navigation.navigate('Menu')
+    navigation.navigate('ListWater')
   };
 
   return (
@@ -32,7 +36,7 @@ export default function SetTimeWater({ navigation }) {
         <SelectDropdown
           data={countries}
           onSelect={(selectedItem, index) => {
-            console.log(selectedItem, index)
+            setValueWater(index + 1);
           }}
           buttonStyle={{
             backgroundColor: 'white',
@@ -75,6 +79,8 @@ export default function SetTimeWater({ navigation }) {
           selectionColor="#08823F"
           activeUnderlineColor='#08823F'
           maxLength={4}
+          onChangeText={valueTime => setValueTime(valueTime)}
+          value={valueTime}
           keyboardType='number-pad'
           returnKeyType='done'
 
@@ -82,7 +88,7 @@ export default function SetTimeWater({ navigation }) {
         />
       </View>
       <View style={{ marginTop: 50 }}>
-        <TouchableOpacity color={color.primary} onPress={() => saveTimeWater()} style={styles.submitButton}>
+        <TouchableOpacity color={color.primary} onPress={() => saveTimeWater() } style={styles.submitButton}>
           <View
             style={{
               backgroundColor: '#5cb85c',

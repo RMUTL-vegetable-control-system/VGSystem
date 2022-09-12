@@ -211,7 +211,7 @@ function Water({ navigation }) {
                             padding: 5,
                             borderRadius: 10,
                         }}>
-                        <Text style={styles.labelButton}>Set Time</Text>
+                        <Text style={styles.labelButton}>ตั้งเวลา</Text>
                     </View>
 
                 </TouchableOpacity>
