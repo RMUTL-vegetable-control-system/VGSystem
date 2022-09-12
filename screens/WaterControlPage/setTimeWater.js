@@ -10,8 +10,6 @@ const color = {
   gray: '#C4C4C4',
 }
 
-
-
 export default function SetTimeWater({ navigation }) {
   const countries = ["น้ำ 1", "น้ำ 2", "น้ำ 3", "น้ำ 4"]
 

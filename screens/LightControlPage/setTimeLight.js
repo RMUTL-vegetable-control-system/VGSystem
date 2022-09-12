@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Button, Input, TouchableOpacity, } from 'react-
 import { TextInput, } from 'react-native-paper';
 import { TimePicker, } from 'react-native-simple-time-picker';
 import SelectDropdown from 'react-native-select-dropdown'
+import { getDatabase, ref, onValue, set } from 'firebase/database';
 
 const color = {
   primary: '#80C5De',
@@ -14,13 +15,37 @@ const color = {
 
 export default function SetTimeLight({ navigation }) {
   const countries = ["ไฟสังเคราะห์แสง1", "ไฟสังเคาระห์แสง2", "ไฟสังเคราะแสง3", "ไฟสังเคราะห์แสง4"]
-
-
   //ตัวแปรทั้ง4
   const [valueLight, setValueLight] = useState('');
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
-  const [valueTime, setValueTime] = useState('');
+  const [valueTime, setValueTime] = useState('0');
+
+  const [timerID, setTimerID] = useState([]);
+  const [startHour, setStartHour] = useState([]);
+  const [startMinute, setStartMinute] = useState([]);
+  const [duration, setDuration] = useState([]);
+
+  useEffect(() => {
+    console.log('Fetching Data...');
+    fetchData();
+    console.log('Fetch Data Done')
+
+  }, [])
+
+
+  function fetchData() {
+    const db = getDatabase();
+    let userId = 'user1'; // Edit To User ID 
+    const reference = ref(db, 'user/' + userId);
+    onValue(reference, (snapshot) => {
+      setTimerID(snapshot.val().farm.light.timer.timerID); // set เลขของ servo
+      setStartHour(snapshot.val().farm.light.timer.startHour); // set เวลาที่เริ่มทำงาน ชั่วโฒง
+      setStartMinute(snapshot.val().farm.light.timer.startMinute); // set เวลาที่เริ่มทำงาน นาที
+      setDuration(snapshot.val().farm.light.timer.duration); // set ระยะเวลาที่ทำงาน
+
+    })
+  }
 
 
   const handleChange = (value = { hours, minutes }) => {
@@ -29,7 +54,25 @@ export default function SetTimeLight({ navigation }) {
   };
 
   const saveTimeLight = () => {
-    navigation.navigate('Menu')
+    console.log(valueLight);
+    console.log(hours);
+    console.log(minutes);
+    console.log(valueTime);
+    timerID.push(valueLight);
+    startHour.push(hours);
+    startMinute.push(minutes);
+    duration.push(valueLight);
+    const db = getDatabase();
+    let userId = 'user1';
+    let path = 'user/' + userId + '/farm/light/timer';
+    const referenceTimerID = ref(db, path);
+    set(referenceTimerID, {
+      timerID: timerID,
+      startHour: startHour,
+      startMinute: startMinute,
+      duration: duration,
+    });
+    navigation.navigate('Menu');
   };
 
   return (
@@ -40,8 +83,7 @@ export default function SetTimeLight({ navigation }) {
         <SelectDropdown
           data={countries}
           onSelect={(selectedItem, index) => {
-            console.log(selectedItem)
-            setValueLight(selectedItem);
+            setValueLight(index + 1);
           }}
           buttonStyle={{
             backgroundColor: 'white',
