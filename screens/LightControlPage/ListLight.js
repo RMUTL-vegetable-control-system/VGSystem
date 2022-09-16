@@ -1,7 +1,7 @@
 import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, TouchableOpacity, Dimensions, Alert } from 'react-native'
 import React from 'react'
 import { useState, useEffect } from 'react';
-import { getDatabase, ref, onValue } from 'firebase/database';
+import { getDatabase, ref, onValue, set } from 'firebase/database';
 import { Ionicons } from '@expo/vector-icons';
 import Swipeout from 'react-native-swipeout';
 import { FontAwesome } from '@expo/vector-icons';
@@ -10,6 +10,7 @@ const color = {
     primary: '#f2c97a',
     white: '#ffffff',
     gray: '#C4C4C4',
+    green: '#1fd181',
 }
 
 
@@ -17,9 +18,26 @@ const windowWidth = Dimensions.get('window').width;
 
 export default function ListLight({ navigation }) {
 
+    function deleteList(id) {
+        setTimerID(timerID.splice(id, 1));
+        setStartHour(startHour.splice(id, 1));
+        setStartMinute(startMinute.splice(id, 1));
+        setDuration(duration.splice(id, 1));
+        const db = getDatabase();
+        let userId = 'user1';
+        let path = 'user/' + userId + '/farm/light/timer';
+        const referenceTimerID = ref(db, path);
+        set(referenceTimerID, {
+            timerID: timerID,
+            startHour: startHour,
+            startMinute: startMinute,
+            duration: duration,
+        });
+        console.log('Delete Pressed!');
+        navigation.navigate('Menu');
+    }
 
-
-    var swipeoutBtns = [
+    const swipeoutBtns = (id) => [
         {
             text: 'ลบ',
             color: 'white',
@@ -31,7 +49,7 @@ export default function ListLight({ navigation }) {
                     'alertMessage',
                     [
                         { text: 'Cancel', onPress: () => console.log('Cancel Pressed!') },
-                        { text: 'OK', onPress: () => navigation.navigate('Menu') },
+                        { text: 'OK', onPress: () => deleteList(id) },
 
                     ],
                     { cancelable: false }
@@ -48,13 +66,27 @@ export default function ListLight({ navigation }) {
     const [startHour, setStartHour] = useState([]);
     const [startMinute, setStartMinute] = useState([]);
     const [duration, setDuration] = useState([]);
+    const [isTiming1, setIsTiming1] = useState('');
+    const [isTiming2, setIsTiming2] = useState('');
+    const [isTiming3, setIsTiming3] = useState('');
+    const [isTiming4, setIsTiming4] = useState('');
     // console.log(listTime)
     // console.log(listTime1)
 
     function setFormatListTime(timerID, startHour, startMinute, duration) {
         for (let i = 0; i < timerID.length; i++) {
             // setListtime('waterตัวที่ ' + timerID[i] + 'ทำงานเมื่อ' + startHour[i] + ':' + startMinute[i] + '   เป็นระยะเวลา : ' + duration[i]);
-            listTime.push({ id: i, name: 'ไฟสังเคราะห์แสง : ' + timerID[i], time: (startHour[i] + ':' + startMinute[i]), duration: duration[i] })
+            let isTime;
+            if (timerID[i] == '1') {
+                isTime = isTiming1;
+            } else if (timerID[i] == '2') {
+                isTime = isTiming2;
+            } else if (timerID[i] == '3') {
+                isTime = isTiming3;
+            } else if (timerID[i] == '4') {
+                isTime = isTiming4;
+            }
+            listTime.push({ id: i, name: 'ไฟสังเคราะห์แสง : ' + timerID[i], time: (startHour[i] + ':' + startMinute[i]), duration: duration[i], isTime: isTime })
             // console.log(listTime)
             console.log('Setting Data row : ' + i);
         }
@@ -81,18 +113,23 @@ export default function ListLight({ navigation }) {
             setStartHour(snapshot.val().farm.light.timer.startHour); // set เวลาที่เริ่มทำงาน ชั่วโฒง
             setStartMinute(snapshot.val().farm.light.timer.startMinute); // set เวลาที่เริ่มทำงาน นาที
             setDuration(snapshot.val().farm.light.timer.duration); // set ระยะเวลาที่ทำงาน
+            setIsTiming1(snapshot.val().farm.light.light1.value);
+            setIsTiming2(snapshot.val().farm.light.light2.value);
+            setIsTiming3(snapshot.val().farm.light.light3.value);
+            setIsTiming4(snapshot.val().farm.light.light4.value);
         })
     }
     setFormatListTime(timerID, startHour, startMinute, duration);
     console.log('')
-    const Item = ({ name, time, duration }) => (
+    const Item = ({ id, name, time, duration, isTime }) => (
         <View>
-            <Swipeout right={swipeoutBtns} backgroundColor={'#F2F2F2'} >
-                <View style={styles.item}>
+            <Swipeout right={swipeoutBtns(id)} backgroundColor={'#FFFFFF'} autoClose={true}>
+                <View style={isTime == 'timing' ? styles.itemTiming : styles.item}>
 
                     <View style={styles.itemInViewOne}>
 
-                        <FontAwesome name="lightbulb-o" size={45} color={'#fff'} />
+                        <FontAwesome name="lightbulb-o" size={40} color={'#fff'} />
+                        <Text style={styles.detail}>{isTime == 'timing' ? 'กำลังทำงาน' : ''}</Text>
 
                     </View>
                     <View style={styles.itemInViewTwo}>
@@ -114,14 +151,14 @@ export default function ListLight({ navigation }) {
         </View>
     );
     const renderItem = ({ item }) => (
-        <Item name={item.name} time={item.time} duration={item.duration} />
+        <Item id={item.id} name={item.name} time={item.time} duration={item.duration} isTime={item.isTime} />
     );
 
     return (
         <SafeAreaView style={styles.container}>
             <FlatList
                 data={listTime}
-                renderItem={renderItem}
+                renderItem={(renderItem)}
                 keyExtractor={item => item.id}
             />
             <View >
@@ -176,6 +213,19 @@ const styles = StyleSheet.create({
     item: {
         width: windowWidth * 0.95,
         backgroundColor: color.primary,
+        padding: 15,
+        justifyContent: 'space-around',
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderRadius: 0,
+        flexDirection: 'row',
+        marginVertical: 5,
+
+
+    },
+    itemTiming: {
+        width: windowWidth * 0.95,
+        backgroundColor: color.green,
         padding: 15,
         justifyContent: 'space-around',
         flexDirection: 'row',

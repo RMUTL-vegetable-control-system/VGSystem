@@ -115,7 +115,7 @@ export default function Edit({ navigation }) {
                         />
                     </View>
                     <View style={{ marginTop: 20 }}>
-                        <Text style={styles.TopicDetail}>จำนวนที่ต้องเก็บเกี่ยว : {AmountHarvested}</Text>
+                        <Text style={styles.TopicDetail}>จำนวนวันที่ต้องปลูก : {AmountHarvested}</Text>
                         <TextInput
                             keyboardType='numeric'
                             label="จำนวนที่ต้องเก็บเกี่ยว"

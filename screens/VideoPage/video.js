@@ -37,11 +37,11 @@ export default function Video() {
                     originWhitelist={['*']}
                     scrollEnabled={true}
                     onScroll={false}
-                    source={{ uri: 'http://1f7d-2403-6200-8853-49ea-1165-dc-93a1-9bab.ngrok.io/stream' }}
+                    source={{ uri: 'http://192.168.1.14:81/stream' }}
                 />
                 <View >
-                    <Text style={{ textAlign: 'left', fontSize: 20, fontWeight: 'bold', color: '#303030' ,marginTop:0}}>ลิงค์ของวิดีโอ  :</Text>
-                    <Text style={{ textAlign: 'left', fontSize: 16, fontWeight: 'bold', color: '#303030' ,marginTop:0}}>http://1f7d-2403-6200-8853-49ea-1165-dc-93a1-9bab.ngrok.io/stream</Text>
+                    <Text style={{ textAlign: 'left', fontSize: 20, fontWeight: 'bold', color: '#303030', marginTop: 0 }}>ลิงค์ของวิดีโอ  :</Text>
+                    <Text style={{ textAlign: 'left', fontSize: 16, fontWeight: 'bold', color: '#303030', marginTop: 0 }}>Local stream</Text>
                 </View>
             </View>
 
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     titleHeader: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-       
+
     },
     cardDetail: {
         justifyContent: 'center',

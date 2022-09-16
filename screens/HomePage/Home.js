@@ -79,7 +79,7 @@ function Home({ navigation }) {
     return (
 
         <View style={styles.container}>
-            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '100%',}}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '100%', }}>
                 <Image
                     source={require('../../assets/LogoApp.png')}
                     style={{ width: 50, height: 50, }}
@@ -99,9 +99,9 @@ function Home({ navigation }) {
                     width: '90%',
                     height: 150,
                     backgroundColor:
-                        valueHumatity >= 1000 ? color.red
-                            : valueHumatity >= 980 && valueHumatity < 1000 ? color.orange
-                                : valueHumatity >= 950 && valueHumatity < 980 ? color.yellow
+                        valueHumatity >= 780 ? color.red
+                            : valueHumatity >= 700 && valueHumatity < 780 ? color.orange
+                                : valueHumatity >= 480 && valueHumatity < 700 ? color.yellow
                                     : color.skyblue,
                     borderRadius: 10,
                     margin: 10,
@@ -115,10 +115,10 @@ function Home({ navigation }) {
                         <Text style={styles.label}>Name  :  {humidity.name}</Text>
                         <Text style={styles.labelTemp}>ค่าความชื้นในดิน :  ~{humidity.value}</Text>
                         <Text style={styles.labelTemp}>~
-                            {valueHumatity >= 1000 ? "แห้งมาก"
-                                : valueHumatity >= 980 && valueHumatity < 1000 ? "แห้ง"
-                                    : valueHumatity >= 950 && valueHumatity < 980 ? "ชื้น"
-                                        : "เปียก"
+                            {valueHumatity >= 780 ? "ดินขาดน้ำ"
+                                : valueHumatity >= 700 && valueHumatity < 780 ? "ดินแห้ง"
+                                    : valueHumatity >= 480 && valueHumatity < 700 ? "ดินชื้นเหมาะสม"
+                                        : "ดินมีน้ำมากเกินไป"
                             }
                         </Text>
                     </View>
@@ -159,9 +159,12 @@ function Home({ navigation }) {
 
                     <View style={{ paddingLeft: '5%' }}>
                         <Text style={styles.labelTempBlack}>ข้อมูลฟาร์ม</Text>
-                        <Text style={styles.labelBlack}>ชื่อผักที่ปลูก   :   {humidity.name}</Text>
-                        <Text style={styles.labelBlack}>วันที่ใส่ปุ๋ยครั้งล่าสุด  :  {farmData.deviceName}</Text>
-                        <Text style={styles.labelBlack}>จำนวนวันในการปลูก  :  {farmData.deviceName}</Text>
+                        <Text style={styles.labelBlack}>ชื่อผักที่ปลูก   :   ต้นสะระแหน่</Text>
+                        {/* <Text style={styles.labelBlack}>ชื่อผักที่ปลูก   :   {humidity.name}</Text> */}
+                        <Text style={styles.labelBlack}>วันที่ใส่ปุ๋ยครั้งล่าสุด  : 14/09/2556</Text>
+                        <Text style={styles.labelBlack}>จำนวนวันในการปลูก  :  45 วัน</Text>
+                        {/* <Text style={styles.labelBlack}>วันที่ใส่ปุ๋ยครั้งล่าสุด  :  {farmData.deviceName}</Text>
+                        <Text style={styles.labelBlack}>จำนวนวันในการปลูก  :  {farmData.deviceName}</Text> */}
 
                     </View>
 
