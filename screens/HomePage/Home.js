@@ -33,6 +33,8 @@ function Home({ navigation }) {
 
     const [farmData, setFarmData] = useState([]);
     const [humidity, setHumidity] = useState([]);
+    const [Detail, setDetail] = useState('');
+    const [lastestFertilizer, setLastestFertilizer] = useState('');
 
     const valueHumatity = humidity.value;
 
@@ -68,7 +70,10 @@ function Home({ navigation }) {
         const reference = ref(db, 'user/' + userId);
         onValue(reference, (snapshot) => {
             setFarmData(snapshot.val().farm);
+            setDetail(snapshot.val().farm.Detail);
             setHumidity(snapshot.val().farm.humidity);
+
+
         })
     }
 
@@ -159,10 +164,10 @@ function Home({ navigation }) {
 
                     <View style={{ paddingLeft: '5%' }}>
                         <Text style={styles.labelTempBlack}>ข้อมูลฟาร์ม</Text>
-                        <Text style={styles.labelBlack}>ชื่อผักที่ปลูก   :   ต้นสะระแหน่</Text>
+                        <Text style={styles.labelBlack}>ชื่อผักที่ปลูก   :   {Detail.vegetable}</Text>
                         {/* <Text style={styles.labelBlack}>ชื่อผักที่ปลูก   :   {humidity.name}</Text> */}
                         <Text style={styles.labelBlack}>วันที่ใส่ปุ๋ยครั้งล่าสุด  : 14/09/2556</Text>
-                        <Text style={styles.labelBlack}>จำนวนวันในการปลูก  :  45 วัน</Text>
+                        <Text style={styles.labelBlack}>จำนวนวันในการปลูก  :  {Detail.dayToHarvest} วัน</Text>
                         {/* <Text style={styles.labelBlack}>วันที่ใส่ปุ๋ยครั้งล่าสุด  :  {farmData.deviceName}</Text>
                         <Text style={styles.labelBlack}>จำนวนวันในการปลูก  :  {farmData.deviceName}</Text> */}
 
@@ -180,7 +185,8 @@ function Home({ navigation }) {
                             <Text style={styles.labelTemp}>วันที่รอเก็บเกี่ยว</Text>
                         </View>
 
-                        <Text style={styles.label}>ชื่อผักที่ปลูก   :   {humidity.name}</Text>
+                        {/* <Text style={styles.label}>เหลือวันอีก :{humidity.name}</Text> */}
+                        <Text style={styles.label}>เหลือวันอีก : 3 วัน</Text>
                     </View>
 
                 </View>

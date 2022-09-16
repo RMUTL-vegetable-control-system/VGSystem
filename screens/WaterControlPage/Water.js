@@ -52,7 +52,7 @@ function Water({ navigation }) {
         let userId = 'user1'; // Edit To User ID 
         const reference = ref(db, 'user/' + userId);
         onValue(reference, (snapshot) => {
-            setFarmData(snapshot.val().farm);
+            setFarmData(snapshot.val().farm.Detail);
             setWater_1_Data(snapshot.val().farm.servo.servo1);
             setWater_2_Data(snapshot.val().farm.servo.servo2);
             setWater_3_Data(snapshot.val().farm.servo.servo3);
@@ -122,7 +122,7 @@ function Water({ navigation }) {
 
                     <Text style={{ fontSize: 25, textAlign: 'center', fontWeight: 'bold' }} >หน้าควบคุมน้ำ</Text>
                     <Text style={{ fontSize: 18, textAlign: 'center', }} >Vegetable Control System</Text>
-                    <Text style={{ fontSize: 18, textAlign: 'center', }} >ชื่อ:  {farmData.deviceName}</Text>
+                    <Text style={{ fontSize: 18, textAlign: 'center', }} >ชื่อ:  {farmData.name}</Text>
                 </View>
                 <View style={styles.containerAreaCard}>
                     <View style={{
@@ -137,7 +137,7 @@ function Water({ navigation }) {
                             <MaterialCommunityIcons name="watering-can" size={24} color="white" />
                         </View>
                         <View style={{ paddingLeft: '5%' }}>
-                            <Text style={styles.label}>คุมน้ำตัวที่ 1 :  </Text>
+                            <Text style={styles.label}>{farmData.Water1}</Text>
                             <Text style={styles.label}>{water_1_Data.name}</Text>
                             <Switch value={isConnect1} onValueChange={onToggleSwitch1} color={'#008640'} style={{ width: '30%', }} />
                         </View>
@@ -155,7 +155,7 @@ function Water({ navigation }) {
                             <MaterialCommunityIcons name="watering-can" size={24} color="white" />
                         </View>
                         <View style={{ paddingLeft: '5%' }}>
-                            <Text style={styles.label}>คุมน้ำตัวที่ 2 :  </Text>
+                            <Text style={styles.label}>{farmData.Water2}</Text>
                             <Text style={styles.label}>{water_2_Data.name}</Text>
                             <Switch value={isConnect2} onValueChange={onToggleSwitch2} color={'#008640'} style={{ width: '30%', }} />
                         </View>
@@ -175,7 +175,7 @@ function Water({ navigation }) {
                             <MaterialCommunityIcons name="watering-can" size={24} color="white" />
                         </View>
                         <View style={{ paddingLeft: '5%' }}>
-                            <Text style={styles.label}>คุมน้ำตัวที่ 3 :  </Text>
+                            <Text style={styles.label}>{farmData.Water3}</Text>
                             <Text style={styles.label}>{water_3_Data.name}</Text>
                             <Switch value={isConnect3} onValueChange={onToggleSwitch3} color={'#008640'} style={{ width: '30%', }} />
                         </View>
@@ -193,7 +193,7 @@ function Water({ navigation }) {
                             <MaterialCommunityIcons name="watering-can" size={24} color="white" />
                         </View>
                         <View style={{ paddingLeft: '5%' }}>
-                            <Text style={styles.label}>คุมน้ำตัวที่ 4 :  </Text>
+                            <Text style={styles.label}>{farmData.Water4}</Text>
                             <Text style={styles.label}>{water_4_Data.name}</Text>
                             <Switch value={isConnect4} onValueChange={onToggleSwitch4} color={'#008640'} style={{ width: '30%', }} />
                         </View>

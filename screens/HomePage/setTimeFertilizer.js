@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { View, Text, StyleSheet, Button, Input, TouchableOpacity, } from 'react-native'
+import { getDatabase, ref, onValue, set } from 'firebase/database';
 import DatePicker from 'react-native-modern-datepicker';
 
 const color = {
@@ -14,9 +15,25 @@ export default function SetTimeFertilizer({ navigation }) {
   const [selectedDate, setSelectedDate] = useState('');
 
   //ตัวแปล dataDate คือวันที่ที่จะเอาไปใส่ในฐานข้อมูล
-  
-  
+  const [time, setTime] = useState([]);
+  const [date, setDate] = useState([]);
 
+  async function fetchData() {
+    const db = getDatabase();
+    let userId = 'user1'; // Edit To User ID 
+    const reference = ref(db, 'user/' + userId);
+    onValue(reference, (snapshot) => {
+      setDate(snapshot.val().farm.fertilizer.date);
+      setTime(snapshot.val().farm.fertilizer.time);
+    })
+  }
+
+  useEffect(() => {
+    console.log('Fetching Data...');
+    fetchData();
+    console.log('Fetch Data Done')
+
+  }, [])
 
   //ตัวแปล dataTime คือเวลาที่จะเอาไปใส่ในฐานข้อมูล
   const myArray = selectedDate.split(" ");
@@ -27,14 +44,24 @@ export default function SetTimeFertilizer({ navigation }) {
 
 
   const saveDate = () => {
-    navigation.navigate('Menu')
+    date.push(dataDate);
+    time.push(dataTime);
+    const db = getDatabase();
+    let userId = 'user1';
+    let path = 'user/' + userId + '/farm/fertilizer';
+    const referenceTimerID = ref(db, path);
+    set(referenceTimerID, {
+      date: date,
+      time: time,
+    });
+    navigation.navigate('ListFertilizer');
   };
 
   return (
 
     <View style={styles.container}>
 
-      <Text style={{ fontSize: 30, fontWeight: 'bold', textAlign: 'center', marginBottom: 20 }}>{dataDate}:{dataTime}</Text>
+      <Text style={{ fontSize: 30, textAlign: 'center', marginBottom: 20 }}>วันที่ : {dataDate} เวลา : {dataTime}</Text>
 
       <View style={styles.containerCardTimePicker} >
         <DatePicker
@@ -56,7 +83,7 @@ export default function SetTimeFertilizer({ navigation }) {
 
         </TouchableOpacity>
       </View>
-    </View>
+    </View >
 
   )
 }

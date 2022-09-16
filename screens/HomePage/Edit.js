@@ -1,8 +1,8 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import DatePicker from 'react-native-modern-datepicker';
-
+import { getDatabase, ref, onValue, set } from 'firebase/database';
 export default function Edit({ navigation }) {
 
     const [Name, setName] = useState("");
@@ -17,7 +17,7 @@ export default function Edit({ navigation }) {
     const [NameWater2, setNameWater2] = useState("");
     const [NameWater3, setNameWater3] = useState("");
     const [NameWater4, setNameWater4] = useState("");
-    const [NameHumatity, setNameHumatity] = useState("");
+    const [NameHumidity, setNameHumidity] = useState("");
     const [selectedDate, setSelectedDate] = useState('');
     const refName = useRef();
     const refNameVegetable = useRef();
@@ -31,16 +31,61 @@ export default function Edit({ navigation }) {
     const refNameWater2 = useRef();
     const refNameWater3 = useRef();
     const refNameWater4 = useRef();
-    const refNameHumatity = useRef();
+    const refNameHumidity = useRef();
 
-    const myArray = selectedDate.split(" ");
-    const dataDate = myArray[0];
-    const dataTime = myArray[1];
-    console.log(dataDate)
-    console.log(dataTime)
+
+    useEffect(() => {
+        fetchData();
+    }, [])
+
+    function fetchData() {
+        const db = getDatabase();
+        let userId = 'user1'; // Edit To User ID 
+        const reference = ref(db, 'user/' + userId);
+        onValue(reference, (snapshot) => {
+            setName(snapshot.val().farm.Detail.name);
+            setNameVegetable(snapshot.val().farm.Detail.vegetable);
+            setTypeVegetable(snapshot.val().farm.Detail.vegetableType);
+            setAmountHarvested(snapshot.val().farm.Detail.dayToHarvest);
+            setNameLight1(snapshot.val().farm.Detail.Light1);
+            setNameLight2(snapshot.val().farm.Detail.Light2);
+            setNameLight3(snapshot.val().farm.Detail.Light3);
+            setNameLight4(snapshot.val().farm.Detail.Light4);
+            setNameWater1(snapshot.val().farm.Detail.Water1);
+            setNameWater2(snapshot.val().farm.Detail.Water2);
+            setNameWater3(snapshot.val().farm.Detail.Water3);
+            setNameWater4(snapshot.val().farm.Detail.Water4);
+            setNameHumidity(snapshot.val().farm.Detail.Humidity);
+            setSelectedDate(snapshot.val().farm.Detail.datePlant);
+        })
+    }
 
 
     const saveDate = () => {
+        const db = getDatabase();
+        let name, value;
+        let userId = 'user1';
+        let path = 'user/' + userId + '/farm/Detail/';
+        const reference = ref(db, path);
+
+        set(reference, {
+            name: Name,
+            vegetable: NameVegetable,
+            vegetableType: TypeVegetable,
+            dayToHarvest: AmountHarvested,
+            Light1: NameLight1,
+            Light2: NameLight2,
+            Light3: NameLight3,
+            Light4: NameLight4,
+            Water1: NameWater1,
+            Water2: NameWater2,
+            Water3: NameWater3,
+            Water4: NameWater4,
+            Humidity: NameHumidity,
+            datePlant: selectedDate,
+        });
+
+
         navigation.navigate('Menu')
     };
 
@@ -243,7 +288,7 @@ export default function Edit({ navigation }) {
                             secureTextEntry={false}
                             returnKeyType="next"
                             ref={refNameWater4}
-                            onSubmitEditing={() => refNameHumatity.current.focus()}
+                            onSubmitEditing={() => refNameHumidity.current.focus()}
                             onChangeText={NameWater4 => setNameWater4(NameWater4)}
                             style={{ height: 50, marginTop: 10 }}
                             selectionColor="#08823F"
@@ -251,14 +296,14 @@ export default function Edit({ navigation }) {
                         />
                     </View>
                     <View style={{ marginTop: 20 }}>
-                        <Text style={styles.TopicDetail}>ชื่อความชื้น : {NameHumatity}</Text>
+                        <Text style={styles.TopicDetail}>ชื่อความชื้น : {NameHumidity}</Text>
                         <TextInput
                             label="ชื่อความชื้น"
-                            value={NameHumatity}
+                            value={NameHumidity}
                             secureTextEntry={false}
                             returnKeyType="done"
-                            ref={refNameHumatity}
-                            onChangeText={NameHumatity => setNameHumatity(NameHumatity)}
+                            ref={refNameHumidity}
+                            onChangeText={NameHumidity => setNameHumidity(NameHumidity)}
                             style={{ height: 50, marginTop: 10 }}
                             selectionColor="#08823F"
                             activeUnderlineColor='#08823F'
@@ -267,7 +312,8 @@ export default function Edit({ navigation }) {
 
 
                     <View style={{ marginTop: 20, marginBottom: 40 }}>
-                        <Button mode="contained" color='#08823F' onPress={() => navigation.navigate('Home')}>
+
+                        <Button mode="contained" color='#08823F' onPress={() => saveDate()}>
                             <Text style={styles.TopicButton}>ยืนยัน</Text>
                         </Button>
                     </View>

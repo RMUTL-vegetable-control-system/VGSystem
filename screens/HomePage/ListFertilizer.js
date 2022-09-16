@@ -1,7 +1,7 @@
 import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, TouchableOpacity, Dimensions, Alert } from 'react-native'
 import React from 'react'
 import { useState, useEffect } from 'react';
-import { getDatabase, ref, onValue } from 'firebase/database';
+import { getDatabase, ref, onValue, set } from 'firebase/database';
 import { Fontisto } from '@expo/vector-icons';
 import Swipeout from 'react-native-swipeout';
 
@@ -16,7 +16,24 @@ const windowWidth = Dimensions.get('window').width;
 
 export default function ListFertilizer({ navigation }) {
 
-    var swipeoutBtns = [
+    function deleteList(id) {
+        setTime(time.splice(id, 1));
+        setDate(date.splice(id, 1));
+        const db = getDatabase();
+        let userId = 'user1';
+        let path = 'user/' + userId + '/farm/fertilizer';
+        const reference = ref(db, path);
+        set(reference, {
+            time: time,
+            date: date,
+
+        });
+        console.log('Delete Pressed!');
+        navigation.navigate('Menu');
+    }
+
+
+    const swipeoutBtns = (id) => [
         {
             text: 'ลบ',
             color: 'white',
@@ -28,30 +45,30 @@ export default function ListFertilizer({ navigation }) {
                     'alertMessage',
                     [
                         { text: 'Cancel', onPress: () => console.log('Cancel Pressed!') },
-                        { text: 'OK', onPress: () => navigation.navigate('Menu') },
+                        { text: 'OK', onPress: () => deleteList(id) },
 
                     ],
                     { cancelable: false }
                 )
             }
         },
-
-
     ]
 
 
     const [listTime, setListTime] = useState([]);
-    const [timerID, setTimerID] = useState([]);
-    const [startHour, setStartHour] = useState([]);
-    const [startMinute, setStartMinute] = useState([]);
-    const [duration, setDuration] = useState([]);
+    const [time, setTime] = useState([]);
+    const [date, setDate] = useState([]);
+
     // console.log(listTime)
     // console.log(listTime1)
 
-    function setFormatListTime(timerID, startHour, startMinute, duration) {
-        for (let i = 0; i < timerID.length; i++) {
+
+
+
+    function setFormatListTime(date, time) {
+        for (let i = 0; i < date.length; i++) {
             // setListtime('waterตัวที่ ' + timerID[i] + 'ทำงานเมื่อ' + startHour[i] + ':' + startMinute[i] + '   เป็นระยะเวลา : ' + duration[i]);
-            listTime.push({ id: i, name: 'วาล์วน้ำ :  ' + timerID[i], time: (startHour[i] + ':' + startMinute[i]), duration: duration[i] })
+            listTime.push({ id: i, date: date[i], time: time[i] })
             // console.log(listTime)
             console.log('Setting Data row : ' + i);
         }
@@ -67,47 +84,41 @@ export default function ListFertilizer({ navigation }) {
 
     useEffect(() => {
         setListTime([]);
-    }, [timerID, startHour, startHour, duration])
+    }, [date, time])
 
     async function fetchData() {
         const db = getDatabase();
         let userId = 'user1'; // Edit To User ID 
         const reference = ref(db, 'user/' + userId);
         onValue(reference, (snapshot) => {
-            setTimerID(snapshot.val().farm.servo.timer.timerID); // set เลขของ servo
-            setStartHour(snapshot.val().farm.servo.timer.startHour); // set เวลาที่เริ่มทำงาน ชั่วโฒง
-            setStartMinute(snapshot.val().farm.servo.timer.startMinute); // set เวลาที่เริ่มทำงาน นาที
-            setDuration(snapshot.val().farm.servo.timer.duration); // set ระยะเวลาที่ทำงาน
+            setDate(snapshot.val().farm.fertilizer.date);
+            setTime(snapshot.val().farm.fertilizer.time);
         })
     }
-    setFormatListTime(timerID, startHour, startMinute, duration);
+    setFormatListTime(date, time);
     console.log('')
-    const Item = ({ name, time, duration }) => (
+    const Item = ({ id, date, time }) => (
         <View>
-            <Swipeout right={swipeoutBtns} backgroundColor={'#F2F2F2'} >
+            <Swipeout right={swipeoutBtns(id)} backgroundColor={'#F2F2F2'} >
                 <View style={styles.item}>
-
                     <View style={styles.itemInViewOne}>
-
-                    <Fontisto name="date" size={30} color="white" />
-
+                        <Fontisto name="date" size={30} color="white" />
                     </View>
                     <View style={styles.itemInViewTwo}>
                         <Text style={styles.detail}>เวลา</Text>
-                        <Text style={styles.title}>{time} น.</Text>
+                        <Text style={styles.title}> {time}น.</Text>
                     </View>
                     <View style={styles.itemInViewThree}>
                         <Text style={styles.detail}>วันที่</Text>
-                        <Text style={styles.title}>10/09/2022</Text>
-
+                        <Text style={styles.title}>{date}</Text>
                     </View>
-                    
+
                 </View>
             </Swipeout>
         </View>
     );
     const renderItem = ({ item }) => (
-        <Item name={item.name} time={item.time} duration={item.duration} />
+        <Item id={item.id} date={item.date} time={item.time} />
     );
 
 

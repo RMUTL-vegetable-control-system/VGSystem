@@ -50,7 +50,7 @@ function Light({ navigation }) {
         let userId = 'user1'; // Edit To User ID 
         const reference = ref(db, 'user/' + userId);
         onValue(reference, (snapshot) => {
-            setFarmData(snapshot.val().farm);
+            setFarmData(snapshot.val().farm.Detail);
             setLight_1_Data(snapshot.val().farm.light.light1);
             setLight_2_Data(snapshot.val().farm.light.light2);
             setLight_3_Data(snapshot.val().farm.light.light3);
@@ -123,7 +123,7 @@ function Light({ navigation }) {
 
                     <Text style={{ fontSize: 25, textAlign: 'center', fontWeight: 'bold' }} >หน้าควบคุมหลอดไฟ</Text>
                     <Text style={{ fontSize: 18, textAlign: 'center', }} >Vegetable Control System</Text>
-                    <Text style={{ fontSize: 18, textAlign: 'center', }} >ชื่อ:  {farmData.deviceName}</Text>
+                    <Text style={{ fontSize: 18, textAlign: 'center', }} >ชื่อ:  {farmData.name}</Text>
                 </View>
                 <View style={styles.containerAreaCard}>
                     <View style={{
@@ -138,7 +138,7 @@ function Light({ navigation }) {
                             <FontAwesome name="lightbulb-o" size={24} color="white" />
                         </View>
                         <View style={{ paddingLeft: '5%' }}>
-                            <Text style={styles.label}>หลอดไฟดวงที่ 1 </Text>
+                            <Text style={styles.label}>{farmData.Light1} </Text>
                             <Text style={styles.label}>{light_1_Data.name}</Text>
                             <Switch value={isConnect1} onValueChange={onToggleSwitch1} color={'#008640'} style={{ width: '30%', }} />
 
@@ -157,7 +157,7 @@ function Light({ navigation }) {
                             <FontAwesome name="lightbulb-o" size={24} color="white" />
                         </View>
                         <View style={{ paddingLeft: '5%' }}>
-                            <Text style={styles.label}>หลอดไฟดวงที่ 2 </Text>
+                            <Text style={styles.label}>{farmData.Light2}</Text>
                             <Text style={styles.label}>{light_2_Data.name}</Text>
                             <Switch value={isConnect2} onValueChange={onToggleSwitch2} color={'#008640'} style={{ width: '30%', }} />
 
@@ -178,7 +178,7 @@ function Light({ navigation }) {
                             <FontAwesome name="lightbulb-o" size={24} color="white" />
                         </View>
                         <View style={{ paddingLeft: '5%' }}>
-                            <Text style={styles.label}>หลอดไฟดวงที่ 3 </Text>
+                            <Text style={styles.label}>{farmData.Light3}</Text>
                             <Text style={styles.label}>{light_3_Data.name}</Text>
                             <Switch value={isConnect3} onValueChange={onToggleSwitch3} color={'#008640'} style={{ width: '30%', }} />
 
@@ -197,7 +197,7 @@ function Light({ navigation }) {
                             <FontAwesome name="lightbulb-o" size={24} color="white" />
                         </View>
                         <View style={{ paddingLeft: '5%' }}>
-                            <Text style={styles.label}>หลอดไฟดวงที่ 4 </Text>
+                            <Text style={styles.label}>{farmData.Light4}</Text>
                             <Text style={styles.label}>{light_4_Data.name}</Text>
                             <Switch value={isConnect4} onValueChange={onToggleSwitch4} color={'#008640'} style={{ width: '30%', }} />
 
