@@ -34,9 +34,13 @@ function Home({ navigation }) {
     const [farmData, setFarmData] = useState([]);
     const [humidity, setHumidity] = useState([]);
     const [Detail, setDetail] = useState('');
-    const [lastestFertilizer, setLastestFertilizer] = useState('');
-
+    const [fertilizer, setFertilizer] = useState('');
     const valueHumatity = humidity.value;
+    const [start, setStart] = useState('');
+    const [wait, setWait] = useState('');
+    const [end, setEnd] = useState('');
+    const now = Date.now();
+    const [Harvest, setHarvest] = useState('');
 
     // if (valueHumatity >= 1000) {
     //     console.log('แห้งมาก');
@@ -64,21 +68,27 @@ function Home({ navigation }) {
         fetchData();
     }, [])
 
-    function fetchData() {
+    async function fetchData() {
         const db = getDatabase();
         let userId = 'user1'; // Edit To User ID 
         const reference = ref(db, 'user/' + userId);
-        onValue(reference, (snapshot) => {
+        onValue(reference, async (snapshot) => {
             setFarmData(snapshot.val().farm);
             setDetail(snapshot.val().farm.Detail);
             setHumidity(snapshot.val().farm.humidity);
-
-
+            setFertilizer(snapshot.val().farm.fertilizer.date);
+            setHarvest((((Date.parse(snapshot.val().farm.Detail.datePlant) + snapshot.val().farm.Detail.dayToHarvest * 86400000) - now) / 86400000).toFixed(0));
         })
     }
+    // const start = new Date("1/1/2022");
+    // const date = new Date("1/1/2022");
+    // // The event to time goes here:
 
-
-
+    // const end = Date.now();
+    // const elapsed = end - start; // elapsed time in milliseconds
+    // // console.log(end)
+    // console.log(date)
+    // console.log(Date.parse(date))
 
 
     return (
@@ -127,9 +137,7 @@ function Home({ navigation }) {
                             }
                         </Text>
                     </View>
-
                 </View>
-
             </View>
 
             <View style={styles.containerCardButton}>
@@ -166,16 +174,14 @@ function Home({ navigation }) {
                         <Text style={styles.labelTempBlack}>ข้อมูลฟาร์ม</Text>
                         <Text style={styles.labelBlack}>ชื่อผักที่ปลูก   :   {Detail.vegetable}</Text>
                         {/* <Text style={styles.labelBlack}>ชื่อผักที่ปลูก   :   {humidity.name}</Text> */}
-                        <Text style={styles.labelBlack}>วันที่ใส่ปุ๋ยครั้งล่าสุด  : 14/09/2556</Text>
+                        <Text style={styles.labelBlack}>วันที่ใส่ปุ๋ยครั้งล่าสุด  : {fertilizer[fertilizer.length - 1]}</Text>
                         <Text style={styles.labelBlack}>จำนวนวันในการปลูก  :  {Detail.dayToHarvest} วัน</Text>
                         {/* <Text style={styles.labelBlack}>วันที่ใส่ปุ๋ยครั้งล่าสุด  :  {farmData.deviceName}</Text>
                         <Text style={styles.labelBlack}>จำนวนวันในการปลูก  :  {farmData.deviceName}</Text> */}
-
                     </View>
-
                 </View>
-
             </View>
+
             <View style={styles.containerAreaCard}>
                 <View style={styles.containerCard}>
 
@@ -184,17 +190,11 @@ function Home({ navigation }) {
                             <FontAwesome5 name="envira" size={24} color="white" />
                             <Text style={styles.labelTemp}>วันที่รอเก็บเกี่ยว</Text>
                         </View>
-
                         {/* <Text style={styles.label}>เหลือวันอีก :{humidity.name}</Text> */}
-                        <Text style={styles.label}>เหลือวันอีก : 3 วัน</Text>
+                        <Text style={styles.label}>เหลือวันอีก : {Harvest} วัน</Text>
                     </View>
-
                 </View>
-
             </View>
-
-
-
         </View >
     )
 }
