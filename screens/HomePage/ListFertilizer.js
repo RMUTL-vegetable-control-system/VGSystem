@@ -26,7 +26,6 @@ export default function ListFertilizer({ navigation }) {
         set(reference, {
             time: time,
             date: date,
-
         });
         console.log('Delete Pressed!');
         navigation.navigate('Menu');
@@ -66,7 +65,7 @@ export default function ListFertilizer({ navigation }) {
 
 
     function setFormatListTime(date, time) {
-        for (let i = 0; i < date.length; i++) {
+        for (let i = 1; i < date.length; i++) {
             // setListtime('waterตัวที่ ' + timerID[i] + 'ทำงานเมื่อ' + startHour[i] + ':' + startMinute[i] + '   เป็นระยะเวลา : ' + duration[i]);
             listTime.push({ id: i, date: date[i], time: time[i] })
             // console.log(listTime)

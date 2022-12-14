@@ -12,6 +12,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 
 
 
+/* A constant variable that is used to store the color values. */
 const color = {
     primary: '#08823F',
     white: '#ffffff',
@@ -64,33 +65,30 @@ function Home({ navigation }) {
 
 
 
+    /* A React Hook that is called when the component is mounted. */
     useEffect(() => {
         fetchData();
     }, [])
 
+    /**
+     * It fetches data from the database and sets the data to the state.
+     */
     async function fetchData() {
         const db = getDatabase();
         let userId = 'user1'; // Edit To User ID 
         const reference = ref(db, 'user/' + userId);
         onValue(reference, async (snapshot) => {
-            setFarmData(snapshot.val().farm);
-            setDetail(snapshot.val().farm.Detail);
+            setFarmData(snapshot.val().farm); // FarmData = user/user1/farm
+            setDetail(snapshot.val().farm.Detail); //Detail = user/user1/Detail
             setHumidity(snapshot.val().farm.humidity);
             setFertilizer(snapshot.val().farm.fertilizer.date);
             setHarvest((((Date.parse(snapshot.val().farm.Detail.datePlant) + snapshot.val().farm.Detail.dayToHarvest * 86400000) - now) / 86400000).toFixed(0));
         })
     }
-    // const start = new Date("1/1/2022");
-    // const date = new Date("1/1/2022");
-    // // The event to time goes here:
-
-    // const end = Date.now();
-    // const elapsed = end - start; // elapsed time in milliseconds
-    // // console.log(end)
-    // console.log(date)
     // console.log(Date.parse(date))
 
 
+    /* A function that returns a view. */
     return (
 
         <View style={styles.container}>
@@ -199,10 +197,12 @@ function Home({ navigation }) {
     )
 }
 
+/* Exporting the `Home` component. */
 export default Home
 
 
 
+/* Creating a style sheet for the app. */
 const styles = StyleSheet.create({
     container: {
         flex: 1,

@@ -74,7 +74,7 @@ export default function ListLight({ navigation }) {
     // console.log(listTime1)
 
     function setFormatListTime(timerID, startHour, startMinute, duration) {
-        for (let i = 0; i < timerID.length; i++) {
+        for (let i = 1; i < timerID.length; i++) {
             // setListtime('waterตัวที่ ' + timerID[i] + 'ทำงานเมื่อ' + startHour[i] + ':' + startMinute[i] + '   เป็นระยะเวลา : ' + duration[i]);
             let isTime;
             if (timerID[i] == '1') {
