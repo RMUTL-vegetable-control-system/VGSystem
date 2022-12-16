@@ -3,13 +3,13 @@ import 'firebase/compat/auth'
 import 'firebase/compat/firestore'
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDVb2hhmlJHnA5CdXG1kVxtClS9lbp5o5s",
-    authDomain: "randomfirebase-9a9fe.firebaseapp.com",
-    databaseURL: "https://randomfirebase-9a9fe-default-rtdb.firebaseio.com",
-    projectId: "randomfirebase-9a9fe",
-    storageBucket: "randomfirebase-9a9fe.appspot.com",
-    messagingSenderId: "605212409124",
-    appId: "1:605212409124:web:5cb4e9395ed813d2eb07b1"
+    apiKey: "AIzaSyA-q9R1u3YoXSQU38zpTqCFf3Q12vGGKkI",
+    authDomain: "project-vg-6b3d8.firebaseapp.com",
+    databaseURL: "https://project-vg-6b3d8-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "project-vg-6b3d8",
+    storageBucket: "project-vg-6b3d8.appspot.com",
+    messagingSenderId: "72274755780",
+    appId: "1:72274755780:web:1c2dd4e51b34a1206d0991"
 };
 
 if (!firebase.apps.length) {

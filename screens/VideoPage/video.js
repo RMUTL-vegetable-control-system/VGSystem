@@ -1,7 +1,8 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image, ImageBackground } from 'react-native';
+import React, { useState, useEffect } from 'react'
+import { StyleSheet, Text, View, Image } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { MaterialIcons } from '@expo/vector-icons';
+import { getDatabase, ref, onValue } from 'firebase/database';
 
 const color = {
     primary: '#A0A0A0',
@@ -11,6 +12,22 @@ const color = {
 
 export default function Video() {
 
+    const [cameraIP, setCameraIP] = useState('');
+    useEffect(() => {
+        fetchData();
+    }, [])
+
+    /**
+     * It fetches data from the database and sets the data to the state.
+     */
+    async function fetchData() {
+        const db = getDatabase();
+        let userId = 'user1'; // Edit To User ID 
+        const reference = ref(db, 'user/' + userId);
+        onValue(reference, async (snapshot) => {
+            setCameraIP(snapshot.val().farm.Detail.cameraIP); //Detail = user/user1/Detail
+        })
+    }
 
 
     return (
@@ -37,10 +54,10 @@ export default function Video() {
                     originWhitelist={['*']}
                     scrollEnabled={true}
                     onScroll={false}
-                    source={{ uri: 'http://192.168.1.14:81/stream' }}
+                    source={{ uri: `http://{cameraIP}:81/stream` }}
                 />
                 <View >
-                    <Text style={{ textAlign: 'left', fontSize: 20, fontWeight: 'bold', color: '#303030', marginTop: 0 }}>ลิงค์ของวิดีโอ  :</Text>
+                    <Text style={{ textAlign: 'left', fontSize: 20, fontWeight: 'bold', color: '#303030', marginTop: 0 }}>ลิงค์ของวิดีโอ  :http://{cameraIP}:81/stream</Text>
                     <Text style={{ textAlign: 'left', fontSize: 16, fontWeight: 'bold', color: '#303030', marginTop: 0 }}>Local stream</Text>
                 </View>
             </View>

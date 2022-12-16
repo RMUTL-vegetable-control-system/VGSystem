@@ -19,6 +19,7 @@ export default function Edit({ navigation }) {
     const [NameWater4, setNameWater4] = useState("");
     const [NameHumidity, setNameHumidity] = useState("");
     const [selectedDate, setSelectedDate] = useState('');
+    const [cameraIP, setCameraIP] = useState('');
     const refName = useRef();
     const refNameVegetable = useRef();
     const refTypeVegetable = useRef();
@@ -32,6 +33,7 @@ export default function Edit({ navigation }) {
     const refNameWater3 = useRef();
     const refNameWater4 = useRef();
     const refNameHumidity = useRef();
+    const refCameraIP = useRef();
 
 
     useEffect(() => {
@@ -57,6 +59,7 @@ export default function Edit({ navigation }) {
             setNameWater4(snapshot.val().farm.Detail.Water4);
             setNameHumidity(snapshot.val().farm.Detail.Humidity);
             setSelectedDate(snapshot.val().farm.Detail.datePlant);
+            setCameraIP(snapshot.val().farm.Detail.cameraIP);
         })
     }
 
@@ -83,6 +86,7 @@ export default function Edit({ navigation }) {
             Water4: NameWater4,
             Humidity: NameHumidity,
             datePlant: selectedDate,
+            cameraIP: cameraIP,
         });
 
 
@@ -304,6 +308,20 @@ export default function Edit({ navigation }) {
                             returnKeyType="done"
                             ref={refNameHumidity}
                             onChangeText={NameHumidity => setNameHumidity(NameHumidity)}
+                            style={{ height: 50, marginTop: 10 }}
+                            selectionColor="#08823F"
+                            activeUnderlineColor='#08823F'
+                        />
+                    </View>
+                    <View style={{ marginTop: 20 }}>
+                        <Text style={styles.TopicDetail}>Camera IP Address : {cameraIP}</Text>
+                        <TextInput
+                            label="IP Address"
+                            value={cameraIP}
+                            secureTextEntry={false}
+                            returnKeyType="done"
+                            ref={refCameraIP}
+                            onChangeText={cameraIP => setCameraIP(cameraIP)}
                             style={{ height: 50, marginTop: 10 }}
                             selectionColor="#08823F"
                             activeUnderlineColor='#08823F'

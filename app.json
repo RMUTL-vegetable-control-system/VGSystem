@@ -21,6 +21,11 @@
     },
     "android": {
       "package": "com.VGSystem.VGSystem"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "d3bb316c-9800-410f-ad9f-9f3d1f3380c0"
+      }
     }
   }
 }
