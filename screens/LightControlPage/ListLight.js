@@ -50,14 +50,11 @@ export default function ListLight({ navigation }) {
                     [
                         { text: 'Cancel', onPress: () => console.log('Cancel Pressed!') },
                         { text: 'OK', onPress: () => deleteList(id) },
-
                     ],
                     { cancelable: false }
                 )
             }
         },
-
-
     ]
 
 
@@ -74,21 +71,24 @@ export default function ListLight({ navigation }) {
     // console.log(listTime1)
 
     function setFormatListTime(timerID, startHour, startMinute, duration) {
-        for (let i = 1; i < timerID.length; i++) {
-            // setListtime('waterตัวที่ ' + timerID[i] + 'ทำงานเมื่อ' + startHour[i] + ':' + startMinute[i] + '   เป็นระยะเวลา : ' + duration[i]);
-            let isTime;
-            if (timerID[i] == '1') {
-                isTime = isTiming1;
-            } else if (timerID[i] == '2') {
-                isTime = isTiming2;
-            } else if (timerID[i] == '3') {
-                isTime = isTiming3;
-            } else if (timerID[i] == '4') {
-                isTime = isTiming4;
+        if (listTime[0] == undefined) {
+            for (let i = 1; i < timerID.length; i++) {
+                // setListtime('waterตัวที่ ' + timerID[i] + 'ทำงานเมื่อ' + startHour[i] + ':' + startMinute[i] + '   เป็นระยะเวลา : ' + duration[i]);
+                let isTime;
+                if (timerID[i] == '1') {
+                    isTime = isTiming1;
+                } else if (timerID[i] == '2') {
+                    isTime = isTiming2;
+                } else if (timerID[i] == '3') {
+                    isTime = isTiming3;
+                } else if (timerID[i] == '4') {
+                    isTime = isTiming4;
+                }
+
+                listTime.push({ id: i, name: 'ไฟสังเคราะห์แสง : ' + timerID[i], time: (startHour[i] + ':' + startMinute[i]), duration: duration[i], isTime: isTime })
+                // console.log(listTime)
+                console.log('Setting Data row : ' + i);
             }
-            listTime.push({ id: i, name: 'ไฟสังเคราะห์แสง : ' + timerID[i], time: (startHour[i] + ':' + startMinute[i]), duration: duration[i], isTime: isTime })
-            // console.log(listTime)
-            console.log('Setting Data row : ' + i);
         }
         console.log('Set Data Done.');
     }
@@ -103,6 +103,9 @@ export default function ListLight({ navigation }) {
     useEffect(() => {
         setListTime([]);
     }, [timerID, startHour, startHour, duration])
+
+    setFormatListTime(timerID, startHour, startMinute, duration);
+
 
     async function fetchData() {
         const db = getDatabase();
@@ -119,8 +122,7 @@ export default function ListLight({ navigation }) {
             setIsTiming4(snapshot.val().farm.light.light4.value);
         })
     }
-    setFormatListTime(timerID, startHour, startMinute, duration);
-    console.log('')
+
     const Item = ({ id, name, time, duration, isTime }) => (
         <View>
             <Swipeout right={swipeoutBtns(id)} backgroundColor={'#FFFFFF'} autoClose={true}>

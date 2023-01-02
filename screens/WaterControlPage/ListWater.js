@@ -73,21 +73,23 @@ export default function ListWater({ navigation }) {
     // console.log(listTime1)
 
     function setFormatListTime(timerID, startHour, startMinute, duration) {
-        for (let i = 1; i < timerID.length; i++) {
-            // setListtime('waterตัวที่ ' + timerID[i] + 'ทำงานเมื่อ' + startHour[i] + ':' + startMinute[i] + '   เป็นระยะเวลา : ' + duration[i]);
-            let isTime;
-            if (timerID[i] == '1') {
-                isTime = isTiming1;
-            } else if (timerID[i] == '2') {
-                isTime = isTiming2;
-            } else if (timerID[i] == '3') {
-                isTime = isTiming3;
-            } else if (timerID[i] == '4') {
-                isTime = isTiming4;
+        if (listTime[0] == undefined) {
+            for (let i = 1; i < timerID.length; i++) {
+                // setListtime('waterตัวที่ ' + timerID[i] + 'ทำงานเมื่อ' + startHour[i] + ':' + startMinute[i] + '   เป็นระยะเวลา : ' + duration[i]);
+                let isTime;
+                if (timerID[i] == '1') {
+                    isTime = isTiming1;
+                } else if (timerID[i] == '2') {
+                    isTime = isTiming2;
+                } else if (timerID[i] == '3') {
+                    isTime = isTiming3;
+                } else if (timerID[i] == '4') {
+                    isTime = isTiming4;
+                }
+                listTime.push({ id: i, name: 'วาล์วน้ำ :  ' + timerID[i], time: (startHour[i] + ':' + startMinute[i]), duration: duration[i], isTime: isTime })
+                // console.log(listTime)
+                console.log('Setting Data row : ' + i);
             }
-            listTime.push({ id: i, name: 'วาล์วน้ำ :  ' + timerID[i], time: (startHour[i] + ':' + startMinute[i]), duration: duration[i], isTime: isTime })
-            // console.log(listTime)
-            console.log('Setting Data row : ' + i);
         }
         console.log('Set Data Done.');
     }

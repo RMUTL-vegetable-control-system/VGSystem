@@ -2,12 +2,12 @@ import * as React from 'react';
 import { Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { MaterialCommunityIcons,Entypo } from '@expo/vector-icons';
+import { MaterialCommunityIcons, Entypo } from '@expo/vector-icons';
 import Home from '../screens/HomePage/Home';
 import Light from '../screens/LightControlPage/Light';
 import Water from '../screens/WaterControlPage/Water';
 import Video from '../screens/VideoPage/video';
-import Profile from '../screens/ProfilePage/profile';
+
 
 
 const Tab = createBottomTabNavigator();
@@ -21,8 +21,6 @@ function MyTabs() {
         tabBarStyle: { height: 90, paddingBottom: 30 },
         headerShown: false
       }}
-
-
     >
       <Tab.Screen
         name="Home"
@@ -51,7 +49,6 @@ function MyTabs() {
           tabBarLabel: 'Water',
           tabBarIcon: ({ color, size }) => (
             <Entypo name="water" color={color} size={33} />
-
           ),
         }}
       />
@@ -65,18 +62,6 @@ function MyTabs() {
           ),
         }}
       />
-      {/* <Tab.Screen
-        name="Profile"
-        component={Profile}
-        options={{
-          tabBarLabel: 'Profile',
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="account" color={color} size={33} />
-          ),
-        }}
-      /> */}
-
-
     </Tab.Navigator>
   );
 }

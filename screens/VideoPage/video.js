@@ -15,6 +15,7 @@ export default function Video() {
     const [cameraIP, setCameraIP] = useState('');
     useEffect(() => {
         fetchData();
+        console.log(cameraIP);
     }, [])
 
     /**
@@ -25,14 +26,13 @@ export default function Video() {
         let userId = 'user1'; // Edit To User ID 
         const reference = ref(db, 'user/' + userId);
         onValue(reference, async (snapshot) => {
-            setCameraIP(snapshot.val().farm.Detail.cameraIP); //Detail = user/user1/Detail
+            setCameraIP('http://' + snapshot.val().farm.Detail.cameraIP + ':81/stream'); //Detail = user/user1/Detail
+            // setCameraIP('https://www.google.com'); //Detail = user/user1/Detail
         })
     }
 
 
     return (
-
-
         <View style={styles.containerBanner}>
 
             <View style={styles.titleHeader}>
@@ -54,28 +54,14 @@ export default function Video() {
                     originWhitelist={['*']}
                     scrollEnabled={true}
                     onScroll={false}
-                    source={{ uri: `http://{cameraIP}:81/stream` }}
+                    source={{ uri: cameraIP }}
                 />
                 <View >
-                    <Text style={{ textAlign: 'left', fontSize: 20, fontWeight: 'bold', color: '#303030', marginTop: 0 }}>ลิงค์ของวิดีโอ  :http://{cameraIP}:81/stream</Text>
+                    <Text style={{ textAlign: 'left', fontSize: 20, fontWeight: 'bold', color: '#303030', marginTop: 0 }}>ลิงค์ของวิดีโอ  :{cameraIP}</Text>
                     <Text style={{ textAlign: 'left', fontSize: 16, fontWeight: 'bold', color: '#303030', marginTop: 0 }}>Local stream</Text>
                 </View>
             </View>
-
-
-            {/* <View style={styles.cardDetail}>
-                <Text style={{ textAlign: 'left', fontSize: 25, fontWeight: 'bold', color: '#fff', padding: 10 }}>Detail Farm</Text>
-                <Text style={{ textAlign: 'left', fontSize: 20, fontWeight: 'normal', color: '#fff', padding: 10 }}>Live Video Farm Live Video Farm</Text>
-                <Text style={{ textAlign: 'left', fontSize: 20, fontWeight: 'normal', color: '#fff', padding: 10 }}>Live Video Farm Live Video Farm</Text>
-                <Text style={{ textAlign: 'left', fontSize: 20, fontWeight: 'normal', color: '#fff', padding: 10 }}>Live Video Farm Live Video Farm</Text>
-            </View> */}
-
         </View >
-
-
-
-
-
     );
 }
 
