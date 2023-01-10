@@ -16,12 +16,15 @@ const windowWidth = Dimensions.get('window').width;
 
 export default function ListFertilizer({ navigation }) {
 
+    /**
+     * It deletes the data from the database and then navigates to the Menu screen
+     * @param id - the id of the list that is being deleted
+     */
     function deleteList(id) {
         setTime(time.splice(id, 1));
         setDate(date.splice(id, 1));
         const db = getDatabase();
-        let userId = 'user1';
-        let path = 'user/' + userId + '/farm/fertilizer';
+        let path = 'farm/fertilizer';
         const reference = ref(db, path);
         set(reference, {
             time: time,
@@ -30,7 +33,6 @@ export default function ListFertilizer({ navigation }) {
         console.log('Delete Pressed!');
         navigation.navigate('Menu');
     }
-
 
     const swipeoutBtns = (id) => [
         {
@@ -45,7 +47,6 @@ export default function ListFertilizer({ navigation }) {
                     [
                         { text: 'Cancel', onPress: () => console.log('Cancel Pressed!') },
                         { text: 'OK', onPress: () => deleteList(id) },
-
                     ],
                     { cancelable: false }
                 )
@@ -87,11 +88,10 @@ export default function ListFertilizer({ navigation }) {
 
     async function fetchData() {
         const db = getDatabase();
-        let userId = 'user1'; // Edit To User ID 
-        const reference = ref(db, 'user/' + userId);
+        const reference = ref(db, 'farm');
         onValue(reference, (snapshot) => {
-            setDate(snapshot.val().farm.fertilizer.date);
-            setTime(snapshot.val().farm.fertilizer.time);
+            setDate(snapshot.val().fertilizer.date);
+            setTime(snapshot.val().fertilizer.time);
         })
     }
     setFormatListTime(date, time);

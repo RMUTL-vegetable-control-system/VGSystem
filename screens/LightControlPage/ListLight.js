@@ -24,8 +24,7 @@ export default function ListLight({ navigation }) {
         setStartMinute(startMinute.splice(id, 1));
         setDuration(duration.splice(id, 1));
         const db = getDatabase();
-        let userId = 'user1';
-        let path = 'user/' + userId + '/farm/light/timer';
+        let path = 'farm/light/timer';
         const referenceTimerID = ref(db, path);
         set(referenceTimerID, {
             timerID: timerID,
@@ -71,7 +70,7 @@ export default function ListLight({ navigation }) {
     // console.log(listTime1)
 
     function setFormatListTime(timerID, startHour, startMinute, duration) {
-        if (listTime[0] == undefined) {
+        if (!listTime[0]) {
             for (let i = 1; i < timerID.length; i++) {
                 // setListtime('waterตัวที่ ' + timerID[i] + 'ทำงานเมื่อ' + startHour[i] + ':' + startMinute[i] + '   เป็นระยะเวลา : ' + duration[i]);
                 let isTime;
@@ -109,17 +108,16 @@ export default function ListLight({ navigation }) {
 
     async function fetchData() {
         const db = getDatabase();
-        let userId = 'user1'; // Edit To User ID 
-        const reference = ref(db, 'user/' + userId);
+        const reference = ref(db, 'farm');
         onValue(reference, (snapshot) => {
-            setTimerID(snapshot.val().farm.light.timer.timerID); // set เลขของ servo
-            setStartHour(snapshot.val().farm.light.timer.startHour); // set เวลาที่เริ่มทำงาน ชั่วโฒง
-            setStartMinute(snapshot.val().farm.light.timer.startMinute); // set เวลาที่เริ่มทำงาน นาที
-            setDuration(snapshot.val().farm.light.timer.duration); // set ระยะเวลาที่ทำงาน
-            setIsTiming1(snapshot.val().farm.light.light1.value);
-            setIsTiming2(snapshot.val().farm.light.light2.value);
-            setIsTiming3(snapshot.val().farm.light.light3.value);
-            setIsTiming4(snapshot.val().farm.light.light4.value);
+            setTimerID(snapshot.val().light.timer.timerID); // set เลขของ servo
+            setStartHour(snapshot.val().light.timer.startHour); // set เวลาที่เริ่มทำงาน ชั่วโฒง
+            setStartMinute(snapshot.val().light.timer.startMinute); // set เวลาที่เริ่มทำงาน นาที
+            setDuration(snapshot.val().light.timer.duration); // set ระยะเวลาที่ทำงาน
+            setIsTiming1(snapshot.val().light.light1.value);
+            setIsTiming2(snapshot.val().light.light2.value);
+            setIsTiming3(snapshot.val().light.light3.value);
+            setIsTiming4(snapshot.val().light.light4.value);
         })
     }
 

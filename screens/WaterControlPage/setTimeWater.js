@@ -35,13 +35,12 @@ export default function SetTimeWater({ navigation }) {
 
   function fetchData() {
     const db = getDatabase();
-    let userId = 'user1'; // Edit To User ID 
-    const reference = ref(db, 'user/' + userId);
+    const reference = ref(db, 'farm');
     onValue(reference, (snapshot) => {
-      setTimerID(snapshot.val().farm.servo.timer.timerID); // set เลขของ servo
-      setStartHour(snapshot.val().farm.servo.timer.startHour); // set เวลาที่เริ่มทำงาน ชั่วโฒง
-      setStartMinute(snapshot.val().farm.servo.timer.startMinute); // set เวลาที่เริ่มทำงาน นาที
-      setDuration(snapshot.val().farm.servo.timer.duration); // set ระยะเวลาที่ทำงาน
+      setTimerID(snapshot.val().servo.timer.timerID); // set เลขของ servo
+      setStartHour(snapshot.val().servo.timer.startHour); // set เวลาที่เริ่มทำงาน ชั่วโฒง
+      setStartMinute(snapshot.val().servo.timer.startMinute); // set เวลาที่เริ่มทำงาน นาที
+      setDuration(snapshot.val().servo.timer.duration); // set ระยะเวลาที่ทำงาน
 
     })
   }
@@ -64,8 +63,7 @@ export default function SetTimeWater({ navigation }) {
     startMinute.push(minutes);
     duration.push(valueTime);
     const db = getDatabase();
-    let userId = 'user1';
-    let path = 'user/' + userId + '/farm/servo/timer';
+    let path = 'farm/servo/timer';
     const referenceTimerID = ref(db, path);
     set(referenceTimerID, {
       timerID: timerID,

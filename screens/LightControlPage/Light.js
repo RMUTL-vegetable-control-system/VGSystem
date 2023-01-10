@@ -47,18 +47,17 @@ function Light({ navigation }) {
 
     function fetchData() {
         const db = getDatabase();
-        let userId = 'user1'; // Edit To User ID 
-        const reference = ref(db, 'user/' + userId);
+        const reference = ref(db, 'farm');
         onValue(reference, (snapshot) => {
-            setFarmData(snapshot.val().farm.Detail);
-            setLight_1_Data(snapshot.val().farm.light.light1);
-            setLight_2_Data(snapshot.val().farm.light.light2);
-            setLight_3_Data(snapshot.val().farm.light.light3);
-            setLight_4_Data(snapshot.val().farm.light.light4);
-            setIsConnect1(snapshot.val().farm.light.light1.status);
-            setIsConnect2(snapshot.val().farm.light.light2.status);
-            setIsConnect3(snapshot.val().farm.light.light3.status);
-            setIsConnect4(snapshot.val().farm.light.light4.status);
+            setFarmData(snapshot.val().Detail);
+            setLight_1_Data(snapshot.val().light.light1);
+            setLight_2_Data(snapshot.val().light.light2);
+            setLight_3_Data(snapshot.val().light.light3);
+            setLight_4_Data(snapshot.val().light.light4);
+            setIsConnect1(snapshot.val().light.light1.status);
+            setIsConnect2(snapshot.val().light.light2.status);
+            setIsConnect3(snapshot.val().light.light3.status);
+            setIsConnect4(snapshot.val().light.light4.status);
 
         })
     }
@@ -66,8 +65,7 @@ function Light({ navigation }) {
     function setSwitch(ID, status) {
         const db = getDatabase();
         let name, value;
-        let userId = 'user1';
-        let path = 'user/' + userId + '/farm/light/light' + ID;
+        let path = 'farm/light/light' + ID;
         const reference = ref(db, path);
         if (ID === 1) {
             name = light_1_Data.name;

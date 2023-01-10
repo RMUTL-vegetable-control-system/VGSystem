@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, Dimensions, FlatList, Alert, Image } from 'react-native'
 import { Entypo, MaterialIcons, AntDesign } from '@expo/vector-icons';
 import { useSelector, useDispatch } from "react-redux"
 import * as Action from '../../redux/Action'
 import { bindActionCreators } from 'redux'
-import { getDatabase, ref, onValue } from 'firebase/database';
+
 
 // import * as firebase from 'firebase';
 

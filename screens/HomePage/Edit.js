@@ -42,24 +42,23 @@ export default function Edit({ navigation }) {
 
     function fetchData() {
         const db = getDatabase();
-        let userId = 'user1'; // Edit To User ID 
-        const reference = ref(db, 'user/' + userId);
+        const reference = ref(db, 'farm');
         onValue(reference, (snapshot) => {
-            setName(snapshot.val().farm.Detail.name);
-            setNameVegetable(snapshot.val().farm.Detail.vegetable);
-            setTypeVegetable(snapshot.val().farm.Detail.vegetableType);
-            setAmountHarvested(snapshot.val().farm.Detail.dayToHarvest);
-            setNameLight1(snapshot.val().farm.Detail.Light1);
-            setNameLight2(snapshot.val().farm.Detail.Light2);
-            setNameLight3(snapshot.val().farm.Detail.Light3);
-            setNameLight4(snapshot.val().farm.Detail.Light4);
-            setNameWater1(snapshot.val().farm.Detail.Water1);
-            setNameWater2(snapshot.val().farm.Detail.Water2);
-            setNameWater3(snapshot.val().farm.Detail.Water3);
-            setNameWater4(snapshot.val().farm.Detail.Water4);
-            setNameHumidity(snapshot.val().farm.Detail.Humidity);
-            setSelectedDate(snapshot.val().farm.Detail.datePlant);
-            setCameraIP(snapshot.val().farm.Detail.cameraIP);
+            setName(snapshot.val().Detail.name);
+            setNameVegetable(snapshot.val().Detail.vegetable);
+            setTypeVegetable(snapshot.val().Detail.vegetableType);
+            setAmountHarvested(snapshot.val().Detail.dayToHarvest);
+            setNameLight1(snapshot.val().Detail.Light1);
+            setNameLight2(snapshot.val().Detail.Light2);
+            setNameLight3(snapshot.val().Detail.Light3);
+            setNameLight4(snapshot.val().Detail.Light4);
+            setNameWater1(snapshot.val().Detail.Water1);
+            setNameWater2(snapshot.val().Detail.Water2);
+            setNameWater3(snapshot.val().Detail.Water3);
+            setNameWater4(snapshot.val().Detail.Water4);
+            setNameHumidity(snapshot.val().Detail.Humidity);
+            setSelectedDate(snapshot.val().Detail.datePlant);
+            setCameraIP(snapshot.val().Detail.cameraIP);
         })
     }
 

@@ -75,14 +75,12 @@ function Home({ navigation }) {
      */
     async function fetchData() {
         const db = getDatabase();
-        let userId = 'user1'; // Edit To User ID 
-        const reference = ref(db, 'user/' + userId);
+        const reference = ref(db, 'farm');
         onValue(reference, async (snapshot) => {
-            setFarmData(snapshot.val().farm); // FarmData = user/user1/farm
-            setDetail(snapshot.val().farm.Detail); //Detail = user/user1/Detail
-            setHumidity(snapshot.val().farm.humidity);
-            setFertilizer(snapshot.val().farm.fertilizer.date);
-            setHarvest((((Date.parse(snapshot.val().farm.Detail.datePlant) + snapshot.val().farm.Detail.dayToHarvest * 86400000) - now) / 86400000).toFixed(0));
+            setDetail(snapshot.val().Detail); //Detail = user/user1/Detail
+            setHumidity(snapshot.val().humidity);
+            setFertilizer(snapshot.val().fertilizer.date);
+            setHarvest((((Date.parse(snapshot.val().Detail.datePlant) + snapshot.val().Detail.dayToHarvest * 86400000) - now) / 86400000).toFixed(0));
         })
     }
     // console.log(Date.parse(date))

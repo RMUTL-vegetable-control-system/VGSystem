@@ -20,11 +20,10 @@ export default function SetTimeFertilizer({ navigation }) {
 
   async function fetchData() {
     const db = getDatabase();
-    let userId = 'user1'; // Edit To User ID 
-    const reference = ref(db, 'user/' + userId);
+    const reference = ref(db, 'farm');
     onValue(reference, (snapshot) => {
-      setDate(snapshot.val().farm.fertilizer.date);
-      setTime(snapshot.val().farm.fertilizer.time);
+      setDate(snapshot.val().fertilizer.date);
+      setTime(snapshot.val().fertilizer.time);
     })
   }
 
@@ -47,8 +46,7 @@ export default function SetTimeFertilizer({ navigation }) {
     date.push(dataDate);
     time.push(dataTime);
     const db = getDatabase();
-    let userId = 'user1';
-    let path = 'user/' + userId + '/farm/fertilizer';
+    let path = 'farm/fertilizer';
     const referenceTimerID = ref(db, path);
     set(referenceTimerID, {
       date: date,

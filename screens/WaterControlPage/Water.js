@@ -49,26 +49,24 @@ function Water({ navigation }) {
 
     function fetchData() {
         const db = getDatabase();
-        let userId = 'user1'; // Edit To User ID 
-        const reference = ref(db, 'user/' + userId);
+        const reference = ref(db, 'farm');
         onValue(reference, (snapshot) => {
-            setFarmData(snapshot.val().farm.Detail);
-            setWater_1_Data(snapshot.val().farm.servo.servo1);
-            setWater_2_Data(snapshot.val().farm.servo.servo2);
-            setWater_3_Data(snapshot.val().farm.servo.servo3);
-            setWater_4_Data(snapshot.val().farm.servo.servo4);
-            setIsConnect1(snapshot.val().farm.servo.servo1.status);
-            setIsConnect2(snapshot.val().farm.servo.servo2.status);
-            setIsConnect3(snapshot.val().farm.servo.servo3.status);
-            setIsConnect4(snapshot.val().farm.servo.servo4.status);
+            setFarmData(snapshot.val().Detail);
+            setWater_1_Data(snapshot.val().servo.servo1);
+            setWater_2_Data(snapshot.val().servo.servo2);
+            setWater_3_Data(snapshot.val().servo.servo3);
+            setWater_4_Data(snapshot.val().servo.servo4);
+            setIsConnect1(snapshot.val().servo.servo1.status);
+            setIsConnect2(snapshot.val().servo.servo2.status);
+            setIsConnect3(snapshot.val().servo.servo3.status);
+            setIsConnect4(snapshot.val().servo.servo4.status);
         })
     }
 
     function setSwitch(ID, status) {
         const db = getDatabase();
         let name, value;
-        let userId = 'user1';
-        let path = 'user/' + userId + '/farm/servo/servo' + ID;
+        let path = 'farm/servo/servo' + ID;
         const reference = ref(db, path);
         if (ID === 1) {
             name = water_1_Data.name;

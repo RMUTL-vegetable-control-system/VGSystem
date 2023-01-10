@@ -36,13 +36,12 @@ export default function SetTimeLight({ navigation }) {
 
   function fetchData() {
     const db = getDatabase();
-    let userId = 'user1'; // Edit To User ID 
-    const reference = ref(db, 'user/' + userId);
+    const reference = ref(db, 'farm');
     onValue(reference, (snapshot) => {
-      setTimerID(snapshot.val().farm.light.timer.timerID); // set เลขของ servo
-      setStartHour(snapshot.val().farm.light.timer.startHour); // set เวลาที่เริ่มทำงาน ชั่วโฒง
-      setStartMinute(snapshot.val().farm.light.timer.startMinute); // set เวลาที่เริ่มทำงาน นาที
-      setDuration(snapshot.val().farm.light.timer.duration); // set ระยะเวลาที่ทำงาน
+      setTimerID(snapshot.val().light.timer.timerID); // set เลขของ servo
+      setStartHour(snapshot.val().light.timer.startHour); // set เวลาที่เริ่มทำงาน ชั่วโฒง
+      setStartMinute(snapshot.val().light.timer.startMinute); // set เวลาที่เริ่มทำงาน นาที
+      setDuration(snapshot.val().light.timer.duration); // set ระยะเวลาที่ทำงาน
 
     })
   }
@@ -63,8 +62,7 @@ export default function SetTimeLight({ navigation }) {
     startMinute.push(minutes);
     duration.push(valueTime);
     const db = getDatabase();
-    let userId = 'user1';
-    let path = 'user/' + userId + '/farm/light/timer';
+    let path = 'farm/light/timer';
     const referenceTimerID = ref(db, path);
     set(referenceTimerID, {
       timerID: timerID,

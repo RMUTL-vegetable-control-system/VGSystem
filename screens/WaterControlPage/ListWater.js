@@ -24,8 +24,7 @@ export default function ListWater({ navigation }) {
         setStartMinute(startMinute.splice(id, 1));
         setDuration(duration.splice(id, 1));
         const db = getDatabase();
-        let userId = 'user1';
-        let path = 'user/' + userId + '/farm/servo/timer';
+        let path = 'farm/servo/timer';
         const referenceTimerID = ref(db, path);
         set(referenceTimerID, {
             timerID: timerID,
@@ -73,7 +72,7 @@ export default function ListWater({ navigation }) {
     // console.log(listTime1)
 
     function setFormatListTime(timerID, startHour, startMinute, duration) {
-        if (listTime[0] == undefined) {
+        if (!listTime[0]) {
             for (let i = 1; i < timerID.length; i++) {
                 // setListtime('waterตัวที่ ' + timerID[i] + 'ทำงานเมื่อ' + startHour[i] + ':' + startMinute[i] + '   เป็นระยะเวลา : ' + duration[i]);
                 let isTime;
@@ -107,17 +106,16 @@ export default function ListWater({ navigation }) {
 
     async function fetchData() {
         const db = getDatabase();
-        let userId = 'user1'; // Edit To User ID 
-        const reference = ref(db, 'user/' + userId);
+        const reference = ref(db, 'farm');
         onValue(reference, (snapshot) => {
-            setTimerID(snapshot.val().farm.servo.timer.timerID); // set เลขของ servo
-            setStartHour(snapshot.val().farm.servo.timer.startHour); // set เวลาที่เริ่มทำงาน ชั่วโฒง
-            setStartMinute(snapshot.val().farm.servo.timer.startMinute); // set เวลาที่เริ่มทำงาน นาที
-            setDuration(snapshot.val().farm.servo.timer.duration); // set ระยะเวลาที่ทำงาน
-            setIsTiming1(snapshot.val().farm.servo.servo1.value);
-            setIsTiming2(snapshot.val().farm.servo.servo2.value);
-            setIsTiming3(snapshot.val().farm.servo.servo3.value);
-            setIsTiming4(snapshot.val().farm.servo.servo4.value);
+            setTimerID(snapshot.val().servo.timer.timerID); // set เลขของ servo
+            setStartHour(snapshot.val().servo.timer.startHour); // set เวลาที่เริ่มทำงาน ชั่วโฒง
+            setStartMinute(snapshot.val().servo.timer.startMinute); // set เวลาที่เริ่มทำงาน นาที
+            setDuration(snapshot.val().servo.timer.duration); // set ระยะเวลาที่ทำงาน
+            setIsTiming1(snapshot.val().servo.servo1.value);
+            setIsTiming2(snapshot.val().servo.servo2.value);
+            setIsTiming3(snapshot.val().servo.servo3.value);
+            setIsTiming4(snapshot.val().servo.servo4.value);
         })
     }
     setFormatListTime(timerID, startHour, startMinute, duration);
