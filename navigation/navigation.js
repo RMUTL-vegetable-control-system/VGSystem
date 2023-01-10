@@ -2,7 +2,6 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Navigator from './navigationTabMenu';
-import AddFarmForm from '../screens/addFarmForm';
 import SetTimeLight from '../screens/LightControlPage/setTimeLight';
 import ListLight from '../screens/LightControlPage/ListLight';
 import SetTimeWater from '../screens/WaterControlPage/setTimeWater';
@@ -23,7 +22,6 @@ export default NavigationMain = () => {
     return (
         <NavigationContainer>
             <Stack.Navigator initialRouteName="Menu">
-                <Stack.Screen name="Add" component={AddFarmForm} options={{ headerShown: true }} />
                 <Stack.Screen name="Menu" component={Navigator} options={{ headerShown: false }} />
 
                 <Stack.Screen name="ListFertilizer" component={ListFertilizer} options={{ headerShown: true }} />
