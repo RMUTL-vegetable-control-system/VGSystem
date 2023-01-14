@@ -1,16 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, Dimensions, FlatList, Alert, Image } from 'react-native'
-import { Entypo, MaterialIcons, AntDesign } from '@expo/vector-icons';
-import { useSelector, useDispatch } from "react-redux"
-import * as Action from '../../redux/Action'
-import { bindActionCreators } from 'redux'
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import { getDatabase, ref, onValue } from 'firebase/database';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
-// import * as firebase from 'firebase';
-
-
-
 
 /* A constant variable that is used to store the color values. */
 const color = {
@@ -26,12 +18,6 @@ const color = {
 
 function Home({ navigation }) {
 
-    // สิ่งที่ต้องแสดง
-    // ชื่อของ Farm
-    //ความชื้น
-    //สถานะของ Farm ว่ามีสีอะไรแทนการทำงาน
-
-
     const [farmData, setFarmData] = useState([]);
     const [humidity, setHumidity] = useState([]);
     const [Detail, setDetail] = useState('');
@@ -42,28 +28,6 @@ function Home({ navigation }) {
     const [end, setEnd] = useState('');
     const now = Date.now();
     const [Harvest, setHarvest] = useState('');
-
-    // if (valueHumatity >= 1000) {
-    //     console.log('แห้งมาก');
-    //     console.log(color.red);
-    // }
-    // else if (valueHumatity >= 980 && valueHumatity < 1000) {
-    //     console.log('แห้ง')
-    //     console.log(color.orange)
-    // }
-    // else if (valueHumatity >= 950 && valueHumatity < 980) {
-    //     console.log('ชื้น')
-    //     console.log(color.yellow)
-    // }
-    // else if (valueHumatity >= 850 && valueHumatity < 950) {
-    //     console.log('เปียก')
-    //     console.log(color.skyblue)
-    // }
-    // else {
-    //     console.log('error')
-    // }
-
-
 
     /* A React Hook that is called when the component is mounted. */
     useEffect(() => {
@@ -83,8 +47,6 @@ function Home({ navigation }) {
             setHarvest((((Date.parse(snapshot.val().Detail.datePlant) + snapshot.val().Detail.dayToHarvest * 86400000) - now) / 86400000).toFixed(0));
         })
     }
-    // console.log(Date.parse(date))
-
 
     /* A function that returns a view. */
     return (

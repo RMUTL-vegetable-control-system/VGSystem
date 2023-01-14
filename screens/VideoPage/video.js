@@ -25,8 +25,7 @@ export default function Video() {
         const db = getDatabase();
         const reference = ref(db, 'farm');
         onValue(reference, async (snapshot) => {
-            setCameraIP('http://' + snapshot.val().Detail.cameraIP + ':81/stream'); //Detail = user/user1/Detail
-            // setCameraIP('https://www.google.com'); //Detail = user/user1/Detail
+            setCameraIP('http://' + snapshot.val().Detail.cameraIP + ':81/stream');
         })
     }
 

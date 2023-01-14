@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, Button, Input, TouchableOpacity, } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, } from 'react-native'
 import { TextInput, } from 'react-native-paper';
 import { TimePicker, } from 'react-native-simple-time-picker';
 import SelectDropdown from 'react-native-select-dropdown'
@@ -10,7 +10,6 @@ const color = {
   white: '#ffffff',
   gray: '#C4C4C4',
 }
-
 
 
 export default function SetTimeLight({ navigation }) {
@@ -38,14 +37,12 @@ export default function SetTimeLight({ navigation }) {
     const db = getDatabase();
     const reference = ref(db, 'farm');
     onValue(reference, (snapshot) => {
-      setTimerID(snapshot.val().light.timer.timerID); // set เลขของ servo
-      setStartHour(snapshot.val().light.timer.startHour); // set เวลาที่เริ่มทำงาน ชั่วโฒง
-      setStartMinute(snapshot.val().light.timer.startMinute); // set เวลาที่เริ่มทำงาน นาที
-      setDuration(snapshot.val().light.timer.duration); // set ระยะเวลาที่ทำงาน
-
+      setTimerID(snapshot.val().light.timer.timerID);
+      setStartHour(snapshot.val().light.timer.startHour);
+      setStartMinute(snapshot.val().light.timer.startMinute);
+      setDuration(snapshot.val().light.timer.duration);
     })
   }
-
 
   const handleChange = (value = { hours, minutes }) => {
     setHours(value.hours);
@@ -62,7 +59,7 @@ export default function SetTimeLight({ navigation }) {
     startMinute.push(minutes);
     duration.push(valueTime);
     const db = getDatabase();
-    let path = 'farm/light/timer';
+    const path = 'farm/light/timer';
     const referenceTimerID = ref(db, path);
     set(referenceTimerID, {
       timerID: timerID,
