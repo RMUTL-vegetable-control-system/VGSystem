@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, Button, Input, TouchableOpacity, } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, } from 'react-native'
 import { getDatabase, ref, onValue, set } from 'firebase/database';
 import DatePicker from 'react-native-modern-datepicker';
 
@@ -13,8 +13,6 @@ const color = {
 
 export default function SetTimeFertilizer({ navigation }) {
   const [selectedDate, setSelectedDate] = useState('');
-
-  //ตัวแปล dataDate คือวันที่ที่จะเอาไปใส่ในฐานข้อมูล
   const [time, setTime] = useState([]);
   const [date, setDate] = useState([]);
 
@@ -34,7 +32,6 @@ export default function SetTimeFertilizer({ navigation }) {
 
   }, [])
 
-  //ตัวแปล dataTime คือเวลาที่จะเอาไปใส่ในฐานข้อมูล
   const myArray = selectedDate.split(" ");
   const dataDate = myArray[0];
   const dataTime = myArray[1];

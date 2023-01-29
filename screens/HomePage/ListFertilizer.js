@@ -59,17 +59,9 @@ export default function ListFertilizer({ navigation }) {
     const [time, setTime] = useState([]);
     const [date, setDate] = useState([]);
 
-    // console.log(listTime)
-    // console.log(listTime1)
-
-
-
-
     function setFormatListTime(date, time) {
         for (let i = 1; i < date.length; i++) {
-            // setListtime('waterตัวที่ ' + timerID[i] + 'ทำงานเมื่อ' + startHour[i] + ':' + startMinute[i] + '   เป็นระยะเวลา : ' + duration[i]);
             listTime.push({ id: i, date: date[i], time: time[i] })
-            // console.log(listTime)
             console.log('Setting Data row : ' + i);
         }
         console.log('Set Data Done.');

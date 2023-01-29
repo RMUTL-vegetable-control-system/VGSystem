@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import DatePicker from 'react-native-modern-datepicker';
 import { getDatabase, ref, onValue, set } from 'firebase/database';
@@ -67,6 +67,7 @@ export default function Edit({ navigation }) {
         const db = getDatabase();
         let path = '/farm/Detail/';
         const reference = ref(db, path);
+
         set(reference, {
             name: Name,
             vegetable: NameVegetable,

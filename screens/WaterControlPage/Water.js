@@ -1,17 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, Dimensions, FlatList, Alert, Image } from 'react-native'
-import { Entypo, MaterialIcons, AntDesign } from '@expo/vector-icons';
-import { useSelector, useDispatch } from "react-redux"
-import * as Action from '../../redux/Action'
-import { bindActionCreators } from 'redux'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { getDatabase, ref, onValue, set } from 'firebase/database';
-import { FontAwesome } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Switch } from 'react-native-paper';
-// import * as firebase from 'firebase';
-
-
-
 
 const color = {
     primary: '#3DC4F1',
@@ -22,19 +13,10 @@ const color = {
 function Water({ navigation }) {
 
 
-    // ส่วนไว้เช็คการเชื่อมต่อของServoถ้าเชื่อเเล้ว isConnectServo1 เป็น ture แล้วพื้นหลัง จะเปลี่ยนสี
-
     const [isConnect1, setIsConnect1] = useState(false);
     const [isConnect2, setIsConnect2] = useState(false);
     const [isConnect3, setIsConnect3] = useState(true);
     const [isConnect4, setIsConnect4] = useState(true);
-    // สิ่งที่ต้องแสดง
-    // ชื่อของ Farm
-    //ชื่อมอเตอร์
-    //สถานะของมอเตอร์ ถ้าทีเป็นเขียว ไม่มีเป็นเทา
-    //มีปุ่มใหญ่ๆด้านล่างไว้สำหรับ กรอกเวลาเปิดและปิดมอเตอร์ได้ ลิงค์ไปหน้าเปล่าๆก่อน
-    //ในแต่ละช่องของมอเตอร์ให้กดได้ ถ้าเป็นสีเขียวให้กดแล้วเปลี่ยนค่าได้ ก็คือ เปลี่ยนแค่ตัวหนังสือ สีไม่ต้อง
-    //แต่ถ้าเป็นสีเท่ากดเข้าไป ให้ลิงไปหน้าเพิ่มมอเตอร์ได้ ทำหน้าเปล่าๆทิ้งไว้
 
     const [farmData, setFarmData] = useState([]);
     const [water_1_Data, setWater_1_Data] = useState([]);
@@ -100,24 +82,16 @@ function Water({ navigation }) {
     }
 
 
-
     const onToggleSwitch1 = () => setSwitch(1, !isConnect1);
-
     const onToggleSwitch2 = () => setSwitch(2, !isConnect2);
-
     const onToggleSwitch3 = () => setSwitch(3, !isConnect3);
-
     const onToggleSwitch4 = () => setSwitch(4, !isConnect4);
-
 
     return (
 
         <View style={styles.container}>
-
-
             <View>
                 <View style={{ flexDirection: 'column', width: '100%', marginBottom: 0, alignItems: 'flex-start', paddingLeft: '5%' }} >
-
                     <Text style={{ fontSize: 25, textAlign: 'center', fontWeight: 'bold' }} >หน้าควบคุมน้ำ</Text>
                     <Text style={{ fontSize: 18, textAlign: 'center', }} >Vegetable Control System</Text>
                     <Text style={{ fontSize: 18, textAlign: 'center', }} >ชื่อ:  {farmData.name}</Text>
@@ -139,7 +113,6 @@ function Water({ navigation }) {
                             <Text style={styles.label}>{water_1_Data.name}</Text>
                             <Switch value={isConnect1} onValueChange={onToggleSwitch1} color={'#008640'} style={{ width: '30%', }} />
                         </View>
-
                     </View>
                     <View style={{
                         justifyContent: 'center',
@@ -157,7 +130,6 @@ function Water({ navigation }) {
                             <Text style={styles.label}>{water_2_Data.name}</Text>
                             <Switch value={isConnect2} onValueChange={onToggleSwitch2} color={'#008640'} style={{ width: '30%', }} />
                         </View>
-
                     </View>
                 </View>
                 <View style={styles.containerAreaCard}>
@@ -195,7 +167,6 @@ function Water({ navigation }) {
                             <Text style={styles.label}>{water_4_Data.name}</Text>
                             <Switch value={isConnect4} onValueChange={onToggleSwitch4} color={'#008640'} style={{ width: '30%', }} />
                         </View>
-
                     </View>
                 </View>
             </View>
@@ -211,10 +182,8 @@ function Water({ navigation }) {
                         }}>
                         <Text style={styles.labelButton}>ตั้งเวลา</Text>
                     </View>
-
                 </TouchableOpacity>
             </View>
-
         </View >
     )
 }

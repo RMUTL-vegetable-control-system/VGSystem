@@ -5,12 +5,6 @@ import { useSelector, useDispatch } from "react-redux"
 import * as Action from '../../redux/Action'
 import { bindActionCreators } from 'redux'
 
-
-// import * as firebase from 'firebase';
-
-
-
-
 const color = {
     primary: '#08823F',
     white: '#ffffff',
@@ -18,8 +12,6 @@ const color = {
 }
 
 function Switch({ navigation }) {
-
-
 
     const dispatch = useDispatch();
     const { deleteFarm } = bindActionCreators(Action, dispatch);
@@ -50,8 +42,6 @@ function Switch({ navigation }) {
                         <Text style={styles.title}>{name}   </Text>
                         <Text style={styles.label}>{detail}</Text>
                     </View>
-                    {/* <Text style={styles.label}>{userIdFormat}</Text>
-                    <Text style={styles.label}>{phoneFormat}</Text> */}
                 </View>
                 <View style={styles.wrapIcon}>
                     <TouchableOpacity onPress={onEditPressed}>

@@ -1,6 +1,5 @@
 import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, TouchableOpacity, Dimensions, Alert } from 'react-native'
-import React from 'react'
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 import { getDatabase, ref, onValue, set } from 'firebase/database';
 import { Ionicons } from '@expo/vector-icons';
 import Swipeout from 'react-native-swipeout';
@@ -12,11 +11,9 @@ const color = {
     green: '#1fd181',
 }
 
-
 const windowWidth = Dimensions.get('window').width;
 
 export default function ListWater({ navigation }) {
-
 
     function deleteList(id) {
         setTimerID(timerID.splice(id, 1));
@@ -68,13 +65,11 @@ export default function ListWater({ navigation }) {
     const [isTiming2, setIsTiming2] = useState('');
     const [isTiming3, setIsTiming3] = useState('');
     const [isTiming4, setIsTiming4] = useState('');
-    // console.log(listTime)
-    // console.log(listTime1)
+
 
     function setFormatListTime(timerID, startHour, startMinute, duration) {
         if (!listTime[0]) {
             for (let i = 1; i < timerID.length; i++) {
-                // setListtime('waterตัวที่ ' + timerID[i] + 'ทำงานเมื่อ' + startHour[i] + ':' + startMinute[i] + '   เป็นระยะเวลา : ' + duration[i]);
                 let isTime;
                 if (timerID[i] == '1') {
                     isTime = isTiming1;
@@ -86,7 +81,6 @@ export default function ListWater({ navigation }) {
                     isTime = isTiming4;
                 }
                 listTime.push({ id: i, name: 'วาล์วน้ำ :  ' + timerID[i], time: (startHour[i] + ':' + startMinute[i]), duration: duration[i], isTime: isTime })
-                // console.log(listTime)
                 console.log('Setting Data row : ' + i);
             }
         }
@@ -108,11 +102,10 @@ export default function ListWater({ navigation }) {
         const db = getDatabase();
         const reference = ref(db, 'farm');
         onValue(reference, (snapshot) => {
-            setTimerID(snapshot.val().servo.timer.timerID); // set เลขของ servo
-            setStartHour(snapshot.val().servo.timer.startHour); // set เวลาที่เริ่มทำงาน ชั่วโฒง
-            setStartMinute(snapshot.val().servo.timer.startMinute); // set เวลาที่เริ่มทำงาน นาที
-            setDuration(snapshot.val().servo.timer.duration); // set ระยะเวลาที่ทำงาน
-            setIsTiming1(snapshot.val().servo.servo1.value);
+            setTimerID(snapshot.val().servo.timer.timerID);
+            setStartHour(snapshot.val().servo.timer.startHour);
+            setStartMinute(snapshot.val().servo.timer.startMinute);
+            setDuration(snapshot.val().servo.timer.duration);
             setIsTiming2(snapshot.val().servo.servo2.value);
             setIsTiming3(snapshot.val().servo.servo3.value);
             setIsTiming4(snapshot.val().servo.servo4.value);
