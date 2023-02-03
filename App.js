@@ -4,6 +4,7 @@ import NavigationMain from './navigation/navigation';
 import 'react-native-gesture-handler';
 import { store } from './redux/store'
 import { Provider } from 'react-redux';
+import { firebase } from './Services/Firebase';
 import { LogBox } from 'react-native';
 LogBox.ignoreAllLogs();
 
