@@ -66,8 +66,7 @@ export default function Edit({ navigation }) {
     const saveDate = () => {
         const db = getDatabase();
         let name, value;
-        let userId = 'user1';
-        let path = 'user/' + userId + '/farm/Detail/';
+        let path = '/farm/Detail/';
         const reference = ref(db, path);
         console.log(path)
         set(reference, {
