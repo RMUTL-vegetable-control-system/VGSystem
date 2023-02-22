@@ -18,14 +18,10 @@ const color = {
 
 function Home({ navigation }) {
 
-    const [farmData, setFarmData] = useState([]);
     const [humidity, setHumidity] = useState([]);
     const [Detail, setDetail] = useState('');
     const [fertilizer, setFertilizer] = useState('');
     const valueHumatity = humidity.value;
-    const [start, setStart] = useState('');
-    const [wait, setWait] = useState('');
-    const [end, setEnd] = useState('');
     const now = Date.now();
     const [Harvest, setHarvest] = useState('');
 
@@ -34,19 +30,18 @@ function Home({ navigation }) {
         fetchData();
     }, [])
 
-    /**
-     * It fetches data from the database and sets the data to the state.
-     */
-    async function fetchData() {
+
+    function fetchData() {
         const db = getDatabase();
         const reference = ref(db, 'farm');
-        onValue(reference, async (snapshot) => {
+        onValue(reference, (snapshot) => {
             setDetail(snapshot.val().Detail); //Detail = user/user1/Detail
-            setHumidity(snapshot.val().humidity);
             setFertilizer(snapshot.val().fertilizer.date);
+            setHumidity(snapshot.val().humidity);
             setHarvest((((Date.parse(snapshot.val().Detail.datePlant) + snapshot.val().Detail.dayToHarvest * 86400000) - now) / 86400000).toFixed(0));
         })
     }
+
 
     /* A function that returns a view. */
     return (

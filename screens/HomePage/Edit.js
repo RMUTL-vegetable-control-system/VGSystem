@@ -2,10 +2,10 @@ import { useState, useRef, useEffect } from 'react';
 import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import DatePicker from 'react-native-modern-datepicker';
-import { getDatabase, ref, onValue, set } from 'firebase/database';
+import { getDatabase, ref, onValue, set, off, on } from 'firebase/database';
 export default function Edit({ navigation }) {
 
-    const [Name, setName] = useState("");
+    const [Name, setName] = useState();
     const [NameVegetable, setNameVegetable] = useState("");
     const [TypeVegetable, setTypeVegetable] = useState("");
     const [AmountHarvested, setAmountHarvested] = useState("");
@@ -20,30 +20,34 @@ export default function Edit({ navigation }) {
     const [NameHumidity, setNameHumidity] = useState("");
     const [selectedDate, setSelectedDate] = useState('');
     const [cameraIP, setCameraIP] = useState('');
-    const refName = useRef();
-    const refNameVegetable = useRef();
-    const refTypeVegetable = useRef();
-    const refAmountHarvested = useRef();
-    const refNameLight1 = useRef();
-    const refNameLight2 = useRef();
-    const refNameLight3 = useRef();
-    const refNameLight4 = useRef();
-    const refNameWater1 = useRef();
-    const refNameWater2 = useRef();
-    const refNameWater3 = useRef();
-    const refNameWater4 = useRef();
-    const refNameHumidity = useRef();
-    const refCameraIP = useRef();
+
+    const [valueName, setvalueName] = useState();
+    const [valueNameVegetable, setvalueNameVegetable] = useState("");
+    const [valueTypeVegetable, setvalueTypeVegetable] = useState("");
+    const [valueAmountHarvested, setvalueAmountHarvested] = useState("");
+    const [valueNameLight1, setvalueNameLight1] = useState("");
+    const [valueNameLight2, setvalueNameLight2] = useState("");
+    const [valueNameLight3, setvalueNameLight3] = useState("");
+    const [valueNameLight4, setvalueNameLight4] = useState("");
+    const [valueNameWater1, setvalueNameWater1] = useState("");
+    const [valueNameWater2, setvalueNameWater2] = useState("");
+    const [valueNameWater3, setvalueNameWater3] = useState("");
+    const [valueNameWater4, setvalueNameWater4] = useState("");
+    const [valueNameHumidity, setvalueNameHumidity] = useState("");
+    const [valueselectedDate, setvalueSelectedDate] = useState('');
+    const [valuecameraIP, setvalueCameraIP] = useState('');
+
 
 
     useEffect(() => {
         fetchData();
+        setvalueName(Name);
     }, [])
 
     function fetchData() {
         const db = getDatabase();
-        const reference = ref(db, 'farm');
-        onValue(reference, (snapshot) => {
+        const reference_edit = ref(db, 'farm');
+        onValue(reference_edit, (snapshot) => {
             setName(snapshot.val().Detail.name);
             setNameVegetable(snapshot.val().Detail.vegetable);
             setTypeVegetable(snapshot.val().Detail.vegetableType);
@@ -59,7 +63,8 @@ export default function Edit({ navigation }) {
             setNameHumidity(snapshot.val().Detail.Humidity);
             setSelectedDate(snapshot.val().Detail.datePlant);
             setCameraIP(snapshot.val().Detail.cameraIP);
-        })
+
+        });
     }
 
 
@@ -69,24 +74,22 @@ export default function Edit({ navigation }) {
         const reference = ref(db, path);
         console.log(path)
         set(reference, {
-            name: Name,
-            vegetable: NameVegetable,
-            vegetableType: TypeVegetable,
-            dayToHarvest: AmountHarvested,
-            Light1: NameLight1,
-            Light2: NameLight2,
-            Light3: NameLight3,
-            Light4: NameLight4,
-            Water1: NameWater1,
-            Water2: NameWater2,
-            Water3: NameWater3,
-            Water4: NameWater4,
-            Humidity: NameHumidity,
-            datePlant: selectedDate,
-            cameraIP: cameraIP,
+            name: valueName ? valueName : Name,
+            vegetable: valueNameVegetable ? valueNameVegetable : NameVegetable,
+            vegetableType: valueTypeVegetable ? valueTypeVegetable : TypeVegetable,
+            dayToHarvest: valueAmountHarvested ? valueAmountHarvested : AmountHarvested,
+            Light1: valueNameLight1 ? valueNameLight1 : NameLight1,
+            Light2: valueNameLight2 ? valueNameLight2 : NameLight2,
+            Light3: valueNameLight3 ? valueNameLight3 : NameLight3,
+            Light4: valueNameLight4 ? valueNameLight4 : NameLight4,
+            Water1: valueNameWater1 ? valueNameWater1 : NameWater1,
+            Water2: valueNameWater2 ? valueNameWater2 : NameWater2,
+            Water3: valueNameWater3 ? valueNameWater3 : NameWater3,
+            Water4: valueNameWater4 ? valueNameWater4 : NameWater4,
+            Humidity: valueNameHumidity ? valueNameHumidity : NameHumidity,
+            datePlant: valueselectedDate ? valueselectedDate : selectedDate,
+            cameraIP: valuecameraIP ? valuecameraIP : cameraIP,
         });
-
-
         navigation.navigate('Menu')
     };
 
@@ -112,11 +115,7 @@ export default function Edit({ navigation }) {
                         <Text style={styles.TopicDetail}>ชื่อโครงการ : {Name}</Text>
                         <TextInput
                             label="ชื่อโครงการ"
-                            value={Name}
-                            returnKeyType="next"
-                            ref={refName}
-                            onSubmitEditing={() => refNameVegetable.current.focus()}
-                            onChangeText={Name => setName(Name)}
+                            onChangeText={value => setvalueName(value)}
                             style={{ height: 50 }}
                             selectionColor="#08823F"
                             activeUnderlineColor='#08823F'
@@ -127,12 +126,7 @@ export default function Edit({ navigation }) {
                         <Text style={styles.TopicDetail}>ชื่อผัก : {NameVegetable}</Text>
                         <TextInput
                             label="ชื่อผัก"
-                            value={NameVegetable}
-                            secureTextEntry={false}
-                            returnKeyType="next"
-                            ref={refNameVegetable}
-                            onSubmitEditing={() => refTypeVegetable.current.focus()}
-                            onChangeText={NameVegetable => setNameVegetable(NameVegetable)}
+                            onChangeText={value => setvalueNameVegetable(value)}
                             style={{ height: 50, marginTop: 10 }}
                             selectionColor="#08823F"
                             activeUnderlineColor='#08823F'
@@ -142,12 +136,7 @@ export default function Edit({ navigation }) {
                         <Text style={styles.TopicDetail}>ชนิดผัก : {TypeVegetable}</Text>
                         <TextInput
                             label="ชนิดผัก"
-                            value={TypeVegetable}
-                            secureTextEntry={false}
-                            returnKeyType="next"
-                            ref={refTypeVegetable}
-                            onSubmitEditing={() => refAmountHarvested.current.focus()}
-                            onChangeText={TypeVegetable => setTypeVegetable(TypeVegetable)}
+                            onChangeText={TypeVegetable => setvalueTypeVegetable(TypeVegetable)}
                             style={{ height: 50, marginTop: 10 }}
                             selectionColor="#08823F"
                             activeUnderlineColor='#08823F'
@@ -157,7 +146,7 @@ export default function Edit({ navigation }) {
                         <Text style={styles.TopicDetail}>วันที่ปลูก {selectedDate}</Text>
                         <DatePicker
                             mode="datepicker"
-                            onSelectedChange={date => setSelectedDate(date)}
+                            onSelectedChange={date => setvalueSelectedDate(date)}
                         />
                     </View>
                     <View style={{ marginTop: 20 }}>
@@ -165,11 +154,6 @@ export default function Edit({ navigation }) {
                         <TextInput
                             keyboardType='numeric'
                             label="จำนวนที่ต้องเก็บเกี่ยว"
-                            value={AmountHarvested}
-                            secureTextEntry={false}
-                            returnKeyType="next"
-                            ref={refAmountHarvested}
-                            onSubmitEditing={() => refNameLight1.current.focus()}
                             onChangeText={AmountHarvested => setAmountHarvested(AmountHarvested)}
                             style={{ height: 50, marginTop: 10 }}
                             selectionColor="#08823F"
@@ -180,12 +164,7 @@ export default function Edit({ navigation }) {
                         <Text style={styles.TopicDetail}>ชื่อหลอดไฟ 1 : {NameLight1}</Text>
                         <TextInput
                             label="ชื่อหลอดไฟ 1"
-                            value={NameLight1}
-                            secureTextEntry={false}
-                            returnKeyType="next"
-                            ref={refNameLight1}
-                            onSubmitEditing={() => refNameLight2.current.focus()}
-                            onChangeText={NameLight1 => setNameLight1(NameLight1)}
+                            onChangeText={NameLight1 => setvalueNameLight1(NameLight1)}
                             style={{ height: 50, marginTop: 10 }}
                             selectionColor="#08823F"
                             activeUnderlineColor='#08823F'
@@ -195,12 +174,7 @@ export default function Edit({ navigation }) {
                         <Text style={styles.TopicDetail}>ชื่อหลอดไฟ 2 : {NameLight2}</Text>
                         <TextInput
                             label="ชื่อหลอดไฟ 2"
-                            value={NameLight2}
-                            secureTextEntry={false}
-                            returnKeyType="next"
-                            ref={refNameLight2}
-                            onSubmitEditing={() => refNameLight3.current.focus()}
-                            onChangeText={NameLight2 => setNameLight2(NameLight2)}
+                            onChangeText={NameLight2 => setvalueNameLight2(NameLight2)}
                             style={{ height: 50, marginTop: 10 }}
                             selectionColor="#08823F"
                             activeUnderlineColor='#08823F'
@@ -210,12 +184,7 @@ export default function Edit({ navigation }) {
                         <Text style={styles.TopicDetail}>ชื่อหลอดไฟ 3 : {NameLight3}</Text>
                         <TextInput
                             label="ชื่อหลอดไฟ 3"
-                            value={NameLight3}
-                            secureTextEntry={false}
-                            returnKeyType="next"
-                            ref={refNameLight3}
-                            onSubmitEditing={() => refNameLight4.current.focus()}
-                            onChangeText={NameLight3 => setNameLight3(NameLight3)}
+                            onChangeText={NameLight3 => setvalueNameLight3(NameLight3)}
                             style={{ height: 50, marginTop: 10 }}
                             selectionColor="#08823F"
                             activeUnderlineColor='#08823F'
@@ -225,11 +194,6 @@ export default function Edit({ navigation }) {
                         <Text style={styles.TopicDetail}>ชื่อหลอดไฟ 4 : {NameLight4}</Text>
                         <TextInput
                             label="ชื่อหลอดไฟ 4"
-                            value={NameLight4}
-                            secureTextEntry={false}
-                            returnKeyType="next"
-                            ref={refNameLight4}
-                            onSubmitEditing={() => refNameWater1.current.focus()}
                             onChangeText={NameLight4 => setNameLight4(NameLight4)}
                             style={{ height: 50, marginTop: 10 }}
                             selectionColor="#08823F"
@@ -240,12 +204,7 @@ export default function Edit({ navigation }) {
                         <Text style={styles.TopicDetail}>ชื่อน้ำ 1 : {NameWater1}</Text>
                         <TextInput
                             label="ชื่อน้ำ 1"
-                            value={NameWater1}
-                            secureTextEntry={false}
-                            returnKeyType="next"
-                            ref={refNameWater1}
-                            onSubmitEditing={() => refNameWater2.current.focus()}
-                            onChangeText={NameWater1 => setNameWater1(NameWater1)}
+                            onChangeText={NameWater1 => setvalueNameWater1(NameWater1)}
                             style={{ height: 50, marginTop: 10 }}
                             selectionColor="#08823F"
                             activeUnderlineColor='#08823F'
@@ -255,12 +214,7 @@ export default function Edit({ navigation }) {
                         <Text style={styles.TopicDetail}>ชื่อน้ำ 2 : {NameWater2}</Text>
                         <TextInput
                             label="ชื่อน้ำ 2"
-                            value={NameWater2}
-                            secureTextEntry={false}
-                            returnKeyType="next"
-                            ref={refNameWater2}
-                            onSubmitEditing={() => refNameWater3.current.focus()}
-                            onChangeText={NameWater2 => setNameWater2(NameWater2)}
+                            onChangeText={NameWater2 => setvalueNameWater2(NameWater2)}
                             style={{ height: 50, marginTop: 10 }}
                             selectionColor="#08823F"
                             activeUnderlineColor='#08823F'
@@ -270,12 +224,7 @@ export default function Edit({ navigation }) {
                         <Text style={styles.TopicDetail}>ชื่อน้ำ 3 : {NameWater3}</Text>
                         <TextInput
                             label="ชื่อน้ำ 3"
-                            value={NameWater3}
-                            secureTextEntry={false}
-                            returnKeyType="next"
-                            ref={refNameWater3}
-                            onSubmitEditing={() => refNameWater4.current.focus()}
-                            onChangeText={NameWater3 => setNameWater3(NameWater3)}
+                            onChangeText={NameWater3 => setvalueNameWater3(NameWater3)}
                             style={{ height: 50, marginTop: 10 }}
                             selectionColor="#08823F"
                             activeUnderlineColor='#08823F'
@@ -285,12 +234,7 @@ export default function Edit({ navigation }) {
                         <Text style={styles.TopicDetail}>ชื่อน้ำ 4 : {NameWater4}</Text>
                         <TextInput
                             label="ชื่อน้ำ 4"
-                            value={NameWater4}
-                            secureTextEntry={false}
-                            returnKeyType="next"
-                            ref={refNameWater4}
-                            onSubmitEditing={() => refNameHumidity.current.focus()}
-                            onChangeText={NameWater4 => setNameWater4(NameWater4)}
+                            onChangeText={NameWater4 => setvalueNameWater4(NameWater4)}
                             style={{ height: 50, marginTop: 10 }}
                             selectionColor="#08823F"
                             activeUnderlineColor='#08823F'
@@ -300,11 +244,7 @@ export default function Edit({ navigation }) {
                         <Text style={styles.TopicDetail}>ชื่อความชื้น : {NameHumidity}</Text>
                         <TextInput
                             label="ชื่อความชื้น"
-                            value={NameHumidity}
-                            secureTextEntry={false}
-                            returnKeyType="done"
-                            ref={refNameHumidity}
-                            onChangeText={NameHumidity => setNameHumidity(NameHumidity)}
+                            onChangeText={NameHumidity => setvalueNameHumidity(NameHumidity)}
                             style={{ height: 50, marginTop: 10 }}
                             selectionColor="#08823F"
                             activeUnderlineColor='#08823F'
@@ -314,11 +254,7 @@ export default function Edit({ navigation }) {
                         <Text style={styles.TopicDetail}>Camera IP Address : {cameraIP}</Text>
                         <TextInput
                             label="IP Address"
-                            value={cameraIP}
-                            secureTextEntry={false}
-                            returnKeyType="done"
-                            ref={refCameraIP}
-                            onChangeText={cameraIP => setCameraIP(cameraIP)}
+                            onChangeText={cameraIP => setvalueCameraIP(cameraIP)}
                             style={{ height: 50, marginTop: 10 }}
                             selectionColor="#08823F"
                             activeUnderlineColor='#08823F'
